@@ -9,6 +9,10 @@ import './permission'
 import 'element-ui/lib/theme-chalk/index.css'
 import './styles/web.css'
 import './assets/my-icon/iconfont.css' // 自定义图标库
+import '../static/UE/ueditor.config.js'
+import '../static/UE/ueditor.all.js'
+import '../static/UE/lang/zh-cn/zh-cn.js'
+import '../static/UE/ueditor.parse.min.js'
 // import 'element-ui/lib/theme-chalk/display.css'
 
 Vue.use(ElementUI)
