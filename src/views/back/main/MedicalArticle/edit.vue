@@ -83,8 +83,11 @@
         this.medicalArticle.imgUrl.splice(index, 1)
       },
       closeForm() {
-        this.$refs['form'].resetFields()
+        this.clearForm()
         this.$emit('close')
+      },
+      clearForm() {
+        this.$refs['form'].resetFields()
       }
     }
   }

@@ -33,8 +33,10 @@
                      :page-size="page.size"
                      :current-page="page.current"
                      :total="page.total"
-                     layout="total, prev, pager, next"></el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible">
+                     layout="total, prev, pager, next"
+                     @current-change="handlePageChange"
+                     @size-change="handleSizeChange"></el-pagination>
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
@@ -44,6 +46,7 @@
   import ArticlesApi from '@/api/articles'
   import ChannelApi from '@/api/channel'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -68,6 +71,7 @@
       }
     },
     methods: {
+      ...page(),
       search() {
         ArticlesApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
@@ -107,6 +111,8 @@
       },
       handleFormClose() {
         this.editFormVisible = false
+        this.$refs['editForm'].clearForm()
+        this.search()
       }
     }
   }

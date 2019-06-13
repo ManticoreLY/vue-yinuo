@@ -33,8 +33,10 @@
                      :page-size="page.size"
                      :current-page="page.current"
                      :total="page.total"
-                     layout="total, prev, pager, next"></el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible">
+                     layout="total, prev, pager, next"
+                     @current-change="handlePageChange"
+                     @size-change="handleSizeChange"></el-pagination>
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
@@ -43,7 +45,7 @@
 <script>
 import EditForm from './edit'
 import DiseaseApi from '@/api/disease'
-
+import page from '@/utils/page'
 export default {
   name: 'page',
   components: {
@@ -74,9 +76,9 @@ export default {
     this.search()
   },
   methods: {
+    ...page(),
     search() {
       DiseaseApi.queryPage(this.query).then(data => {
-        debugger
         this.page = Object.assign(this.page, data.obj)
         this.tableList = data.obj.records
       }).catch(err => {
@@ -108,6 +110,7 @@ export default {
     },
     handleFormClose() {
       this.editFormVisible = false
+      this.$refs['editForm'].clearForm()
       this.search()
     }
   }

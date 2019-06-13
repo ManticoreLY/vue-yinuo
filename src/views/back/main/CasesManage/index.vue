@@ -31,7 +31,7 @@
                      :total="page.total"
                      layout="total, prev, pager, next">
       </el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
@@ -99,6 +99,8 @@
       },
       handleFormClose() {
         this.editFormVisible = false
+        this.$refs['editForm'].clearForm()
+        this.search()
       }
     }
   }

@@ -27,11 +27,13 @@
         </el-table-column>
       </el-table>
       <el-pagination style="margin-top: 20px;"
-        background
-        :page-size="page.size"
-        :current-page="page.current"
-        :total="page.total" :page-count="page.pages"
-        layout="prev, pager, next">
+                     background
+                     :page-size="page.size"
+                     :current-page="page.current"
+                     :total="page.total" :page-count="page.pages"
+                     layout="prev, pager, next"
+                     @current-change="handlePageChange"
+                     @size-change="handleSizeChange">
       </el-pagination>
       <el-dialog :title="formTitle" :visible.sync="editFormVisible" width="50%">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
@@ -42,6 +44,7 @@
 <script>
   import UserApi from '@/api/user'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -72,6 +75,7 @@
       this.initPage()
     },
     methods: {
+      ...page(),
       initPage() {
         const _this = this
         UserApi.queryPage(_this.query).then(data => {
