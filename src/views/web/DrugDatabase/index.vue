@@ -39,45 +39,27 @@
       <div class="table">
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMedicine}}</el-divider>
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="rank_table">
-            <thead>
-            <tr>
-              <th style="width:8%;">排名</th>
-              <th style="width:45%;">药品名称</th>
-              <th style="width:25%;text-align:center;">适应症</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in drugDbObj.drugDbRankMedicineList">
-              <td style="width:8%"><span>{{index+1}}</span></td>
-              <td style="width:45%"><a href="" target="_blank">
-                <p>{{item.medicine.name}}</p>
-              </a></td>
-              <td style="width:25%;text-align:center;"><b>{{item.medicine.fitDisease}}</b></td>
-            </tr>
-            </tbody>
-          </table>
+          <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' }">
+            <el-table-column type="index" label="排名"></el-table-column>
+            <el-table-column label="药品名称" align="center">
+              <template slot-scope="scope">
+                <router-link :to="{}"> {{ scope.row.medicine.name }}</router-link>
+              </template>
+            </el-table-column>
+            <el-table-column label="适应症" align="center">
+              <template slot-scope="scope">{{ scope.row.medicine.fitDisease }}</template>
+            </el-table-column>
+          </el-table>
         </div>
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
-          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="rank_table">
-            <thead>
-            <tr>
-              <th style="width:8%;">排名</th>
-              <th style="width:45%;">药厂名称</th>
-              <th style="width:25%;text-align:center;">所属地区</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in drugDbObj.drugDbRankMakerList">
-              <td style="width:8%"><span>{{index+1}}</span></td>
-              <td style="width:45%">
-                <p>{{item.name}}</p>
-              </td>
-              <td style="width:25%;text-align:center;"><b>{{item.area}}</b></td>
-            </tr>
-            </tbody>
-          </table>
+          <el-table :data="drugDbObj.drugDbRankMakerList" :border=false>
+            <el-table-column type="index" label="排名"></el-table-column>
+            <el-table-column label="药厂名称" prop="name" align="center">
+            </el-table-column>
+            <el-table-column label="所属地区" prop="area" align="center">
+            </el-table-column>
+          </el-table>
         </div>
       </div>
       <div class="display">
