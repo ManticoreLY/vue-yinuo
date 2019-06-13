@@ -1,17 +1,17 @@
 <template>
     <div class="page">
       <div class="bg">
-        <el-image src="static/img/info/关于我们banner.jpg"></el-image>
+        <el-image :src="aboutObj.imageUrl"></el-image>
         <div class="foot">
           <a v-for="t in items" :key="t" href="javascript: void(0)" @click="toggle(t)">{{ t.name }}</a>
         </div>
       </div>
       <div>
-        <page v-show="items[0].show"></page>
-        <declear v-show="items[1].show"></declear>
-        <credential v-show="items[2].show"></credential>
-        <join-us v-show="items[3].show"></join-us>
-        <contact-us v-show="items[4].show"></contact-us>
+        <page v-show="items[0].show" :data = aboutObj.aboutUs></page>
+        <declear v-show="items[1].show" :data = aboutObj.legal></declear>
+        <credential v-show="items[2].show" :data = aboutObj.aboutQualifies></credential>
+        <join-us v-show="items[3].show" :data = aboutObj.joinUs></join-us>
+        <contact-us v-show="items[4].show" :data = aboutObj.contactUs></contact-us>
       </div>
     </div>
 </template>
@@ -22,11 +22,25 @@
   import Credential from './Credential'
   import JoinUs from './JoinUs'
   import ContactUs from './ContactUs'
+  import AboutApi from '@/api/OtherPage/aboutFront'
+
   export default {
     name: 'index',
     components: { page, declear, Credential, JoinUs, ContactUs },
     data() {
       return {
+        aboutObj: {
+          id: '',
+          name: '',
+          imageUrl: '',
+          aboutUs: '',
+          vision: '',
+          legal: '',
+          qualify: '',
+          joinUs: '',
+          contactUs: '',
+          aboutQualifies: [{}, {}, {}]
+        },
         items: [
           { name: '关于我们', show: true },
           { name: '法律声明', show: false },
@@ -36,7 +50,17 @@
         ]
       }
     },
+    mounted() {
+      this.search()
+    },
     methods: {
+      search() {
+        AboutApi.findFrontOne().then(data => {
+          this.aboutObj = data.obj
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       toggle(item) {
         this.items.forEach(t => {
           t.show = false

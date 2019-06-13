@@ -6,15 +6,15 @@
         <router-link :to="'/about'">关于我们</router-link>
         > 医诺资质
       </div>
-      <div class="main" v-for="p in 3" :key="p">
+      <div class="main" v-for="p in data" :key="p">
         <div>
-          <p>合作资质</p>
+          <p>{{p.name}}</p>
           <h5>
-            精准抗癌，助力生命；科学治疗，终生受益；精准抗癌，助力生命；科学治疗，终生受益；
+            {{p.describe}}
           </h5>
           <el-carousel :interval="4000" type="card" height="300px">
-            <el-carousel-item v-for="item in 6" :key="item">
-              <h3 class="medium">{{ item }}</h3>
+            <el-carousel-item v-for="item in p.imageUrlList" :key="item">
+              <h3 class="medium"><el-image :src="item"></el-image></h3>
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -24,7 +24,12 @@
 
 <script>
   export default {
-    name: 'Credential'
+    name: 'Credential',
+    props: {
+      data: {
+        type: Array
+      }
+    }
   }
 </script>
 

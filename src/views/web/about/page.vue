@@ -6,7 +6,7 @@
         <router-link :to="'/about'">关于我们</router-link>
         >
       </div>
-      <div class="main" v-html="aboutObj.aboutUs">
+      <div class="main" v-html="data">
 
       </div>
       <!--<div class="main">-->
@@ -50,36 +50,11 @@
 </template>
 
 <script>
-  import AboutApi from '@/api/OtherPage/aboutFront'
   export default {
     name: 'page',
-    data() {
-      return {
-        aboutObj: {
-          id: '',
-          name: '',
-          imageUrl: '',
-          aboutUs: '',
-          vision: '',
-          legal: '',
-          qualify: '',
-          joinUs: '',
-          contactUs: '',
-          aboutQualifies: []
-        }
-      }
-    },
-    mounted() {
-      this.search()
-    },
-    methods: {
-      search() {
-        AboutApi.findFrontOne().then(data => {
-          debugger
-          this.aboutObj = data.obj
-        }).catch(err => {
-          console.log(err)
-        })
+    props: {
+      data: {
+        type: String
       }
     }
   }

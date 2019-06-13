@@ -1,6 +1,6 @@
 <template>
     <el-upload :action="action" list-type="picture-card" :headers="headers" :name="name" :show-file-list="showFileList"
-               :accept="accept" :drag="drag" :limit="limit" :http-request="httpRequest" :file-list="fileList" :on-remove="onRemove">
+               :accept="accept" :drag="drag" :limit="limit" :http-request="httpRequest" :file-list="fileList" :on-remove="onRemove" :on-change="onChange">
       <i class="el-icon-plus"></i>
       <!--<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>-->
     </el-upload>
@@ -18,6 +18,9 @@
       onRemove: {
         type: Function
       },
+      onChange: {
+        type: Function
+      },
       accept: {
         type: String,
         default: 'jpg, JPG, png, PNG, bmp, BMP, gif, GIf'
@@ -32,7 +35,7 @@
       },
       fileList: {
         type: Array,
-        default: []
+        default: () => []
       },
       showFileList: {
         type: Boolean,
