@@ -230,7 +230,6 @@
         uploadFile(
           option.file,
           res => {
-            this.drugDbObj.imgUrl = res.url
             option.onSuccess(res)
           },
           err => {

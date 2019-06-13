@@ -29,6 +29,9 @@
             <el-option v-for="item in diseases" :key="item" :value="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="疾病图标">
+          <FileUploader :httpRequest="fileUploadRequest" :fileList="icon" :onChange="onImageChange0"  :limit="1"></FileUploader>
+        </el-form-item>
         <el-form-item label="治疗药物:">
           <el-select v-model="disease.medicines">
             <el-option v-for="item in treatedMedicines" :key="item" :value="item.id" :label="item.shotName"></el-option>
@@ -44,10 +47,16 @@
 
 <script>
   import DiseaseApi from '@/api/disease'
+  import { uploadFile } from '@/utils/ali-upload'
+  import FileUploader from '@/components/FileUploader'
   export default {
     name: 'edit',
+    components: {
+      FileUploader
+    },
     data() {
       return {
+        icon: [],
         disease: {
           types: '',
           name: '',
@@ -101,6 +110,22 @@
             }
           }
         })
+      },
+      onImageChange0(file, fileList) {
+        if (fileList && fileList.length > 0 && fileList[0].response) {
+          this.disease.icon = fileList[0].response.url
+          this.icon = fileList
+        }
+      },
+      fileUploadRequest(option) {
+        uploadFile(
+          option.file,
+          res => {
+            option.onSuccess(res)
+          },
+          err => {
+            console.log(err)
+          })
       },
       closeForm() {
         this.clearForm()
