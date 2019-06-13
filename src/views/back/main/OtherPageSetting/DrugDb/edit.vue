@@ -15,13 +15,16 @@
                      multiple
                      filterable
                      remote
-                     value-key="id"
-                     name="name"
                      reserve-keyword
                      placeholder="请输入关键词"
                      :remote-method="diseaseRemoteMethod"
                      :loading="loading">
-            <el-option v-for="item in diseases" :key="item" :label="item.name" :value="item"></el-option>
+            <el-option
+              v-for="item in diseases"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="药品排行标题">
@@ -134,6 +137,8 @@
           this.headImage = []
           this.headImage.push({ url: this.drugDbObj.imageUrl })
           this.drugDbObj.imageUrlFootFileList = []
+          this.diseases = this.drugDbObj.drugDbDiseaseList.map(item => ({ id: item.disease.id, name: item.disease.name }))
+          this.medicines = this.drugDbObj.drugDbRankMedicineList.map(item => ({ id: item.medicine.id, name: item.medicine.name }))
           for (var j in this.drugDbObj.imageUrlFootList) {
             this.drugDbObj.imageUrlFootFileList.push({
               url: this.drugDbObj.imageUrlFootList[j]

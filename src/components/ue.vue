@@ -24,7 +24,8 @@
     },
     mounted() {
       const _this = this
-      const UE = document.getElementById(this.id)
+      // const UE = document.getElementById(this.id)
+      /* global UE */
       this.editor = UE.getEditor(this.id, this.config) // 初始化UE
       this.editor.addListener('ready', function() {
         if (!_this.defaultMsg) {

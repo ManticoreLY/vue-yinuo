@@ -1,7 +1,7 @@
 <template>
     <div class="drug-db">
       <div class="bg">
-        <el-image :src="img_url" :fit="fill"></el-image>
+        <el-image :src="drugDbObj.imageUrl" :fit="fill"></el-image>
       </div>
       <div class="item-list">
         <div class="item">
@@ -22,66 +22,117 @@
         </div>
       </div>
       <div class="category">
-        <div style="height:3rem;line-height:3rem;text-align: center;font-size: 2rem;">药品类目</div>
-        <div style="height:3rem;line-height:3rem;text-align: center;font-size: 1.375rem;color: #545454">药品数据库分类，整合药品类目、指导指南、常见问题等方面，帮助您从海量的数据快速找到药物精准信息。</div>
+        <div style="height:3rem;line-height:3rem;text-align: center;font-size: 2rem;">{{drugDbObj.title}}</div>
+        <div style="height:3rem;line-height:3rem;text-align: center;font-size: 1.375rem;color: #545454">{{drugDbObj.describe}}</div>
         <div class="list">
-          <div class="item" v-for="item in diseases" :key="item">
-            <el-image :src="item.img" :fit="fit" style="float:left"></el-image>
+          <div class="item" v-for="(item,diseaseIndex) in drugDbObj.drugDbDiseaseList" :key="diseaseIndex">
+            <el-image :src="item.disease.icon" :fit="fit" style="float:left"></el-image>
             <div class="name">
-              <div>{{ item.name }}</div>
-              <div v-for="(drug, index) in item.drugs" :key="index" v-if="index < 3 || (item.show && index >= 3)">{{ drug }}</div>
-              <div v-show="item.drugs.length > 3 && !item.show"><a @click="toggleFold(item)">更多<i class="el-icon-arrow-down"></i></a></div>
-              <div v-show="item.drugs.length > 3 && item.show"><a @click="toggleFold(item)">收起<i class="el-icon-arrow-up"></i></a></div>
+              <div>{{ item.disease.name }}</div>
+              <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)">{{ drug.name }}</div>
+              <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
+              <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>
             </div>
           </div>
         </div>
       </div>
       <div class="table">
         <div>
-          <el-divider content-position="center">药品关注度TOP10</el-divider>
+          <el-divider content-position="center">{{drugDbObj.rankTitleMedicine}}</el-divider>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="rank_table">
+            <thead>
+            <tr>
+              <th style="width:8%;">排名</th>
+              <th style="width:45%;">药品名称</th>
+              <th style="width:25%;text-align:center;">适应症</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item, index) in drugDbObj.drugDbRankMedicineList">
+              <td style="width:8%"><span>{{index+1}}</span></td>
+              <td style="width:45%"><a href="" target="_blank">
+                <p>{{item.medicine.name}}</p>
+              </a></td>
+              <td style="width:25%;text-align:center;"><b>{{item.medicine.fitDisease}}</b></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
         <div>
-          <el-divider content-position="center">品牌价值最高药企TOP10</el-divider>
+          <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="rank_table">
+            <thead>
+            <tr>
+              <th style="width:8%;">排名</th>
+              <th style="width:45%;">药厂名称</th>
+              <th style="width:25%;text-align:center;">所属地区</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="(item, index) in drugDbObj.drugDbRankMakerList">
+              <td style="width:8%"><span>{{index+1}}</span></td>
+              <td style="width:45%">
+                <p>{{item.name}}</p>
+              </td>
+              <td style="width:25%;text-align:center;"><b>{{item.area}}</b></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="display">
-        <div class="title">合作药厂</div>
-        <div class="subtitle">与众多优秀药厂、供应商合作，获取更多药物权威资料，为您分享更多的药物信息、资讯、药物品种选择，满足您的全面需求！</div>
+        <div class="title">{{drugDbObj.titleFoot}}</div>
+        <div class="subtitle">{{drugDbObj.describeFoot}}</div>
         <div class="logos">
-          <el-image v-for="item in drugCompany" :key="item" :src="item.img" :fit="fit" style="border: 1px solid #eee"></el-image>
+          <el-image v-for="(item,index) in drugDbObj.imageUrlFootList" :key="index" :src="item" :fit="fit" style="border: 1px solid #eee"></el-image>
         </div>
       </div>
     </div>
 </template>
 
 <script>
+  import DrugDbApi from '@/api/OtherPage/drugdbFront'
+
   export default {
     name: 'index',
     data() {
       return {
-        img_url: 'static/img/info/医药数据库banner2.jpg',
-        diseases: [
-          { img: 'static/icon/disease/az1.png', name: '丙肝', drugs: ['吉三代', '吉二代', '索非布韦', '雷迪帕韦'], show: false },
-          { img: 'static/icon/disease/az1.png', name: '丙肝', drugs: ['索非布韦', '达卡他韦', '雷迪帕韦'], show: false },
-          { img: 'static/icon/disease/az1.png', name: 'PD-1', drugs: ['阿特珠单抗', '帕博利珠单抗', '纳武单抗'], show: false },
-          { img: 'static/icon/disease/az1.png', name: '多发性骨髓瘤', drugs: ['泊马度胺', '卡非佐米', '来那度胺'], show: false },
-          { img: 'static/icon/disease/az1.png', name: '多发性骨髓瘤', drugs: ['泊马度胺', '卡非佐米', '来那度胺'], show: false },
-          { img: 'static/icon/disease/az1.png', name: '多发性骨髓瘤', drugs: ['泊马度胺', '卡非佐米', '来那度胺'], show: false }
-        ],
-        drugCompany: [
-          { img: 'static/img/info/drug_company01.png' },
-          { img: 'static/img/info/drug_company02.png' },
-          { img: 'static/img/info/drug_company03.png' },
-          { img: 'static/img/info/drug_company04.png' },
-          { img: 'static/img/info/drug_company05.png' },
-          { img: 'static/img/info/drug_company06.png' }
-        ]
+        drugDbObj: {
+          id: '',
+          name: '',
+          imageUrl: '',
+          title: '',
+          describe: '',
+          drugDbDiseaseList: [],
+          drugDbDiseaseIdList: [],
+          rankTitleMedicine: '',
+          drugDbRankMedicineList: [],
+          drugDbRankMedicineIdList: [],
+          rankTitleMaker: '',
+          drugDbRankMakerList: [],
+          drugDbRankMakerIdList: [],
+          titleFoot: '',
+          describeFoot: '',
+          imageUrlsFoot: '',
+          imageUrlFootList: [],
+          imageUrlFootFileList: [{}, {}, {}, {}, {}, {}]
+        }
       }
     },
+    mounted() {
+      this.search()
+    },
     methods: {
-      toggleFold(t) {
-        const item = this.diseases.find(p => p === t)
+      search() {
+        DrugDbApi.findFrontOne().then(data => {
+          this.drugDbObj = data.obj
+          this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
+        })
+      },
+      toggleFold(t, diseaseIndex) {
+        const item = this.drugDbObj.drugDbDiseaseList[diseaseIndex]
         item.show = !item.show
+        this.$set(this.drugDbObj.drugDbDiseaseList, diseaseIndex, item)
       }
     }
   }
