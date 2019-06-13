@@ -1,20 +1,20 @@
 
-export default (_t) => {
+export default () => {
   return {
     handlePageChange(val) {
-      this.page.current = val
+      this.query.pageObj.current = val
       this.search()
     },
     handleSizeChange(val) {
-      this.page.size = val
+      this.query.pageObj.size = val
       this.search()
     },
     thePrevPage() {
-      this.page.current -= 1
+      this.query.pageObj.current = val
       this.search()
     },
     theNextPage() {
-      this.page.current += 1
+      this.query.pageObj.current = val
       this.search()
     }
   }

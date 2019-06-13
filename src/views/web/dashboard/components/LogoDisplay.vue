@@ -3,7 +3,7 @@
     <el-tabs v-model="activeName" @tab-click="handleClick">
       <el-tab-pane label="战略合作伙伴" name="first">
         <div v-for="item in friendLinkVo.strategyCompanies" class="logo-pane">
-          <img :src="item.img" :key="item" style="width: 100%">
+          <img :src="item.img" :key="item" height="75" width="275">
         </div>
       </el-tab-pane>
       <el-tab-pane label="媒体合作" name="second">
@@ -60,6 +60,6 @@
 
 <style scoped>
   .many-logo{width: 100%; min-height: 360px; margin: 20px auto;}
-  .many-logo .logo-pane{position: relative;width: 18%;display: inline-flex;flew-flow: row wrap;justify-content: space-between}
+  .many-logo .logo-pane{position: relative;width: 18%;display: inline-flex;flew-flow: row wrap;align-items: center;align-content: stretch;justify-content: space-between}
   >>> .el-tabs__content{width: 90%;margin: 0 auto}
 </style>

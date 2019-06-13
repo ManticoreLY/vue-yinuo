@@ -1,10 +1,10 @@
 <template>
   <div id="navmenu">
-    <el-menu :default-active="$route.path" class="el-menu-demo" background-color="#304156"
+    <el-menu :default-active="$route.path" mode="vertical" class="el-menu-vertical-demo" background-color="#304156"
              text-color="#bfcbd9"
              active-text-color="#409EFF"
-             @select="handleSelect">
-      <div v-for="(item, index) in menus" :key="index" v-show="!item.hidden">
+             @open="handleOpen">
+      <template v-for="item in menus" v-show="!item.hidden">
         <router-link v-if="hasOneChildrenOption(item)" :to="{ path: pathResolve(item.path, item.children[0].path)}">
           <el-menu-item :index="pathResolve(item.path, item.children[0].path)">{{ item.name }}</el-menu-item>
         </router-link>
@@ -16,7 +16,7 @@
             </router-link>
           </el-menu-item-group>
         </el-submenu>
-      </div>
+      </template>
     </el-menu>
   </div>
 </template>
@@ -49,6 +49,9 @@
           } else {
             return path
           }
+        },
+        handleOpen(key, keyPath) {
+          console.log(key, keyPath)
         }
       }
     }

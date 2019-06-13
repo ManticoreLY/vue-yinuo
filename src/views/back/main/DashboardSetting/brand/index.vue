@@ -33,7 +33,7 @@
                      @size-change="handleSizeChange"
                      layout="total, prev, pager, next">
       </el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
@@ -42,6 +42,7 @@
 <script>
   import BrandApi from '@/api/HomePage/brand'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -69,6 +70,7 @@
       this.search()
     },
     methods: {
+      ...page(),
       search() {
         BrandApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
@@ -101,6 +103,7 @@
       },
       handleFormClose() {
         this.editFormVisible = false
+        this.$refs['editForm'].clearForm()
         this.search()
       }
     }
