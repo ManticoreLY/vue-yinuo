@@ -3,7 +3,7 @@
       <el-form ref="form" :model="disease" label-width="120px">
         <el-form-item label="疾病分类:" prop="types">
           <el-select v-model="disease.types">
-            <el-option v-for="opt in DiseaseTypes" :key="opt" :value="opt.value" :label="opt.name"></el-option>
+            <el-option v-for="opt in DiseaseTypes" :key="opt.value" :value="opt.value" :label="opt.name"></el-option>
           </el-select>
           <el-popover placement="bottom" width="400" trigger="click">
             <el-form ref="typeForm" label-width="80px">
@@ -26,15 +26,18 @@
         </el-form-item>
         <el-form-item label="上级选择:" v-if="disease.isChildren === '1'">
           <el-select v-model="disease.sub">
-            <el-option v-for="item in diseases" :key="item" :value="item.id" :label="item.name"></el-option>
+            <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="疾病图标">
           <FileUploader :httpRequest="fileUploadRequest" :fileList="icon" :onChange="onImageChange0"  :limit="1"></FileUploader>
         </el-form-item>
         <el-form-item label="治疗药物:">
-          <el-select v-model="disease.medicines">
-            <el-option v-for="item in treatedMedicines" :key="item" :value="item.id" :label="item.shotName"></el-option>
+          <el-select v-model="disease.medicineIds" value-key="id" multiple
+                     filterable
+                     reserve-keyword
+                     placeholder="请输入关键词">
+            <el-option v-for="item in treatedMedicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -58,10 +61,12 @@
       return {
         icon: [],
         disease: {
+          id: '',
           types: '',
           name: '',
           isChildren: '',
-          medicines: ''
+          medicines: '',
+          medicineIds: []
         },
         newType: '',
         isUpdate: false,
@@ -83,26 +88,29 @@
     },
     methods: {
       editForm(entity) {
-        this.disease = Object.assign(this.disease, entity)
-        if (this.disease.parentId === 0) {
-          this.disease.isChildren = '0'
-        } else {
-          this.disease.isChildren = '1'
-        }
-        this.isUpdate = true
+        DiseaseApi.getFullDisease(entity.id).then(data => {
+          this.disease = Object.assign(this.disease, data.obj)
+          if (this.disease.parentId === 0) {
+            this.disease.isChildren = '0'
+          } else {
+            this.disease.isChildren = '1'
+          }
+          this.isUpdate = true
+        })
+        // this.disease = Object.assign(this.disease, entity)
       },
       saveType() {},
       saveForm() {
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
-              DiseaseApi.update(this.channelItem).then(data => {
+              DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('修改成功！')
               }).catch(err => {
                 console.log(err)
               })
             } else {
-              DiseaseApi.save(this.channelItem).then(data => {
+              DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('添加成功！')
               }).catch(err => {
                 console.log(err)
