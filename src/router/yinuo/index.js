@@ -20,7 +20,7 @@ export default [
     name: '其他配置',
     children: [
       { path: 'about', name: '关于我们', component: () => import('@/views/back/main/OtherPageSetting/About/edit') },
-      { path: 'drugDb', name: '医药数据', component: () => import('@/views/back/main/OtherPageSetting/DrugDb') }
+      { path: 'drugDb', name: '医药数据', component: () => import('@/views/back/main/OtherPageSetting/DrugDb/edit') }
     ]
   },
   {
