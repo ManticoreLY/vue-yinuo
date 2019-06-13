@@ -196,7 +196,6 @@
         this.aboutObj.imageUrlFootList = urlList
       },
       saveForm() {
-        debugger
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
