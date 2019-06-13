@@ -111,6 +111,15 @@
       handleFormClose() {
         this.editFormVisible = false
         this.search()
+      },
+      handlePageChange(val) {
+        debugger
+        this.query.pageObj.current = val
+        this.search()
+      },
+      handleSizeChange(val) {
+        this.query.pageObj.size = val
+        this.search()
       }
     }
   }
