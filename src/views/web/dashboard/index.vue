@@ -5,7 +5,7 @@
         <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
       </div>
       <div class="item2" style="width: 450px;height: 2.5rem;line-height: 2.5rem">
-        <canvas id="canvas" style="width: 100%;height: 2.25rem;"></canvas>
+        <canvas ref="mycanvas" width="450" height="30"></canvas>
       </div>
       <div class="item3" style="width: 720px;text-align: right">
         <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
@@ -46,8 +46,26 @@
     },
     data() {
       return {
-        searchWord: ''
+        searchWord: '',
+        show_words: '针对 前列腺癌 的治疗，现阶段主要手段包括根治手术、内分泌治疗、放疗等。早期前列腺癌患者通过根治性手',
+        canvas: null,
+        ctx: null
       }
+    },
+    mounted() {
+      this.cancas = this.$refs['mycanvas']
+      this.ctx = this.cancas.getContext('2d')
+      this.ctx.font = '16px Microsoft Yahei'
+      this.ctx.fillStyle = '#1daca4'
+      var length = this.show_words.length * 16
+      var a = this.cancas.width
+      var timer
+      if (timer) clearInterval()
+      timer = setInterval(() => {
+        this.ctx.clearRect(0, 0, this.cancas.width, this.cancas.height)
+        this.ctx.fillText(this.show_words, a--, 20)
+        if (a <= (-length)) a = this.cancas.width
+      }, 20)
     },
     methods: {
 
