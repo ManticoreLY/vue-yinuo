@@ -58,5 +58,5 @@
 </script>
 
 <style scoped>
-.login-page{width: 360px;height: 300px;background: #fff;border-radius: 10px;margin: 30px auto;padding: 20px 15px;}
+.login-page{width: 360px;height: 300px;background: #f5f5f5;border: 1px solid #1daca4;border-radius: 10px;margin: 30px auto;padding: 20px 15px;}
 </style>
