@@ -7,8 +7,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="logo上传" prop="img">
-          <el-image v-if="friendLink.img" :src="friendLink.img" style="width: 200px;height: 200px"></el-image>
-          <file-uploader v-else :http-request="fileUploadRequest" :limit="1" :show-file-list="1"></file-uploader>
+          <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
         </el-form-item>
         <el-form-item label="链接地址" prop="lineUrl">
           <el-input v-model="friendLink.linkUrl"></el-input>
@@ -55,6 +54,11 @@
             { required: true, trigger: 'blur', message: '请填写名称' }
           ]
         }
+      }
+    },
+    computed: {
+      fileList() {
+        return [{ name: 'image', url: this.friendLink.img }]
       }
     },
     methods: {

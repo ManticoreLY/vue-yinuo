@@ -1,8 +1,13 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item>
-          <el-input v-model="name"></el-input>
+      <el-form :inline="true" label-width="60px">
+        <el-form-item label="名称">
+          <el-input v-model="query.likeCondition.linkName"></el-input>
+        </el-form-item>
+        <el-form-item label="类型">
+          <el-select v-model="query.andCondition.type">
+            <el-option v-for="(opt, index) in linkTypes" :key="index" :label="opt.name" :value="opt.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -56,9 +61,18 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            linkName: ''
+          },
+          andCondition: {
+            type: null
           }
         },
+        linkTypes: [
+          { value: 1, name: '战略合作伙伴' },
+          { value: 2, name: '媒体合作伙伴' },
+          { value: 3, name: '链接聚合' },
+          { value: 4, name: '友情链接' }
+        ],
         page: {},
         name: '',
         tableList: [],
@@ -70,7 +84,7 @@
       this.search()
     },
     methods: {
-    ...page(),
+      ...page(),
       search() {
         FriendLinkApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
@@ -102,15 +116,9 @@
         })
       },
       type_format(row) {
-        var data = [
-          { value: 1, name: '战略合作伙伴' },
-          { value: 2, name: '媒体合作伙伴' },
-          { value: 3, name: '链接聚合' },
-          { value: 4, name: '友情链接' }
-        ]
-        return data.find(item => item.value === row.type).name
+        return this.linkTypes.find(item => item.value === row.type).name
       },
-       handleFormClose() {
+      handleFormClose() {
         this.editFormVisible = false
         this.$refs['editForm'].clearForm()
         this.search()

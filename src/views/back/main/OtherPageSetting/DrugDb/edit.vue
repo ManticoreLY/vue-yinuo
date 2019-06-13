@@ -8,7 +8,7 @@
           <el-input v-model="drugDbObj.title"></el-input>
         </el-form-item>
         <el-form-item label="药品类目内容">
-          <el-input v-model="drugDbObj.describe" type="textarea" :col="3" max-length="500"></el-input>
+          <el-input v-model="drugDbObj.describe" type="textarea" :col="3" max-length="500" show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="药品类目的疾病">
           <el-select v-model="drugDbObj.drugDbDiseaseIdList"
@@ -21,12 +21,7 @@
                      placeholder="请输入关键词"
                      :remote-method="diseaseRemoteMethod"
                      :loading="loading">
-            <el-option
-              v-for="item in diseases"
-              :key="item.id"
-              :label="item.name"
-              :value="item">
-            </el-option>
+            <el-option v-for="item in diseases" :key="item" :label="item.name" :value="item"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="药品排行标题">
@@ -62,7 +57,7 @@
               <el-input v-model="drugDbRankMaker.name" placeholder="药厂"></el-input>
             </el-col>
             <el-col :span="2">
-              <el-button type="danger" @click="removeMaker($event,index)">删除</el-button>
+              <el-button type="danger" @click="removeMaker(index)">删除</el-button>
             </el-col>
           </el-row>
           <el-col :span="11">
@@ -218,14 +213,13 @@
       addMaker() {
         this.drugDbObj.drugDbRankMakerList.push({ name: '', area: '' })
       },
-      removeMaker(event, idx) {
+      removeMaker(idx) {
         if (idx > -1) {
           this.drugDbObj.drugDbRankMakerList.splice(idx, 1)
         }
       },
       closeForm() {
         this.$refs['form'].resetFields()
-        this.$emit('close')
       },
       fileUploadRequest(option) {
         uploadFile(
