@@ -13,7 +13,7 @@
     },
     props: {
       id: {
-        id: String
+        type: String
       },
       defaultMsg: {
         type: String
@@ -24,6 +24,7 @@
     },
     mounted() {
       const _this = this
+      const UE = document.getElementById(this.id)
       this.editor = UE.getEditor(this.id, this.config) // 初始化UE
       this.editor.addListener('ready', function() {
         if (!_this.defaultMsg) {
