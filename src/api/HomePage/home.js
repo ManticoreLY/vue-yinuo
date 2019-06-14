@@ -48,5 +48,12 @@ export default {
       url,
       method: 'GET'
     })
+  },
+  headerScrollNews() {
+    const url = '/front/home/headerScrollNews'
+    return request({
+      url,
+      method: 'GET'
+    })
   }
 }

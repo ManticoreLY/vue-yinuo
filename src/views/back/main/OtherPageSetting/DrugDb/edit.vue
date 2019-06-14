@@ -49,9 +49,9 @@
         </el-form-item>
         <el-form-item label="药厂排行标题">
           <el-input v-model="drugDbObj.rankTitleMaker"></el-input>
-        </el-form-item>
+        </el-form-item>+-
         <el-form-item label="药厂排行">
-          <el-row v-for="(drugDbRankMaker, index) in drugDbObj.drugDbRankMakerList">
+          <el-row v-for="(drugDbRankMaker, index) in drugDbObj.drugDbRankMakerList" :key="drugDbRankMaker">
             <el-col :span="3">
               <el-input v-model="drugDbRankMaker.area" placeholder="地区"></el-input>
             </el-col>
