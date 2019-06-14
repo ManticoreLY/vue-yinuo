@@ -10,12 +10,8 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column label="新闻ID" prop="newsArticleId"></el-table-column>
-        <el-table-column label="模块名称" prop="typeName">
-        </el-table-column>
-        <el-table-column label="新闻title" prop="newsArticleTitle">
-        </el-table-column>
-        <el-table-column label="跳转地址" prop="url"></el-table-column>
+        <el-table-column label="名称" prop="name"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -31,15 +27,15 @@
                      @size-change="handleSizeChange"
                      layout="total, prev, pager, next">
       </el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible"  :before-close="handleFormClose">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
 </template>
 
 <script>
-  import HomeNewsArticleApi from '@/api/HomePage/NewsArticle'
-  import EditForm from './edit'
+  import BrandApi from '@/api/HomePage/brand'
+  import EditForm from '../edit'
   export default {
     name: 'index',
     components: {
@@ -68,7 +64,7 @@
     },
     methods: {
       search() {
-        HomeNewsArticleApi.queryPage(this.query).then(data => {
+        BrandApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
           this.tableList = data.obj.records
         }).catch(err => {
@@ -88,10 +84,9 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          HomeNewsArticleApi.remove(id).then(data => {
+          BrandApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
-            this.search()
           }).catch(err => {
             console.log(err)
             this.$message.warning('操作失败')
@@ -99,9 +94,7 @@
         })
       },
       handleFormClose() {
-        debugger
         this.editFormVisible = false
-        this.$refs['editForm'].clearForm()
         this.search()
       }
     }

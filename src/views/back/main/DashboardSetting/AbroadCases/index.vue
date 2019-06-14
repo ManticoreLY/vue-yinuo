@@ -1,8 +1,8 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item>
-          <el-input v-model="name"></el-input>
+      <el-form :inline="true" label-width="60px">
+        <el-form-item label="名称">
+          <el-input v-model="query.likeCondition.title"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -10,12 +10,8 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column label="新闻ID" prop="newsArticleId"></el-table-column>
-        <el-table-column label="模块名称" prop="typeName">
-        </el-table-column>
-        <el-table-column label="新闻title" prop="newsArticleTitle">
-        </el-table-column>
-        <el-table-column label="跳转地址" prop="url"></el-table-column>
+        <el-table-column label="名称" prop="name"></el-table-column>
+        <!--<el-table-column label="标题" prop="title"></el-table-column>-->
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -31,15 +27,17 @@
                      @size-change="handleSizeChange"
                      layout="total, prev, pager, next">
       </el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible"  :before-close="handleFormClose">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
 </template>
 
 <script>
-  import HomeNewsArticleApi from '@/api/HomePage/NewsArticle'
+  import TCApi from '@/api/HomePage/TreatmentCase'
+  import caseApi from '@/api/cases'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -53,7 +51,10 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            title: ''
+          },
+          andCondition: {
+            type: null
           }
         },
         page: {},
@@ -67,14 +68,32 @@
       this.search()
     },
     methods: {
+      ...page(),
       search() {
-        HomeNewsArticleApi.queryPage(this.query).then(data => {
+        TCApi.queryPage(this.query).then(data => {
+          const _this = this
           this.page = Object.assign(this.page, data.obj)
-          this.tableList = data.obj.records
+          // (async function() {
+          //   for (var t = 0; t < data.obj.records.length; t++) {
+          //     await _this.getCaseInfo(data.obj.records[t].treatmentCaseId).then(result => {
+          //       data.obj.records[t] = Object.assign(data.obj.records[t], result)
+          //     })
+          //   }
+          // })()
+          _this.tableList = data.obj.records
         }).catch(err => {
           console.log(err)
         })
-      },
+      },/*
+      getCaseInfo(caseId) {
+        return new Promise(resolve => {
+          caseApi.getEntity(caseId).then(data => {
+            resolve(data.obj)
+          }).catch(err => {
+            console.log(err)
+          })
+        })
+      },*/
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
@@ -88,18 +107,19 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          HomeNewsArticleApi.remove(id).then(data => {
+          TCApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
-            this.search()
           }).catch(err => {
             console.log(err)
             this.$message.warning('操作失败')
           })
         })
       },
+      type_format(row) {
+        return this.linkTypes.find(item => item.value === row.type).name
+      },
       handleFormClose() {
-        debugger
         this.editFormVisible = false
         this.$refs['editForm'].clearForm()
         this.search()

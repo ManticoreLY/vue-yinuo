@@ -11,7 +11,9 @@ export default [
       { path: 'friendLink', name: '友情链接', component: () => import('@/views/back/main/DashboardSetting/friendLink') },
       { path: 'newsReport', name: '新闻报道', component: () => import('@/views/back/main/DashboardSetting/ReportSetting') },
       { path: 'newsArticle', name: '新闻资讯', component: () => import('@/views/back/main/DashboardSetting/NewsSetting') },
-      { path: 'publish', name: '官方发布', component: () => import('@/views/back/main/DashboardSetting/publish') }
+      { path: 'abroadCases', name: '出国实例', component: () => import('@/views/back/main/DashboardSetting/AbroadCases') },
+      { path: 'publish', name: '官方发布', component: () => import('@/views/back/main/DashboardSetting/publish') },
+      { path: 'contactUs', name: '联系我们', component: () => import('@/views/back/main/DashboardSetting/ContactUs') }
     ]
   },
   {

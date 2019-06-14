@@ -10,7 +10,9 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column label="模块名称" prop="name"></el-table-column>
+        <el-table-column label="新闻ID" prop="newsArticleId"></el-table-column>
+        <el-table-column label="新闻title" prop="newsArticleTitle">
+        </el-table-column>
         <el-table-column label="跳转地址" prop="url"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -34,7 +36,7 @@
 </template>
 
 <script>
-  import HomeNewsReportApi from '@/api/HomePage/NewsArticle'
+  import HomeNewsReportApi from '@/api/HomePage/NewsReport'
   import EditForm from './edit'
   export default {
     name: 'index',
@@ -96,6 +98,7 @@
       },
       handleFormClose() {
         this.editFormVisible = false
+        this.$refs['editForm'].clearForm()
         this.search()
       }
     }

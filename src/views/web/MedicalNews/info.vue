@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="words test">
-          <img :src="imgUrl" style="width: 120px;height: 120px"/>
+          <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 120px;height: 120px"/>
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
           <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
         </div>
@@ -72,7 +72,6 @@
           abstractImg: ''
         },
         articleInfo: {},
-        imgUrl: 'static/img/info/医诺寰球公众号二维码.jpg',
         items: ['乙肝新闻', '丙肝新闻', '肿瘤新闻', '试管婴儿新闻', '赴美生子新闻', '心脏支架新闻', '眼角膜新闻', 'HPV疫苗新闻', '智能诊疗新闻', '癌症早筛新闻', '海外医疗新闻', '男科新闻', '周边新闻', '糖尿病新闻', '风湿免疫新闻']
       }
     },

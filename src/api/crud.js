@@ -23,6 +23,7 @@ export default (baseUrl) => {
       })
     },
     update(form) {
+      debugger
       return request({
         url: baseUrl,
         method: 'PUT',

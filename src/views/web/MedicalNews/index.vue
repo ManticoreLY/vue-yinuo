@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="nav">当前位置：
-      <router-link :to="'/'">医诺寰宇海外医疗</router-link>
+      <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
       <router-link :to="'/news'">医疗新闻</router-link>
       >
@@ -59,7 +59,7 @@
 <script>
   import page from '@/utils/page'
   import ArticlesApi from '@/api/articlesFront'
-  import ChannelApi from '@/api/channel'
+  // import ChannelApi from '@/api/channel'
 
   export default {
     name: 'index',

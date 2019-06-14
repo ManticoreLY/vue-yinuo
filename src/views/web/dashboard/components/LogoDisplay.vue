@@ -12,13 +12,13 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="链接聚合" name="third">
-        <div v-for="item in friendLinkVo.linksAggregations" class="logo-pane">
-          <a :href="item.linkUrl" :key="item" height="75" width="275">{{item.linkName}}</a>
+        <div v-for="item in friendLinkVo.linksAggregations" :key="item.linkUrl" class="logo-pane link">
+          <a :href="item.linkUrl" :title="item.linkUrl" target="_blank">{{item.linkName}}</a>
         </div>
       </el-tab-pane>
       <el-tab-pane label="友情链接" name="fourth">
-        <div v-for="item in friendLinkVo.friendLinks" class="logo-pane">
-          <a :href="item.linkUrl" :key="item" height="75" width="275">{{item.linkName}}</a>
+        <div v-for="item in friendLinkVo.friendLinks" :key="item.linkUrl" class="logo-pane link">
+          <a :href="item.linkUrl" :title="item.linkUrl" target="_blank">{{item.linkName}}</a>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -60,6 +60,10 @@
 
 <style scoped>
   .many-logo{width: 100%; min-height: 360px; margin: 20px auto;}
-  .many-logo .logo-pane{position: relative;width: 18%;display: inline-flex;flew-flow: row wrap;align-items: center;align-content: stretch;justify-content: space-between}
+  .many-logo .logo-pane{position: relative;width: 20%;display: inline-flex;flew-flow: row wrap;align-items: center;align-content: stretch;justify-content: space-between}
+  .many-logo .logo-pane img{margin: 25px}
+  .many-logo .link{}
+  .many-logo .link a{margin: 10px;font-size: 1.5rem;color: #555}
+  .many-logo .link a:hover{font-size: 1.5rem;color: #005cff;text-decoration: underline}
   >>> .el-tabs__content{width: 90%;margin: 0 auto}
 </style>
