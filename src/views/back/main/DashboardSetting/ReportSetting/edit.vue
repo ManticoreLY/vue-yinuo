@@ -1,8 +1,8 @@
 <template>
     <div>
       <el-form ref="form" :model="ReportSetting" label-width="120px" :rules="rules">
-        <el-form-item label="选择新闻">
-          <el-autocomplete v-model="ReportSetting.name" :fetch-suggestions="querySearchAsync"  placeholder="请输入新闻标题搜索" @select="handleSelect"></el-autocomplete>
+        <el-form-item label="选择新闻" prop="newsArticleTitle">
+          <el-autocomplete v-model="ReportSetting.newsArticleTitle" :fetch-suggestions="querySearchAsync"  placeholder="请输入新闻标题搜索" @select="handleSelect" value-key="title" value="id"></el-autocomplete>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
@@ -21,9 +21,8 @@
       return {
         obj: null,
         ReportSetting: {
-          name: '',
-          img: '',
-          url: ''
+          newsArticleId: '',
+          newsArticleTitle: ''
         },
         query: {
           pageObj: {
@@ -46,7 +45,7 @@
     methods: {
       editForm(entity) {
         this.isUpdate = true
-        this.obj = this.ReportSetting = Object.assign(this.ReportSetting, entity)
+        this.ReportSetting = Object.assign(this.ReportSetting, entity)
       },
       saveForm() {
         this.$refs['form'].validate(valid => {
@@ -69,16 +68,6 @@
           }
         })
       },
-      closeForm() {
-        this.$refs['form'].resetFields()
-        this.$emit('close')
-      },
-      handleChange(opt) {
-        this.ReportSetting = Object.assign(this.ReportSetting, opt)
-      },
-      handleRemove() {
-        this.ReportSetting.img = ''
-      },
       getFileList(...url) {
         const objs = url.map(l => {
           return { name: 'img', url: l }
@@ -88,7 +77,7 @@
       querySearchAsync(query, callback) {
         if (!query) return
         else {
-          this.query.likeCondition.name = query
+          this.query.likeCondition.title = query
           clearTimeout(this.timer)
           this.timer = setTimeout(() => {
             ArticleApi.queryPage(this.query).then(data => {
@@ -103,6 +92,14 @@
       },
       handleSelect(item) {
         console.log(item)
+        this.ReportSetting.newsArticleId = item.id
+      },
+      closeForm() {
+        this.clearForm()
+        this.$emit('close')
+      },
+      clearForm() {
+        this.$refs['form'].resetFields()
       }
     }
   }

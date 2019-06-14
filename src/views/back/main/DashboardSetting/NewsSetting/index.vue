@@ -10,8 +10,11 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column label="ID" prop="id"></el-table-column>
-        <el-table-column label="模块名称" prop="name"></el-table-column>
+        <el-table-column label="新闻ID" prop="newsArticleId"></el-table-column>
+        <el-table-column label="模块名称" prop="typeName">
+        </el-table-column>
+        <el-table-column label="新闻title" prop="newsArticleTitle">
+        </el-table-column>
         <el-table-column label="跳转地址" prop="url"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -28,7 +31,7 @@
                      @size-change="handleSizeChange"
                      layout="total, prev, pager, next">
       </el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible"  :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
@@ -96,7 +99,9 @@
         })
       },
       handleFormClose() {
+        debugger
         this.editFormVisible = false
+        this.$refs['editForm'].clearForm()
         this.search()
       }
     }
