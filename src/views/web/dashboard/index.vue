@@ -37,6 +37,7 @@
 
 <script>
   import { WebHeader, WebInfo, NavBar } from './components'
+  import home from '@/api/Homepage/home'
   export default {
     name: 'index',
     components: {
@@ -49,7 +50,8 @@
         searchWord: '',
         show_words: '针对 前列腺癌 的治疗，现阶段主要手段包括根治手术、内分泌治疗、放疗等。早期前列腺癌患者通过根治性手',
         canvas: null,
-        ctx: null
+        ctx: null,
+        scrollNews: []
       }
     },
     mounted() {
@@ -68,7 +70,24 @@
       }, 20)
     },
     methods: {
-
+      fillShowWords() {
+        if (this.scrollNews) {
+          let showWords = ''
+          for (const key in this.scrollNews) {
+            const html = this.scrollNews[key].abstractText
+            const href = 'javascript:void(0)'
+            const a = '<a href=' + href + '>' + html + '</a>'
+            showWords += a
+          }
+          this.show_words = showWords
+        }
+      }
+    },
+    created() {
+      home.headerScrollNews().then(data => {
+        this.scrollNews = data.obj
+        this.fillShowWords()
+      })
     }
   }
 </script>
