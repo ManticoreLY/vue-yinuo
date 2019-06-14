@@ -8,7 +8,7 @@
         <router-link v-if="hasOneChildrenOption(item)" :to="{ path: pathResolve(item.path, item.children[0].path)}">
           <el-menu-item :index="pathResolve(item.path, item.children[0].path)">{{ item.name }}</el-menu-item>
         </router-link>
-        <el-submenu v-else>
+        <el-submenu v-else :index="item.path">
           <template slot="title">{{ item.name }}</template>
           <el-menu-item-group>
             <router-link v-for="childMenu in item.children" :key="childMenu" v-if="!childMenu.hidden" :to="{ path: pathResolve(item.path, childMenu.path) }">

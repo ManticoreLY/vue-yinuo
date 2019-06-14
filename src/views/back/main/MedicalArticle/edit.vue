@@ -4,6 +4,22 @@
       <el-form-item label="标题">
         <el-input v-model="medicalArticle.title"></el-input>
       </el-form-item>
+      <el-form-item label="频道">
+        <el-select v-model="medicalArticle.channelId"
+                   filterable
+                   remote
+                   reserve-keyword
+                   placeholder="请输入关键词"
+                   :remote-method="remoteMethod"
+                   :loading="loading">
+          <el-option
+            v-for="item in channels"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="摘要" prop="abstractText">
         <el-input v-model="medicalArticle.abstractText" type="textarea" :col="4"  maxlength="500" show-word-limit></el-input>
       </el-form-item>
@@ -26,6 +42,7 @@
 
 <script>
   import ArticleApi from '@/api/articles'
+  import ChannelApi from '@/api/channel'
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
   import UE from '@/components/ue.vue'
@@ -50,6 +67,7 @@
           initialFrameWidth: null,
           initialFrameHeight: 350
         },
+        channels: [],
         isUpdate: false
       }
     },
@@ -81,6 +99,22 @@
             }
           }
         })
+      },
+      remoteMethod(query) {
+        if (query !== '') {
+          this.loading = true
+          setTimeout(() => {
+            this.loading = false
+            ChannelApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }}).then(data => {
+              this.channels = data.obj.records
+            }).catch(err => {
+              console.log(err)
+              this.$message.warning(err.msg)
+            })
+          }, 200)
+        } else {
+          this.channels = []
+        }
       },
       onImageChange0(file, fileList) {
         if (fileList && fileList.length > 0 && fileList[0].response) {

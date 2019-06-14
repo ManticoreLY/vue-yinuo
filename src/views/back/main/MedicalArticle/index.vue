@@ -106,11 +106,19 @@
         })
       },
       async channel_formatter(row) {
-        await ChannelApi.getEntity(row.channelId).then(data => {
-          return data.obj.name
-        }).catch(err => {
-          console.log(err)
-        })
+        var name = ''
+        if (row.channelId) {
+          await ChannelApi.getEntity(row.channelId).then(data => {
+            if (data.obj) {
+              name = data.obj.name
+            } else {
+              return '频道错误'
+            }
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+        return name
       },
       handleFormClose() {
         this.editFormVisible = false
