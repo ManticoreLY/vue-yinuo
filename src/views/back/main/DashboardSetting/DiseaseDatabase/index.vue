@@ -35,7 +35,7 @@
 
 <script>
   import TCApi from '@/api/HomePage/TreatmentCase'
-  import caseApi from '@/api/cases'
+  // import caseApi from '@/api/cases'
   import EditForm from './edit'
   import page from '@/utils/page'
   export default {
@@ -84,7 +84,8 @@
         }).catch(err => {
           console.log(err)
         })
-      },/*
+      },
+      /*
       getCaseInfo(caseId) {
         return new Promise(resolve => {
           caseApi.getEntity(caseId).then(data => {

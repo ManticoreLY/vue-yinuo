@@ -37,7 +37,7 @@
         },
         abroadCases: {
           name: '',
-          treatmentCaseId: '',
+          treatmentCaseId: ''
         },
         treatmentCases: [],
         isUpdate: false,
@@ -80,7 +80,8 @@
             }
           }
         })
-      },/*
+      },
+      /*
       fileUploadRequest(opt) {
         uploadFile(
           opt.file,
