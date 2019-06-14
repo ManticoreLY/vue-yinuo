@@ -4,19 +4,19 @@
         <el-image :src="drugDbObj.imageUrl" :fit="fill"></el-image>
       </div>
       <div class="item-list">
-        <div class="item">
+        <div class="item bg1">
           <div class="title">数据全面</div>
           <div class="cont">涵盖上百种靶向信息和数据</div>
         </div>
-        <div class="item">
+        <div class="item bg2">
           <div class="title">资料参考</div>
           <div class="cont">多方面覆盖药物各项资料供参考</div>
         </div>
-        <div class="item">
+        <div class="item bg3">
           <div class="title">智能搜索</div>
           <div class="cont">数据库智能匹配，推送相关资讯</div>
         </div>
-        <div class="item">
+        <div class="item bg4">
           <div class="title">疑问解答</div>
           <div class="cont">在线医生实时解答药品相关疑问</div>
         </div>
@@ -98,7 +98,8 @@
           imageUrlsFoot: '',
           imageUrlFootList: [],
           imageUrlFootFileList: [{}, {}, {}, {}, {}, {}]
-        }
+        },
+        img_url: 'static/img/1.png'
       }
     },
     mounted() {
@@ -123,8 +124,12 @@
 <style scoped>
 .drug-db{width: 100%;}
 .bg{width: 100%}
+.bg1{background: url('../../../../static/img/1.png') no-repeat 100% 0}
+.bg2{background: url('../../../../static/img/2.png') no-repeat 100% 0}
+.bg3{background: url('../../../../static/img/3.png') no-repeat 100% 0}
+.bg4{background: url('../../../../static/img/4.png') no-repeat 100% 0}
 .item-list{width:90%;padding: 20px 5%;display: inline-flex;flex-direction: row;align-items: center;justify-content: space-around}
-.item-list .item{background: #fff;width: 18%;height: 10rem;border: 1px solid #f5f5f5;box-shadow: 2px 1px #ccc;padding: 20px;transition: margin-top .5s}
+.item-list .item{width: 18%;height: 10rem;border: 1px solid #f5f5f5;box-shadow: 2px 1px #ccc;padding: 20px;transition: margin-top .5s}
 .item-list .item:hover{margin-top: -10px;}
 .item-list .item:hover .title{color: #2b96cc}
 .item-list .item .title{display: inline-block;font-size: 1.75rem;font-weight: 600;padding-bottom: 1rem; border-bottom: 2px solid #2b96cc}
