@@ -22,6 +22,11 @@
         type: Object
       }
     },
+    watch: {
+      defaultMsg() {
+        this.editor.setContent(this.defaultMsg) // 确保UE加载完成后，放入内容。
+      }
+    },
     mounted() {
       const _this = this
       // const UE = document.getElementById(this.id)
