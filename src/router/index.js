@@ -15,11 +15,11 @@ export const asyncRouterMap = [
     component: Content,
     children: [
       { path: 'dashboard', component: () => import('@/views/web/dashboard/main') },
-      { path: 'medicineInfo', component: () => import('@/views/web/MedicineInfo') },
+      { path: 'medicineInfo/:id', component: () => import('@/views/web/MedicineInfo') },
       { path: 'drugDB', component: () => import('@/views/web/DrugDatabase') },
       { path: 'cases', component: () => import('@/views/web/CureCase') },
       { path: 'news', component: () => import('@/views/web/MedicalNews') },
-      { path: 'articleInfo', component: () => import('@/views/web/MedicalNews/info') },
+      { path: 'articleInfo/:id', component: () => import('@/views/web/MedicalNews/info') },
       { path: 'about', component: () => import('@/views/web/about') }
     ]
   },

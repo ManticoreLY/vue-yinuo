@@ -3,53 +3,42 @@
       <div class="description">
         <div class="item">
           <el-carousel :interval="5000" arrow="always">
-            <el-carousel-item v-for="item in medicine_info_images" :key="item">
+            <el-carousel-item v-for="item in medicine.imageList" :key="item">
               <img :src="item" style="width: 100%;height: 100%">
             </el-carousel-item>
           </el-carousel>
         </div>
         <div class="item" style="position: relative">
-          <div class="item-name">奥利司他</div>
-          <div class="item-extra">所有名称:色瑞替尼 | 赛立替尼 Ceritinib(LDK378/Zykadia)</div>
+          <div class="item-name">{{medicine.shotName}}</div>
+          <div class="item-extra">所有名称:{{medicine.name}}</div>
           <div class="item-unit">
-            <p class="shallowblue">品牌: zzxxcc</p>
-            <p class="green">剂型: 胶囊</p>
-            <p class="graygreen">单位: 120mg/粒</p>
-            <p class="yellow">规格: 3*10粒/盒</p>
+            <p class="shallowblue">品牌: {{medicine.make}}</p>
+            <p class="green">剂型: {{medicine.form}}</p>
+            <p class="graygreen">单位: {{medicine.unit}}</p>
+            <p class="yellow">规格: {{medicine.spec}}</p>
           </div>
-          <div class="item-info">奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他奥利司他</div>
+          <div class="item-info">{{medicine.shotIntroduct}}</div>
           <div class="item-bottom"><b style="color: #29a466">注:</b>本网站关于药品使用的建议仅供参考,不能替代医属</div>
         </div>
       </div>
       <div class="information">
         <div class="item">
           <div class="info-title">
-            <el-divider content-position="center"><b class="text">药品简介</b></el-divider>
+            <el-divider content-position="center"><b class="text">{{medicine.introductTitle}}</b></el-divider>
           </div>
-          <h5 v-for="i in 3" :key="i">
-            <div class="info-question">【什么是色瑞替尼？】</div>
-            <div class="info-answer">色瑞替尼是晚期（转移性）非小细胞肺癌的一种小分子靶向药物，其相应的基因靶点是ALK，是肿瘤药物专门针对ALK基因重排的有效药物，色瑞替尼对EML4-ALK、NPM-ALK
-              基因表达基因融合蛋白的细胞有抑制作用，能够克隆克唑替尼的耐药性。患者单次口服后约在4到6小时后血液中药物浓度达到最高浓度</div>
-          </h5>
+          <div v-html="medicine.introduct"></div>
         </div>
         <div class="item">
           <div class="info-title">
-            <el-divider content-position="center"><b class="text">副作用及并发症</b></el-divider>
+            <el-divider content-position="center"><b class="text">{{medicine.sideEffectTitle}}</b></el-divider>
           </div>
-          <h5 v-for="i in 3" :key="i">
-            <div class="info-question">【常见不良反应？】</div>
-            <div class="info-answer">色瑞替尼最常见不良反应(发生率至少25%)为腹泻，恶心，转氨酶升高，呕吐，腹痛，疲乏，食欲减退和便秘。</div>
-          </h5>
+          <div v-html="medicine.sideEffect"></div>
         </div>
         <div class="item">
           <div class="info-title">
-            <div class="info-title">
-              <el-divider content-position="center"><b class="text">药品简介</b></el-divider>
-            </div>
+            <el-divider content-position="center"><b class="text">{{medicine.resistantTitle}}</b></el-divider>
           </div>
-          <h5>
-            文案来源于广告行业，是“广告文案”的简称，由copy writer翻译而来。多指以语辞进行广告信息内容表现的形式，有广义和狭义之分，广义的广告文案包括标题、正文、口号的撰写和对广告形象的选择搭配；狭义的广告文案包括标题、正文、口号的撰写。
-          </h5>
+          <div v-html="medicine.resistant"></div>
         </div>
       </div>
       <div class="information">
@@ -58,7 +47,7 @@
             <el-divider content-position="center"><b style="font-size: 1.8rem">相关药品</b></el-divider>
           </div>
           <div class="info-items">
-            <el-button v-for="item in medicine_name" :key="item" round>{{ item }}</el-button>
+            <el-button v-for="item in medicine.reMedicines" :key="item.id" round><router-link tag="a" target="_blank" :to="'/medicineInfo/'+item.id" >{{ item.shotName }}</router-link></el-button>
           </div>
           <div class="info-title">
             <el-divider content-position="center"><b style="font-size: 1.8rem">常见问题</b></el-divider>
@@ -68,8 +57,8 @@
               <el-image :src="img_url" :fit="fit" width="30rem" height="20rem"></el-image>
             </div>
             <div style="width: 75%">
-              <p v-for="p in 16" :key="p">
-                我国有哪些足不出户能买到的正品印度特罗凯的药品我国有哪些足不出户能买到的正品印度特罗凯的药品
+              <p v-for="article in medicine.newsArticles" :key="article.id">
+                <router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id" >{{article.title}}</router-link>
               </p>
             </div>
           </div>
@@ -80,10 +69,23 @@
 </template>
 
 <script>
+  import medicineApi from '@/api/medicine/medicineFront'
   export default {
     name: 'index',
     data() {
       return {
+        medicine: {
+          image: '',
+          imageList: [],
+          shotName: '',
+          foreignName: '',
+          spec: '',
+          unit: '',
+          introduct: '',
+          sideEffect: '',
+          resistant: '',
+          reMedicineIds: []
+        },
         img_url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
         medicine_info_images: [
           'static/img/info/INBEC1.jpg',
@@ -94,6 +96,16 @@
         medicine_name: ['达拉非尼', '达卡他韦', '艾曲博帕', '恩西地平', '恩替卡韦', '恩杂鲁胺', '依维莫司', '鲁索替尼', '乐伐替尼',
           '来曲唑', '马法兰', '米哚妥林', '尼罗替尼', '尼达尼布', '奥拉帕尼', '奥沙利铂', '帕博西尼', '帕妥珠单抗', '雷莫卢单抗',
           '苏金单抗体', '托法替尼', '曲美替尼', '凡德他尼', '威罗菲尼', '伏立诺他', '达沙替尼', '尼拉帕尼', '恩格列净', '曲格列汀', '索拉非尼', '伊马替尼']
+      }
+    },
+    created() {
+      this.initData()
+    }, methods: {
+      initData() {
+        medicineApi.findFrontOne(this.$route.params.id).then(data => {
+          this.medicine = data.obj
+          this.medicine.imageList = this.medicine.image.split(',')
+        })
       }
     }
   }

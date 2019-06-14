@@ -29,7 +29,7 @@
             <el-image :src="item.disease.icon" :fit="fit" style="float:left"></el-image>
             <div class="name">
               <div>{{ item.disease.name }}</div>
-              <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)">{{ drug.name }}</div>
+              <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
               <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
               <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>
             </div>
@@ -43,7 +43,7 @@
             <el-table-column type="index" label="排名"></el-table-column>
             <el-table-column label="药品名称" align="center">
               <template slot-scope="scope">
-                <router-link :to="{}"> {{ scope.row.medicine.name }}</router-link>
+                <router-link  tag="a" target="_blank" :to="'/medicineInfo/'+ scope.row.medicine.id"> {{ scope.row.medicine.name }}</router-link>
               </template>
             </el-table-column>
             <el-table-column label="适应症" align="center">

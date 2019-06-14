@@ -14,10 +14,10 @@
           <template slot-scope="scope">
           </template>
         </el-table-column>
-        <el-table-column label="标题" prop="name"></el-table-column>
+        <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="频道栏目" :formatter="channel_formatter">
         </el-table-column>
-        <el-table-column label="内容" prop="content"></el-table-column>
+        <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
         <el-table-column label="时间" prop="updatedDt"></el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="来源" prop="source"></el-table-column>
@@ -66,16 +66,19 @@
         page: {},
         name: '',
         tableList: [],
-        formTitle: [],
+        formTitle: '',
         editFormVisible: false
       }
+    },
+    created() {
+      this.search()
     },
     methods: {
       ...page(),
       search() {
         ArticlesApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
-          this.tableList = data.obj
+          this.tableList = data.obj.records
         }).catch(err => {
           console.log(err)
         })
@@ -88,7 +91,7 @@
         this.formTitle = '编辑'
         this.editFormVisible = true
         this.$nextTick(() => {
-          this.refs['editForm'].editForm(entity)
+          this.$refs['editForm'].editForm(entity)
         })
       },
       toDelete(id) {
