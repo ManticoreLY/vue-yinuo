@@ -12,28 +12,18 @@ const user = {
     }
   },
   actions: {
-    login({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        UserApi.login(user).then(data => {
-          commit('SET_TOKEN', data.obj)
-          setToken(data.obj)
-          resolve()
-        }, err => {
-          console.log(err)
-          reject()
-        })
+    login({ commit }, token) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', token)
+        setToken(token)
+        resolve()
       })
     },
-    logout({ commit }, user) {
-      return new Promise((resolve, reject) => {
-        UserApi.logout(user).then(data => {
-          commit('SET_TOKEN', '')
-          removeToken()
-          resolve()
-        }, err => {
-          console.log(err)
-          reject
-        })
+    logout({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        removeToken()
+        resolve()
       })
     }
   }

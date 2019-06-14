@@ -18,11 +18,14 @@
 </template>
 
 <script>
+  import store from '@/store'
   export default {
     name: 'NavBar',
     methods: {
       logout() {
-        this.$router.replace({ path: '/login' })
+        store.dispatch('logout').then(() => {
+          this.$router.replace({ path: '/login' })
+        })
       }
     }
   }
