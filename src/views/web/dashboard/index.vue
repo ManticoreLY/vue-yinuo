@@ -1,13 +1,13 @@
 <template>
   <div id="web-index">
     <div class="web-title">
-      <div class="item1" style="width: 15%;text-align: center">
+      <div class="item1">
         <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
       </div>
-      <div class="item2" style="width: 30%;height: 2.5rem;line-height: 2.5rem">
-        <canvas ref="mycanvas" width="550" height="30"></canvas>
+      <div class="item2" style="margin: 0 20px">
+        <canvas ref="mycanvas" width="600" height="30"></canvas>
       </div>
-      <div class="item3" style="width: 55%;text-align: right">
+      <div class="item3" style="margin-left: 20px">
         <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
         <a class="item-title">网站地图</a>
         <a class="item-title">医疗客服</a>
@@ -56,14 +56,14 @@
       this.cancas = this.$refs['mycanvas']
       this.ctx = this.cancas.getContext('2d')
       this.ctx.font = '16px Microsoft Yahei'
-      this.ctx.fillStyle = '#1daca4'
+      this.ctx.fillStyle = '#adadad'
       var length = this.show_words.length * 16
       var a = this.cancas.width
       var timer
       if (timer) clearInterval()
       timer = setInterval(() => {
         this.ctx.clearRect(0, 0, this.cancas.width, this.cancas.height)
-        this.ctx.fillText(this.show_words, a--, 20)
+        this.ctx.fillText(this.show_words, a--, 22)
         if (a <= -length) a = this.cancas.width
       }, 20)
     },
@@ -76,7 +76,7 @@
 <style scoped>
   /*color:#1CACA3*/
   #web-index{margin: 0;padding: 0;}
-  .web-title{position: relative;width:80%;padding: 0 10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: flex-start;justify-content: space-between}
+  .web-title{position: relative;width:80%;padding: 0 10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
   .web-content{position: relative;width: 80%; margin: 0 10%;}
   .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
   .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}
