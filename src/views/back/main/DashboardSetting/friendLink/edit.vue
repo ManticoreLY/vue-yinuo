@@ -9,7 +9,7 @@
         <el-form-item label="logo上传" prop="img">
           <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
         </el-form-item>
-        <el-form-item label="链接地址" prop="lineUrl">
+        <el-form-item label="链接地址" prop="linkUrl">
           <el-input v-model="friendLink.linkUrl"></el-input>
         </el-form-item>
         <el-form-item label="链接名称" prop="linkName">
@@ -58,7 +58,11 @@
     },
     computed: {
       fileList() {
-        return [{ name: 'image', url: this.friendLink.img }]
+        if (this.friendLink.img) {
+          return [{ name: 'image', url: this.friendLink.img }]
+        } else {
+          return []
+        }
       }
     },
     methods: {
