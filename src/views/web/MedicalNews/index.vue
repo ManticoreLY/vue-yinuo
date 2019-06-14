@@ -59,7 +59,7 @@
 <script>
   import page from '@/utils/page'
   import ArticlesApi from '@/api/articlesFront'
-  import ChannelApi from '@/api/channel'
+  // import ChannelApi from '@/api/channel'
 
   export default {
     name: 'index',

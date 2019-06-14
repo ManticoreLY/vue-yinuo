@@ -66,7 +66,7 @@
         <div class="title">{{drugDbObj.titleFoot}}</div>
         <div class="subtitle">{{drugDbObj.describeFoot}}</div>
         <div class="logos">
-          <el-image v-for="(item,index) in drugDbObj.imageUrlFootList" :key="index" :src="item" :fit="fit" style="border: 1px solid #eee"></el-image>
+          <el-image v-for="(item,index) in drugDbObj.imageUrlFootList" :key="index" :src="item"></el-image>
         </div>
       </div>
     </div>

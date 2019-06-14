@@ -1,7 +1,7 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item>
+      <el-form :inline="true" label-width="60px">
+        <el-form-item label="名称">
           <el-input v-model="query.likeCondition.title"></el-input>
         </el-form-item>
         <el-form-item>
@@ -10,15 +10,8 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column type="expand">
-          <template slot-scope="scope">
-            <img v-for="(img, index) in scope.row.img.split(',')" :key="index" :src="img" style="width: 300px;">
-          </template>
-        </el-table-column>
-        <el-table-column label="案例名称" prop="name"></el-table-column>
-        <el-table-column label="案例标题" prop="title"></el-table-column>
-        <el-table-column label="案例描述" prop="describe"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
+        <el-table-column label="名称" prop="name"></el-table-column>
+        <!--<el-table-column label="标题" prop="title"></el-table-column>-->
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -30,6 +23,8 @@
                      :current-page="page.current"
                      :page-size="page.size"
                      :total="page.total"
+                     @current-change="handlePageChange"
+                     @size-change="handleSizeChange"
                      layout="total, prev, pager, next">
       </el-pagination>
       <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
@@ -39,8 +34,10 @@
 </template>
 
 <script>
-  import CaseApi from '@/api/cases'
+  import TCApi from '@/api/HomePage/TreatmentCase'
+  import caseApi from '@/api/cases'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -55,6 +52,9 @@
           },
           likeCondition: {
             title: ''
+          },
+          andCondition: {
+            type: null
           }
         },
         page: {},
@@ -68,14 +68,32 @@
       this.search()
     },
     methods: {
+      ...page(),
       search() {
-        CaseApi.queryPage(this.query).then(data => {
+        TCApi.queryPage(this.query).then(data => {
+          const _this = this
           this.page = Object.assign(this.page, data.obj)
-          this.tableList = data.obj.records
+          // (async function() {
+          //   for (var t = 0; t < data.obj.records.length; t++) {
+          //     await _this.getCaseInfo(data.obj.records[t].treatmentCaseId).then(result => {
+          //       data.obj.records[t] = Object.assign(data.obj.records[t], result)
+          //     })
+          //   }
+          // })()
+          _this.tableList = data.obj.records
         }).catch(err => {
           console.log(err)
         })
-      },
+      },/*
+      getCaseInfo(caseId) {
+        return new Promise(resolve => {
+          caseApi.getEntity(caseId).then(data => {
+            resolve(data.obj)
+          }).catch(err => {
+            console.log(err)
+          })
+        })
+      },*/
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
@@ -89,7 +107,7 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          CaseApi.remove(id).then(data => {
+          TCApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
           }).catch(err => {
@@ -97,6 +115,9 @@
             this.$message.warning('操作失败')
           })
         })
+      },
+      type_format(row) {
+        return this.linkTypes.find(item => item.value === row.type).name
       },
       handleFormClose() {
         this.editFormVisible = false
