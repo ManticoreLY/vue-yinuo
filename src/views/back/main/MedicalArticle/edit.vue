@@ -4,14 +4,21 @@
       <el-form-item label="标题">
         <el-input v-model="medicalArticle.title"></el-input>
       </el-form-item>
+      <el-form-item label="摘要" prop="abstractText">
+        <el-input v-model="medicalArticle.abstractText" type="textarea" :col="4"  maxlength="500" show-word-limit></el-input>
+      </el-form-item>
       <el-form-item label="内容">
-        <quill-editer @getContent="getEditerContent"></quill-editer>
+        <UE id = "content" :defaultMsg="medicalArticle.content" :config=config ref="content"></UE>
       </el-form-item>
       <el-form-item label="图片上传">
-        <FileUploader :http-request="fileUploadRequest" :on-remove="handleRemove" :limit="7"></FileUploader>
+        <FileUploader :http-request="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="1"></FileUploader>
       </el-form-item>
       <el-form-item label="作者">
         <el-input v-model="medicalArticle.author"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="saveForm">保存</el-button>
+        <el-button @click="closeForm">关闭</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -21,20 +28,27 @@
   import ArticleApi from '@/api/articles'
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
-  import QuillEditer from '@/components/QuillEditer'
+  import UE from '@/components/ue.vue'
+
   export default {
     name: 'edit',
     components: {
       FileUploader,
-      QuillEditer
+      UE
     },
     data() {
       return {
+        imageFile: [],
         medicalArticle: {
           title: '',
+          abstractText: '',
           content: '',
           author: '',
-          imgUrl: []
+          abstractImg: ''
+        },
+        config: {
+          initialFrameWidth: null,
+          initialFrameHeight: 350
         },
         isUpdate: false
       }
@@ -43,19 +57,24 @@
       editForm(entity) {
         this.isUpdate = true
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
+        this.imageFile = []
+        this.imageFile.push({ url: this.medicalArticle.abstractImg })
       },
       saveForm() {
+        this.medicalArticle.content = this.$refs.content.getUEContent()
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
               ArticleApi.update(this.medicalArticle).then(data => {
                 this.$message.warning('修改成功！')
+                this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
             } else {
               ArticleApi.save(this.medicalArticle).then(data => {
                 this.$message.warning('添加成功！')
+                this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
@@ -63,8 +82,11 @@
           }
         })
       },
-      getEditerContent(val) {
-        console.log(val)
+      onImageChange0(file, fileList) {
+        if (fileList && fileList.length > 0 && fileList[0].response) {
+          this.medicalArticle.abstractImg = fileList[0].response.url
+          this.imageFile = fileList
+        }
       },
       fileUploadRequest(opt) {
         uploadFile(

@@ -13,6 +13,10 @@
         <el-form-item label="作者">
           <el-input v-model="medicalNews.author"></el-input>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="saveForm">保存</el-button>
+          <el-button @click="closeForm">关闭</el-button>
+        </el-form-item>
       </el-form>
     </div>
 </template>

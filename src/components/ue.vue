@@ -8,7 +8,8 @@
     name: 'UE',
     data() {
       return {
-        editor: null
+        editor: null,
+        isReady: false
       }
     },
     props: {
@@ -24,7 +25,9 @@
     },
     watch: {
       defaultMsg() {
-        this.editor.setContent(this.defaultMsg) // 确保UE加载完成后，放入内容。
+        if (this.isReady) {
+          this.editor.setContent(this.defaultMsg) // 确保UE加载完成后，放入内容。
+        }
       }
     },
     mounted() {
@@ -36,6 +39,7 @@
         if (!_this.defaultMsg) {
           _this.defaultMsg = ''
         }
+        this.isReady = true
         _this.editor.setContent(_this.defaultMsg) // 确保UE加载完成后，放入内容。
       })
     },

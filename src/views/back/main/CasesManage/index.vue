@@ -2,7 +2,7 @@
     <div>
       <el-form :inline="true" label-width="120px">
         <el-form-item>
-          <el-input v-model="name"></el-input>
+          <el-input v-model="query.likeCondition.title"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -12,12 +12,13 @@
       <el-table :data="tableList">
         <el-table-column type="expand">
           <template slot-scope="scope">
-            <div></div>
+            <img v-for="(img, index) in scope.row.img.split(',')" :key="index" :src="img" style="width: 300px;">
           </template>
         </el-table-column>
-        <el-table-column label="标题" prop="title"></el-table-column>
-        <el-table-column label="内容" prop="content"></el-table-column>
-        <el-table-column label="时间" prop="updatedDt"></el-table-column>
+        <el-table-column label="案例名称" prop="name"></el-table-column>
+        <el-table-column label="案例标题" prop="title"></el-table-column>
+        <el-table-column label="案例描述" prop="describe"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -53,7 +54,7 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            title: ''
           }
         },
         page: {},

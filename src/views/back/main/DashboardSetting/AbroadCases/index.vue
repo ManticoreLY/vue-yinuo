@@ -1,8 +1,8 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item>
-          <el-input v-model="name"></el-input>
+      <el-form :inline="true" label-width="60px">
+        <el-form-item label="名称">
+          <el-input v-model="query.likeCondition.title"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -10,17 +10,8 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column type="expand">
-          <template slot-scope="scope">
-          </template>
-        </el-table-column>
-        <el-table-column label="标题" prop="title"></el-table-column>
-        <el-table-column label="频道栏目" :formatter="channel_formatter">
-        </el-table-column>
-        <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
-        <el-table-column label="时间" prop="updatedDt"></el-table-column>
-        <el-table-column label="作者" prop="author"></el-table-column>
-        <el-table-column label="来源" prop="source"></el-table-column>
+        <el-table-column label="名称" prop="name"></el-table-column>
+        <!--<el-table-column label="标题" prop="title"></el-table-column>-->
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -28,14 +19,14 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination style="margin-top: 20px"
-                     background
-                     :page-size="page.size"
+      <el-pagination background style="margin-top: 20px;"
                      :current-page="page.current"
+                     :page-size="page.size"
                      :total="page.total"
-                     layout="total, prev, pager, next"
                      @current-change="handlePageChange"
-                     @size-change="handleSizeChange"></el-pagination>
+                     @size-change="handleSizeChange"
+                     layout="total, prev, pager, next">
+      </el-pagination>
       <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
@@ -43,8 +34,8 @@
 </template>
 
 <script>
-  import ArticlesApi from '@/api/articles'
-  import ChannelApi from '@/api/channel'
+  import TCApi from '@/api/HomePage/TreatmentCase'
+  import caseApi from '@/api/cases'
   import EditForm from './edit'
   import page from '@/utils/page'
   export default {
@@ -60,29 +51,49 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            title: ''
+          },
+          andCondition: {
+            type: null
           }
         },
         page: {},
         name: '',
         tableList: [],
-        formTitle: '',
+        formTitle: [],
         editFormVisible: false
       }
     },
-    created() {
+    mounted() {
       this.search()
     },
     methods: {
       ...page(),
       search() {
-        ArticlesApi.queryPage(this.query).then(data => {
+        TCApi.queryPage(this.query).then(data => {
+          const _this = this
           this.page = Object.assign(this.page, data.obj)
-          this.tableList = data.obj.records
+          // (async function() {
+          //   for (var t = 0; t < data.obj.records.length; t++) {
+          //     await _this.getCaseInfo(data.obj.records[t].treatmentCaseId).then(result => {
+          //       data.obj.records[t] = Object.assign(data.obj.records[t], result)
+          //     })
+          //   }
+          // })()
+          _this.tableList = data.obj.records
         }).catch(err => {
           console.log(err)
         })
-      },
+      },/*
+      getCaseInfo(caseId) {
+        return new Promise(resolve => {
+          caseApi.getEntity(caseId).then(data => {
+            resolve(data.obj)
+          }).catch(err => {
+            console.log(err)
+          })
+        })
+      },*/
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
@@ -96,7 +107,7 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          ArticlesApi.delete(id).then(data => {
+          TCApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
           }).catch(err => {
@@ -105,12 +116,8 @@
           })
         })
       },
-      async channel_formatter(row) {
-        await ChannelApi.getEntity(row.channelId).then(data => {
-          return data.obj.name
-        }).catch(err => {
-          console.log(err)
-        })
+      type_format(row) {
+        return this.linkTypes.find(item => item.value === row.type).name
       },
       handleFormClose() {
         this.editFormVisible = false

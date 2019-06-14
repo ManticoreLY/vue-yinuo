@@ -28,11 +28,20 @@
       <el-form-item label="药品短简介" prop="shotIntroduct">
         <el-input v-model="form.shotIntroduct" type="textarea" :col="4"  maxlength="100" show-word-limit></el-input>
       </el-form-item>
+      <el-form-item label="药品简介标题" prop="introductTitle">
+        <el-input v-model="form.introductTitle"></el-input>
+      </el-form-item>
       <el-form-item label="药品简介" prop="introduct">
         <UE id = "introduct" :defaultMsg="form.introduct" :config=config ref="introduct"></UE>
       </el-form-item>
+      <el-form-item label="副作用及并发症标题" prop="sideEffectTitle">
+        <el-input v-model="form.sideEffectTitle"></el-input>
+      </el-form-item>
       <el-form-item label="副作用及并发症" prop="sideEffect">
         <UE id = "sideEffect" :defaultMsg="form.sideEffect" :config=config ref="sideEffect"></UE>
+      </el-form-item>
+      <el-form-item label="耐药性标题" prop="resistantTitle">
+        <el-input v-model="form.resistantTitle"></el-input>
       </el-form-item>
       <el-form-item label="耐药性" prop="resistant">
         <UE id = "resistant" :defaultMsg="form.resistant" :config=config ref="resistant"></UE>
@@ -40,12 +49,23 @@
       <el-form-item label="药品图片">
         <FileUploader :httpRequest="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="6"></FileUploader>
       </el-form-item>
-      <el-form-item label="治疗药物:">
+      <el-form-item label="相关药品:">
         <el-select v-model="form.reMedicineIds" value-key="id" multiple
                    filterable
                    reserve-keyword
                    placeholder="请输入关键词">
           <el-option v-for="item in relMedicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="相关新闻:">
+        <el-select v-model="form.newsArticleIds" value-key="id" multiple
+                   filterable
+                   reserve-keyword
+                   remote
+                   :remote-method="articleRemoteMethod"
+                   placeholder="请输入关键词"
+                   :loading="loading">
+          <el-option v-for="item in articles" :key="item.id" :value="item.id" :label="item.title"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -58,6 +78,7 @@
 
 <script>
     import medicine_api from '@/api/medicine'
+    import articlesApi from '@/api/articles'
     import { uploadFile } from '@/utils/ali-upload'
     import FileUploader from '@/components/FileUploader'
     import UE from '@/components/ue.vue'
@@ -70,6 +91,8 @@
       },
       data() {
         return {
+          articles: [],
+          loading: false,
           imageFile: [],
           isUpdate: false,
           config: {
@@ -153,6 +176,22 @@
               this.$message.error('信息不全')
             }
           })
+        },
+        articleRemoteMethod(query) {
+          if (query !== '') {
+            this.loading = true
+            setTimeout(() => {
+              this.loading = false
+              articlesApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { title: query }}).then(data => {
+                this.articles = data.obj.records
+              }).catch(err => {
+                console.log(err)
+                this.$message.warning(err.msg)
+              })
+            }, 200)
+          } else {
+            this.options = []
+          }
         },
         onImageChange0(file, fileList) {
           this.imageFile = fileList
