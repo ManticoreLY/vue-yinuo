@@ -100,8 +100,8 @@ service.interceptors.response.use(
     if (error.response.status && (error.response.status === 401 || error.response.status === 503)) {
       // 需要重新登录
       Message({
-        message: 'TOKEN已过期,请重新登录',
-        type: 'warning',
+        message: '当前登录已过期,请重新登录!',
+        type: 'error',
         duration: 5 * 1000
       })
       router.push({ path: '/login' })

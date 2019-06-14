@@ -61,5 +61,5 @@
   #navmenu{overflow-x: hidden !important;width: 100%;height: 100%;}
   #navmenu::-webkit-scrollbar {display:none}
   >>> .el-menu{width: 100%;height: 100%}
-  >>> .el-submenu .el-menu-item{min-width: 180px}
+  >>> .el-submenu .el-menu-item{width: 200px}
 </style>
