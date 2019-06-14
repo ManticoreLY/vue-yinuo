@@ -97,7 +97,7 @@ service.interceptors.response.use(
   //     }
   error => {
     console.log('err' + error)// for debug
-    if (error.response.status === 401 || error.response.status === 503) {
+    if (error.response.status && (error.response.status === 401 || error.response.status === 503)) {
       // 需要重新登录
       Message({
         message: 'TOKEN已过期,请重新登录',

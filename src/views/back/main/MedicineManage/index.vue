@@ -12,7 +12,7 @@
             </el-form>
             <el-table :data="dataList" :default-sort="{ prop: 'index', type: 'ascending' }">
                 <el-table-column label="ID" prop="id"></el-table-column>
-                <el-table-column label="序号" prop="indexNo"></el-table-column>
+                <!--<el-table-column label="序号" prop="indexNo"></el-table-column>-->
                 <el-table-column label="药品名称" prop="name"></el-table-column>
                 <el-table-column label="简介" prop="shotIntroduct"></el-table-column>
                 <el-table-column label="药品说明" prop="string"></el-table-column>
@@ -23,7 +23,7 @@
                         <el-button type="danger" size="small">删除</el-button>
                     </template>
                 </el-table-column>
-            </el-table>     
+            </el-table>
         </div>
       <el-dialog :title="formTitle" :visible.sync="formVisible" @before-close="handleClose" width="40%">
         <medicine-edit ref="editForm" @close="handleClose"></medicine-edit>
@@ -75,7 +75,7 @@
           this.formVisible = true
           this.formTitle = '药品管理-编辑'
           this.$nextTick(() => {
-            this.$refs['form'].initData(item)
+            this.$refs['editForm'].initData(item)
           })
         },
         queryKey() {
@@ -87,7 +87,7 @@
         },
         handleClose() {
           this.formVisible = false
-          this.$refs['form'].resetFields()
+          this.$refs['editForm'].clearForm()
           this.initPage()
         }
       }

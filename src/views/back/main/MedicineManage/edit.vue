@@ -1,23 +1,52 @@
 <template>
   <div>
     <el-form ref="form" label-width="120px" :model="form" :rules="rules">
-      <el-form-item label="序号" prop="indexNo">
-        <el-input-number v-model="form.indexNo" style="width: 240px;"></el-input-number>
-      </el-form-item>
+      <!--<el-form-item label="序号" prop="indexNo">-->
+        <!--<el-input-number v-model="form.indexNo" style="width: 240px;"></el-input-number>-->
+      <!--</el-form-item>-->
       <el-form-item label="药品名称" prop="name">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="药品简称" prop="name">
         <el-input v-model="form.shotName"></el-input>
       </el-form-item>
       <el-form-item label="药品英文名" prop="foreignName">
         <el-input v-model="form.foreignName"></el-input>
       </el-form-item>
-      <el-form-item label="特性" prop="spec">
-        <el-input type="textarea" :col="3" v-model="form.spec"></el-input>
+      <el-form-item label="品牌" prop="make">
+        <el-input v-model="form.make"></el-input>
+      </el-form-item>
+      <el-form-item label="剂型" prop="form">
+        <el-input v-model="form.form"></el-input>
       </el-form-item>
       <el-form-item label="单位" prop="unit">
-        <el-input type="textarea" :col="3" v-model="form.unit"></el-input>
+        <el-input v-model="form.unit"></el-input>
       </el-form-item>
-      <el-form-item label="药品说明" prop="introduct">
-        <el-input v-model="form.introduct" type="textarea" :col="4"  maxlength="500" show-word-limit></el-input>
+      <el-form-item label="规格" prop="spec">
+        <el-input v-model="form.spec"></el-input>
+      </el-form-item>
+      <el-form-item label="药品短简介" prop="shotIntroduct">
+        <el-input v-model="form.shotIntroduct" type="textarea" :col="4"  maxlength="100" show-word-limit></el-input>
+      </el-form-item>
+      <el-form-item label="药品简介" prop="introduct">
+        <UE id = "introduct" :defaultMsg="form.introduct" :config=config ref="introduct"></UE>
+      </el-form-item>
+      <el-form-item label="副作用及并发症" prop="sideEffect">
+        <UE id = "sideEffect" :defaultMsg="form.sideEffect" :config=config ref="sideEffect"></UE>
+      </el-form-item>
+      <el-form-item label="耐药性" prop="resistant">
+        <UE id = "resistant" :defaultMsg="form.resistant" :config=config ref="resistant"></UE>
+      </el-form-item>
+      <el-form-item label="药品图片">
+        <FileUploader :httpRequest="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="6"></FileUploader>
+      </el-form-item>
+      <el-form-item label="治疗药物:">
+        <el-select v-model="form.reMedicineIds" value-key="id" multiple
+                   filterable
+                   reserve-keyword
+                   placeholder="请输入关键词">
+          <el-option v-for="item in relMedicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveForm">保存</el-button>
@@ -29,18 +58,34 @@
 
 <script>
     import medicine_api from '@/api/medicine'
+    import { uploadFile } from '@/utils/ali-upload'
+    import FileUploader from '@/components/FileUploader'
+    import UE from '@/components/ue.vue'
+
     export default {
       name: 'edit',
+      components: {
+        FileUploader,
+        UE
+      },
       data() {
         return {
+          imageFile: [],
           isUpdate: false,
+          config: {
+            initialFrameWidth: null,
+            initialFrameHeight: 350
+          },
           form: {
             indexNo: null,
             shotName: '',
             foreignName: '',
             spec: '',
             unit: '',
-            introduct: ''
+            introduct: '',
+            sideEffect: '',
+            resistant: '',
+            reMedicineIds: []
           },
           rules: {
             name: [
@@ -49,8 +94,18 @@
             message: [
               { required: true, trigger: 'blur', message: '请输入药品说明' }
             ]
-          }
+          },
+          relMedicines: [],
+          diseases: []
         }
+      },
+      created() {
+        this.$store.dispatch('getAllMedicines').then(data => {
+          this.relMedicines = data
+        })
+        this.$store.dispatch('getAllDiseases').then(data => {
+          this.diseases = data
+        })
       },
       methods: {
         initData(item) {
@@ -59,10 +114,24 @@
           }).catch(err => {
             console.log(err)
           })*/
-          this.form = Object.assign({}, item)
-          this.isUpdate = true
+          medicine_api.getFullOne(item.id).then(data => {
+            this.form = Object.assign({}, data.obj)
+            this.imageFile = []
+            if (this.form.image) {
+              var imageUrlList = this.form.image.split(',')
+              for (var j in imageUrlList) {
+                this.imageFile.push({
+                  url: imageUrlList[j]
+                })
+              }
+            }
+            this.isUpdate = true
+          })
         },
         saveForm() {
+          this.form.introduct = this.$refs.introduct.getUEContent()
+          this.form.sideEffect = this.$refs.sideEffect.getUEContent()
+          this.form.resistant = this.$refs.resistant.getUEContent()
           this.$refs['form'].validate((valid) => {
             if (valid) {
               if (this.isUpdate) {
@@ -80,14 +149,37 @@
                   console.log(err)
                 })
               }
+            } else {
+              this.$message.error('信息不全')
             }
-          }).catch(() => {
-            this.$message.error('信息不全')
           })
+        },
+        onImageChange0(file, fileList) {
+          this.imageFile = fileList
+          var urlList = []
+          for (var idx in fileList) {
+            if (fileList[idx].response) {
+              urlList.push(fileList[idx].response.url)
+            }
+          }
+          this.form.image = urlList.join(',')
+        },
+        fileUploadRequest(option) {
+          uploadFile(
+            option.file,
+            res => {
+              option.onSuccess(res)
+            },
+            err => {
+              console.log(err)
+            })
         },
         resetForm() {
           this.$refs['form'].resetFields()
           this.$emit('close')
+        },
+        clearForm() {
+          this.$refs['form'].resetFields()
         }
       }
     }

@@ -20,7 +20,7 @@
 
 <script>
   import store from '@/store'
-  // import UserApi from '@/api/user'
+  import UserApi from '@/api/user'
   // import DiseaseApi from '@/api/disease'
   export default {
     name: 'index',
@@ -43,10 +43,14 @@
     methods: {
       toLogin() {
         if (this.form.signName && this.form.password) {
-          store.dispatch('login', this.form).then(() => {
-            this.$router.push('/user')
-          }).catch(err => {
-            console.log(err)
+          UserApi.login(this.form).then(data => {
+            if (data.result) {
+              store.dispatch('login', data.obj).then(() => {
+                this.$router.push('/user')
+              })
+            } else {
+              this.$message.warning(data.msg)
+            }
           })
         }
       },
