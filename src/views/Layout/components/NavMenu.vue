@@ -12,7 +12,7 @@
           <template slot="title">{{ item.name }}</template>
           <el-menu-item-group>
             <router-link v-for="childMenu in item.children" :key="childMenu" v-if="!childMenu.hidden" :to="{ path: pathResolve(item.path, childMenu.path) }">
-              <el-menu-item :index="pathResolve(item.path, childMenu.path)">{{ childMenu.name }}</el-menu-item>
+              <el-menu-item :index="pathResolve(item.path, childMenu.path)" style="width: 180px">{{ childMenu.name }}</el-menu-item>
             </router-link>
           </el-menu-item-group>
         </el-submenu>
@@ -58,5 +58,8 @@
 </script>
 
 <style scoped>
-  #navmenu{overflow-x: hidden!important;}
+  #navmenu{overflow-x: hidden !important;width: 100%;height: 100%;}
+  #navmenu::-webkit-scrollbar {display:none}
+  >>> .el-menu{width: 100%;height: 100%}
+  >>> .el-submenu .el-menu-item{min-width: 180px}
 </style>

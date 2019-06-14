@@ -10,11 +10,15 @@
       <div class="main" style="border:none">
         <div class="main-item" v-for="(item, index) in tableList" :key="index">
           <div class="img">
-            <el-image :src="item.abstractImg" :fit="fit"></el-image>
+            <el-image :src="item.abstractImg" :fit="fit" style="width: 200px"></el-image>
           </div>
           <div class="cont">
-            <div class="title"><router-link tag="a" target="_blank" :to="'/articleInfo/'+item.id"  >{{ item.title }}</router-link></div>
-            <div class="info">{{ item.abstractText }}</div>
+            <div class="title">
+              <router-link tag="a" target="_blank" :to="'/articleInfo/'+item.id"  >{{ item.title }}</router-link>
+            </div>
+            <div class="info">{{ item.abstractText }}
+              <router-link tag="a" target="_blank" :to="'/articleInfo/'+item.id"  ><span style="color:red;font-size: initial">【详情】</span></router-link>
+            </div>
             <div class="foot">
               作者：{{item.author}}&nbsp;&nbsp;&nbsp;&nbsp;
               时间：{{item.updatedDt}}
