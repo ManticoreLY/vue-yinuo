@@ -1,18 +1,15 @@
 <template>
     <div class="cure-case">
-      <div class="bg">
-        <el-image :src="img_url" :fit="fill"></el-image>
-      </div>
       <div class="nav">当前位置：
         <router-link :to="'/'">医诺寰宇海外医疗</router-link>
          >
-        <router-link :to="'/cases'">医疗案例</router-link>
-         >
+        <router-link :to="'/'">首页疾病导航</router-link>
+         > 二型糖尿病
       </div>
       <div class="content">
         <div class="main">
-          <div class="main-title">医疗案例</div>
-          <div class="main-case" v-for="item in cases" :key="item">
+          <div class="main-title">二型糖尿病药物</div>
+          <div class="main-case" v-for="item in items_info" :key="item">
             <div class="img">
               <el-image :src="item.img" :fit="contain"></el-image>
             </div>
@@ -51,7 +48,7 @@
     data() {
       return {
         img_url: 'static/img/info/banner_patientStory.png',
-        cases: [
+        items_info: [
           { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
             date: '2019-04-18',
             title: '丙肝患者吉三代治疗后超敏丙肝病毒量检查低于检测下限',
@@ -89,8 +86,8 @@
   .content .main .main-title{width: 90%;height: 4rem;line-height: 4rem;padding: 5px 5%;border-bottom: 1px solid #eee;font-size: 1.5rem;font-weight: 600}
   .content .main .main-case{width: initial;padding:10px;border-bottom: 1px dotted #eee;min-height: 150px;
     display: inline-flex;flex-flow: row nowrap; align-items: flex-start;align-content: stretch;justify-content: space-between}
-  .content .main .main-case .img{width: 25%;}
-  .content .main .main-case .cont{width: 70%;}
+  .content .main .main-case .img{width: 30%;}
+  .content .main .main-case .cont{width: 60%;}
   .content .main .main-case .cont .title{position: relative;height: 4rem;line-height: 4rem;font-size: 1.5rem;font-weight: 600;}
   .content .main .main-case .cont .title span{font-size: 1.25rem;color: #5a5a5a;display: block;float:right;margin-right: 15px;}
   .content .main .main-case .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;}

@@ -4,7 +4,7 @@
              text-color="#bfcbd9"
              active-text-color="#409EFF"
              @open="handleOpen">
-      <template v-for="item in menus" v-show="!item.hidden">
+      <template v-for="item in menus" v-if="hasRole(item) && isShow(item)">
         <router-link v-if="hasOneChildrenOption(item)" :to="{ path: pathResolve(item.path, item.children[0].path)}">
           <el-menu-item :index="pathResolve(item.path, item.children[0].path)">{{ item.name }}</el-menu-item>
         </router-link>
@@ -22,23 +22,42 @@
 </template>
 
 <script>
-    // import { mapGetters } from 'vuex'
+    import store from '@/store'
     import yinuo from '@/router/yinuo'
 
     export default {
       name: 'NavMenu',
       data() {
-        return {}
+        return {
+          role: 'user'
+        }
       },
       computed: {
         menus() {
           return yinuo
         }
       },
+      beforeCreate() {
+        store.dispatch('userInfo').then(user => {
+          this.role = user.type === 0 ? 'admin' : 'user'
+        })
+      },
       methods: {
+        isShow(route) {
+          if (this.hasOneChildrenOption(route)) {
+            return !route.children[0].hidden
+          }
+          return true
+        },
+        hasRole(route) {
+          if (route.meta) {
+            return route.meta.indexOf(this.role) > -1
+          }
+          return true
+        },
         hasOneChildrenOption(item) {
           const children = item.children.filter(item => !item.hidden)
-          if (children.length === 1) {
+          if (children.length === 1 || item.children.length === 1) {
             return true
           }
           return false
