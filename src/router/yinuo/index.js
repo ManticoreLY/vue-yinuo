@@ -7,7 +7,8 @@ export default [
     name: '首页配置',
     children: [
       { path: 'NavBanner', name: '导航配置', component: () => import('@/views/back/main/DashboardSetting/NavBanner') },
-      { path: 'diseaseBase', name: '疾病库', component: () => import('@/views/back/main/DashboardSetting/DiseaseDatabase') },
+      { path: 'diseaseBase', name: '常见疾病库', component: () => import('@/views/back/main/DashboardSetting/DiseaseDatabase') },
+      { path: 'diseaseItem', name: '疾病专栏', component: () => import('@/views/back/main/DashboardSetting/DiseaseItems') },
       { path: 'brand', name: '品牌实力', component: () => import('@/views/back/main/DashboardSetting/brand') },
       { path: 'friendLink', name: '友情链接', component: () => import('@/views/back/main/DashboardSetting/friendLink') },
       { path: 'newsReport', name: '新闻报道', component: () => import('@/views/back/main/DashboardSetting/ReportSetting') },

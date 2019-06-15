@@ -108,10 +108,10 @@
 </script>
 
 <style scoped>
-.content .main .main-item .cont{position: relative;height: 100%}
+.content .main .main-item .cont{position: relative;height: 100%;width: 100%}
 .content .main .main-item .cont .title{position: relative;height: 4rem;padding:0 10px;line-height: 4rem;font-size: 1.5rem;font-weight: 600;}
 .content .main .main-item .cont .info{position: relative;padding:0 10px;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;text-indent: 3rem;}
-.content .main .main-item .cont .foot{position:relative;width:100%;margin-top:20px;height: 1rem;line-height: 1rem;padding: 0 10px;bottom: 0; left: 0;right: 0;font-size: 1rem;color: #686868;}
+.content .main .main-item .cont .foot{position:relative;margin-top:20px;height: 1rem;line-height: 1rem;padding: 0 10px;bottom: 0; left: 0;right: 0;font-size: 1rem;color: #686868;}
 .content .right .words{position:relative;height: 100%}
 .content .right .words .word-name{padding-bottom: 1rem;font-size: 1.75rem;border-bottom: 1px solid #eee;}
 .content .right .words .word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
