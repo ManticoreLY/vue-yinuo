@@ -40,7 +40,6 @@
       this.ctx = this.cancas.getContext('2d')
       this.ctx.font = `${this.fontSize}px Microsoft Yahei`// '16px Microsoft Yahei'
       this.ctx.fillStyle = `${this.fontColor}`
-      debugger
       if (this.words) {
         this.start(this.cancas.width)
       }
@@ -77,7 +76,9 @@
       }
     },
     watch: {
-      words: 'start'
+      words() {
+        this.start(this.cancas.width)
+      }
     }
   }
 </script>
