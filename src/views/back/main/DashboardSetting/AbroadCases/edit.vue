@@ -36,8 +36,9 @@
           }
         },
         abroadCases: {
+          id: null,
           name: '',
-          treatmentCaseId: ''
+          treatmentCaseId: null
         },
         treatmentCases: [],
         isUpdate: false,
@@ -56,6 +57,11 @@
       })
     },
     methods: {
+      addForm(entity) {
+        this.isUpdate = false
+        this.abroadCases.id = null
+        this.abroadCases.treatmentCaseId = null
+      },
       editForm(entity) {
         this.isUpdate = true
         this.abroadCases = Object.assign(this.abroadCases, entity)

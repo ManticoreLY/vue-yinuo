@@ -96,10 +96,15 @@
         })
       },*/
       addNew() {
+        debugger
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
+        debugger
         this.formTitle = '编辑'
         this.editFormVisible = true
         this.$nextTick(() => {
@@ -111,6 +116,7 @@
           TCApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
+            this.handleFormClose()
           }).catch(err => {
             console.log(err)
             this.$message.warning('操作失败')

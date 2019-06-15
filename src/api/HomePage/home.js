@@ -14,6 +14,13 @@ export default {
       method: 'GET'
     })
   },
+  treatmentCase() {
+    const url = '/front/home/treatmentCase'
+    return request({
+      url,
+      method: 'GET'
+    })
+  },
   newsReport() {
     const url = '/front/home/newsReport'
     return request({

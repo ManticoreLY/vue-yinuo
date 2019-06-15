@@ -1,13 +1,13 @@
 <template>
     <div style="margin: 20px 0">
       <div class="web-content">
-        <div v-for="item in 8" :key="item" class="example-item">
+        <div v-for="item in treatmentCase" :key="item" class="example-item">
           <div>
-            <el-image src="" style="height: 100%;width: 100%"></el-image>
+            <el-image :src="item.img" style="height: 100%;width: 100%"></el-image>
           </div>
           <div>
-            <div style="font-size: 1.75rem;height:3rem;">丙肝治疗实例</div>
-            <div style="font-size: 1.25rem;color: #7f7f7f;word-wrap: break-word;white-space: pre-wrap">某患者罹患丙肝15年,经过治疗现在已经全体康复.某患者罹患丙肝15年,经过治疗现在已经全体康复.</div>
+            <div style="font-size: 1.75rem;height:3rem;">{{item.title}}</div>
+            <div style="font-size: 1.25rem;color: #7f7f7f;word-wrap: break-word;white-space: pre-wrap">{{item.description}}</div>
           </div>
         </div>
       </div>
@@ -18,12 +18,23 @@
 </template>
 
 <script>
+    import home from '@/api/Homepage/home'
     export default {
       name: 'ExampleItem',
+      data() {
+        return {
+          treatmentCase: []
+        }
+      },
       methods: {
         getMore() {
           this.$router.push({ path: '/cases' })
         }
+      },
+      created() {
+        home.treatmentCase().then(data => {
+          this.treatmentCase = data.obj
+        })
       }
     }
 </script>
