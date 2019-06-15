@@ -2,17 +2,21 @@
   <div class="layout">
     <nav-menu class="menu"></nav-menu>
     <div class="right">
-      <nav-bar class="navbar"/>
-      <main-content class="page"></main-content>
+      <keep-alive>
+        <nav-bar class="navbar"/>
+      </keep-alive>
+      <div class="page">
+        <router-view/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { NavMenu, MainContent, NavBar } from './components'
+  import { NavMenu, NavBar } from './components'
   export default {
     name: 'index',
-    components: { NavMenu, MainContent, NavBar }
+    components: { NavMenu, NavBar }
   }
 </script>
 

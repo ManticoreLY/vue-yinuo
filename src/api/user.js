@@ -15,6 +15,12 @@ const user = {
       method: 'POST',
       data: user
     })
+  },
+  getUserInfo() {
+    return request({
+      url: 'api/users/me',
+      method: 'GET'
+    })
   }
 }
 

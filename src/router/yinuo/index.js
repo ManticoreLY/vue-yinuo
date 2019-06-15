@@ -1,4 +1,5 @@
 import Layout from '@/views/layout'
+// import store from '@/store'
 
 export default [
   {
@@ -31,8 +32,9 @@ export default [
     path: '/user',
     component: Layout,
     name: '用户管理',
+    meta: ['admin'],
     children: [
-      { path: '', name: '用户管理', component: () => import('@/views/back/main/user/index') }
+      { path: '', name: '用户管理', component: () => import('@/views/back/main/user/index'), hidden: true }
     ]
   },
   {
@@ -85,3 +87,4 @@ export default [
     ]
   }
 ]
+

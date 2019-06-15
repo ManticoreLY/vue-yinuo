@@ -46,6 +46,7 @@
           UserApi.login(this.form).then(data => {
             if (data.result) {
               store.dispatch('login', data.obj).then(() => {
+                store.dispatch('userInfo')
                 this.$router.push('/user')
               })
             } else {

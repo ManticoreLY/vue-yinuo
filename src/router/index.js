@@ -21,6 +21,7 @@ export const asyncRouterMap = [
       { path: 'news', component: () => import('@/views/web/MedicalNews') },
       { path: 'news/channel/:id', component: () => import('@/views/web/MedicalNews') },
       { path: 'articleInfo/:id', component: () => import('@/views/web/MedicalNews/info') },
+      { path: 'navItemInfo', component: () => import('@/views/web/NavItemInfo') },
       { path: 'about', component: () => import('@/views/web/about') }
     ]
   },
