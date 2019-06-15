@@ -12,7 +12,7 @@
       <el-table :data="tableList">
         <el-table-column type="expand">
           <template slot-scope="scope">
-            <img v-for="(img, index) in scope.row.img.split(',')" :key="index" :src="img" style="width: 300px;">
+            <img  :src="scope.row.img" style="width: 300px;">
           </template>
         </el-table-column>
         <el-table-column label="案例名称" prop="name"></el-table-column>
@@ -60,7 +60,7 @@
         page: {},
         name: '',
         tableList: [],
-        formTitle: [],
+        formTitle: '',
         editFormVisible: false
       }
     },

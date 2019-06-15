@@ -54,7 +54,7 @@
           </div>
           <div class="info-display">
             <div style="width: 20%">
-              <el-image :src="img_url" :fit="fit" width="30rem" height="20rem"></el-image>
+              <el-image :src="img_url" :fit="'fit'" width="30rem" height="20rem"></el-image>
             </div>
             <div style="width: 75%">
               <p v-for="article in medicine.newsArticles" :key="article.id">

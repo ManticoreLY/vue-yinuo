@@ -26,7 +26,7 @@
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 1.375rem;color: #545454">{{drugDbObj.describe}}</div>
         <div class="list">
           <div class="item" v-for="(item,diseaseIndex) in drugDbObj.drugDbDiseaseList" :key="diseaseIndex">
-            <el-image :src="item.disease.icon" :fit="fit" style="float:left"></el-image>
+            <el-image :src="item.disease.icon" :fit="'fit'" style="float:left"></el-image>
             <div class="name">
               <div>{{ item.disease.name }}</div>
               <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>

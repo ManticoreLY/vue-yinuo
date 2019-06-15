@@ -1,7 +1,7 @@
 <template>
     <div class="cure-case">
       <div class="bg">
-        <el-image :src="img_url" :fit="fill"></el-image>
+        <el-image :src="img_url" :fit="'fill'"></el-image>
       </div>
       <div class="nav">当前位置：
         <router-link :to="'/'">医诺寰宇海外医疗</router-link>
@@ -12,13 +12,13 @@
       <div class="content">
         <div class="main">
           <div class="main-title">医疗案例</div>
-          <div class="main-case" v-for="item in cases" :key="item">
+          <div class="main-case" v-for="item in cases" :key="item.id">
             <div class="img">
-              <el-image :src="item.img" :fit="contain"></el-image>
+              <el-image :src="item.img" :fit="'contain'"></el-image>
             </div>
             <div class="cont">
-              <div class="title">{{item.title}}<span>更新时间：{{item.date}}</span></div>
-              <div class="info">{{item.content}}...<a style="color:red">【详情】</a></div>
+              <div class="title">{{item.title}}<span>更新时间：{{item.updatedDt}}</span></div>
+              <div class="info">{{item.describe}}...<a style="color:red">【详情】</a></div>
             </div>
           </div>
           <div class="pagination">
@@ -26,19 +26,21 @@
               small
               prev-text="上一页"
               next-text="下一页"
-              layout="prev, pager, next"
-              :total="150">
+              :current-page="page.current"
+              :page-size="page.size"
+              :total="page.total"
+              layout="prev, pager, next">
             </el-pagination>
           </div>
         </div>
         <div class="right">
           <div class="words">
             <div class="word-name">最新文章</div>
-            <div class="word-title" v-for="word in latest_words" :key="word">{{word}}</div>
+            <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
           </div>
           <div class="words">
             <div class="word-name">本周热门文章</div>
-            <div class="word-title" v-for="word in latest_words" :key="word">{{word}}</div>
+            <div class="word-title" v-for="(article,index) in articleInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
           </div>
         </div>
       </div>
@@ -46,35 +48,40 @@
 </template>
 
 <script>
+  import CaseApi from '@/api/casesFront'
+  import ArticlesApi from '@/api/articlesFront'
   export default {
     name: 'index',
     data() {
       return {
         img_url: 'static/img/info/banner_patientStory.png',
-        cases: [
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: '丙肝患者吉三代治疗后超敏丙肝病毒量检查低于检测下限',
-            content: '丙肝客户服用吉三代1月做的超敏丙肝病毒量检查低于检测下限，恭喜效果很好.'
-          },
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: '丙肝患者服用吉三代6周后病毒量转阴',
-            content: '早上收到的好消息，服用丙肝吉三代之前病毒量有10的7次方，服用6周病毒量转阴，效果杠杠的'
-          },
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: 'L女士干扰素治疗丙肝复发使用吉三代痊愈',
-            content: 'L女士，2月28日咨询丙肝，当天下午签单。 　　7年前打干扰素治疗丙肝，后期复发。 　　现服用吉三代1月做的超敏丙肝病毒量检查低于检测限，病毒量已转阴，服用效果很好。恭喜恭喜'
-          },
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: '抚州市H先生使用吉三代12周转阴',
-            content: '抚州H先生，男性，47周岁，2018-08-01检测HCV-RNA为4.30x106IU/ml（图1），经咨询康安途后使用Mylan产吉三代治疗12周后，于2018-12-01复查高灵敏度丙肝RNA阴性（图2）'
+        cases: [],
+        articleInfo: {},
+        query: {
+          pageObj: {
+            current: 1,
+            size: 10
           }
-        ],
+        },
+        page: {},
         latest_words: ['西达本胺能延缓乳腺癌内分泌治疗..', '吉西他滨与奥沙利铂辅助治疗胆管..', '病毒性丙肝发展到肝癌需要多久？', '阿格列汀治疗糖尿病患者的疗效怎',
           '糖尿病药曲格列汀治疗时要注意哪', '仑伐替尼瑞戈非尼是治疗原发肝癌..', '晚期肺癌患者一线用药是先选择AZ..', '饭后血糖超20的患者除了吃曲格列']
+      }
+    },
+    mounted() {
+      this.search()
+    },
+    methods: {
+      search() {
+        CaseApi.queryPage(this.query).then(data => {
+          this.page = Object.assign(this.page, data.obj)
+          this.cases = data.obj.records
+        }).catch(err => {
+          console.log(err)
+        })
+        ArticlesApi.findFrontInfo(0).then(data => {
+          this.articleInfo = data.obj
+        })
       }
     }
   }
