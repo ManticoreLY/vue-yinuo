@@ -11,31 +11,34 @@
           <div class="main-title">二型糖尿病药物</div>
           <div class="main-case" v-for="item in items_info" :key="item">
             <div class="img">
-              <el-image :src="item.img" :fit="contain"></el-image>
+              <el-image :src="item.img" :fit="'contain'"></el-image>
             </div>
             <div class="cont">
-              <div class="title">{{item.title}}<span>更新时间：{{item.date}}</span></div>
-              <div class="info">{{item.content}}...<a style="color:red">【详情】</a></div>
+              <div class="title">{{item.name}}</div>
+              <div class="tags">
+                <el-tag size="small" class="style1">二型糖尿病</el-tag>
+                <el-tag size="small" class="style2">一周一次口服</el-tag>
+                <el-tag size="small" class="style3">低血糖发生率低</el-tag>
+              </div>
+              <div class="info"><span style="font-weight: 600">药品特性: </span>{{item.spec}}</div>
+              <div class="info"><span style="font-weight: 600">药品简介: </span>{{item.intro}}<a style="color:#008aff">...【详情】</a></div>
+              <div class="info" style="font-weight: 600">更多信息请见详细介绍，或咨询康安途医学顾问：4006120152。</div>
             </div>
-          </div>
-          <div class="pagination">
-            <el-pagination
-              small
-              prev-text="上一页"
-              next-text="下一页"
-              layout="prev, pager, next"
-              :total="150">
-            </el-pagination>
           </div>
         </div>
         <div class="right">
           <div class="words">
-            <div class="word-name">最新文章</div>
-            <div class="word-title" v-for="word in latest_words" :key="word">{{word}}</div>
+            <div class="word-name">相关链接</div>
+            <div class="word-icon">
+              <el-button size="small" v-for="word in link_words" :key="word" style="margin: 5px;padding: 5px 10px; border-radius: 15px">{{word}}</el-button>
+            </div>
           </div>
           <div class="words">
-            <div class="word-name">本周热门文章</div>
-            <div class="word-title" v-for="word in latest_words" :key="word">{{word}}</div>
+            <div class="word-name">相关文章</div>
+            <div  class="word-title" v-for="word in link_articles" :key="word.id" style="margin: 5px;padding: 5px 10px; border-radius: 15px">
+              <p>{{word.title}}</p>
+              <p style="width: 100%;text-align: right">{{word.date}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -49,29 +52,24 @@
       return {
         img_url: 'static/img/info/banner_patientStory.png',
         items_info: [
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: '丙肝患者吉三代治疗后超敏丙肝病毒量检查低于检测下限',
-            content: '丙肝客户服用吉三代1月做的超敏丙肝病毒量检查低于检测下限，恭喜效果很好.'
+          { img: 'https://www.kangantu.com/uploads/180322/1-1P3221559235T.jpg',
+            intro: '适用于2型糖尿病患者，当一线使用二甲双胍治疗未达到预期的血糖控制目标时',
+            name: '曲格列汀/trelagliptin/Zafatek',
+            spec: '曲格列汀(trelagliptin)是目前全球首个一周一次口服给药的 DPP-4 抑制剂，最大优势是一周给药一次，且无严重不良反应，可显著提高患者的治疗依从性。与其他治疗相比，使用曲格列汀治疗的费用更低，药效持久，用药次数更少，可在每周周末服药即可，且用药期间检查随访次数少。与每天一次的阿格列汀（另外一种DPP-4抑制剂）相比，使用曲格列汀的患者的治疗满意度和生活质量更高。除降糖作用强外，还具有改善胰岛功能、不增加体重以及低血糖事件发生率低等优点。'
           },
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: '丙肝患者服用吉三代6周后病毒量转阴',
-            content: '早上收到的好消息，服用丙肝吉三代之前病毒量有10的7次方，服用6周病毒量转阴，效果杠杠的'
-          },
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: 'L女士干扰素治疗丙肝复发使用吉三代痊愈',
-            content: 'L女士，2月28日咨询丙肝，当天下午签单。 　　7年前打干扰素治疗丙肝，后期复发。 　　现服用吉三代1月做的超敏丙肝病毒量检查低于检测限，病毒量已转阴，服用效果很好。恭喜恭喜'
-          },
-          { img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
-            date: '2019-04-18',
-            title: '抚州市H先生使用吉三代12周转阴',
-            content: '抚州H先生，男性，47周岁，2018-08-01检测HCV-RNA为4.30x106IU/ml（图1），经咨询康安途后使用Mylan产吉三代治疗12周后，于2018-12-01复查高灵敏度丙肝RNA阴性（图2）'
+          { img: 'https://www.kangantu.com/uploads/180322/1-1P3221605043V.jpg',
+            intro: 'Empagliflozin是一种钠离子-葡萄糖协同转运体2（SGLT2）的抑制剂，适用于：（1）与运动和饮食协同，改善成年人2型糖尿病的血糖控制。（2）减少2型糖尿病伴明确的心血管疾病的成年人的心血管死亡风险。',
+            name: '恩格列净/empagliflozin/Jardiance',
+            spec: '恩格列净是唯一的一个可降低心血管并发症，降低心血管死亡风险的口服2型糖尿病药。（1）明显降低糖尿病患者心血管死亡风险 （2）降低血糖和血红蛋白 （3）降低患者因心衰住院的相对风险 （4）降低患者因任何原因发生死亡的风险 （5）可减轻体重 （6）可降低血压 （7）与其他降糖药相比，副作用无明显增加 （8）一日只需一片'
           }
         ],
-        latest_words: ['西达本胺能延缓乳腺癌内分泌治疗..', '吉西他滨与奥沙利铂辅助治疗胆管..', '病毒性丙肝发展到肝癌需要多久？', '阿格列汀治疗糖尿病患者的疗效怎',
-          '糖尿病药曲格列汀治疗时要注意哪', '仑伐替尼瑞戈非尼是治疗原发肝癌..', '晚期肺癌患者一线用药是先选择AZ..', '饭后血糖超20的患者除了吃曲格列']
+        link_articles: [
+          { title: '恩格列净/欧唐静能为糖尿病患者带来哪些益处？', date: '2019-04-26', id: '' },
+          { title: '饭后血糖超20的患者除了吃曲格列汀(Zafatek)还要吃什么？', date: '2019-04-26', id: '' },
+          { title: '恩格列净/恩格列净是糖尿病患者一种经济有效的治疗方案？', date: '2019-04-26', id: '' },
+          { title: '恩格列净/恩格列净(JARDIANCE)在T2DM患者中极具成本效果？', date: '2019-04-26', id: '' }
+        ],
+        link_words: ['吉三代', 'AZD9291', 'PD-1', '格列卫', '特罗凯', '易瑞沙', '索非布韦', '多吉美舒', '尼替尼Vemlidy', '吉四代', '瑞格菲尼', '阿比特龙', '恩格列净', '赛可瑞', '吉二代', '曲格列汀', '依鲁替尼', '阿法替尼', '阿比特龙', '克唑替尼']
       }
     }
   }
@@ -86,13 +84,16 @@
   .content .main .main-title{width: 90%;height: 4rem;line-height: 4rem;padding: 5px 5%;border-bottom: 1px solid #eee;font-size: 1.5rem;font-weight: 600}
   .content .main .main-case{width: initial;padding:10px;border-bottom: 1px dotted #eee;min-height: 150px;
     display: inline-flex;flex-flow: row nowrap; align-items: flex-start;align-content: stretch;justify-content: space-between}
-  .content .main .main-case .img{width: 30%;}
-  .content .main .main-case .cont{width: 60%;}
+  .content .main .main-case .img{width: 35%;}
+  .content .main .main-case .cont{width: 55%;}
   .content .main .main-case .cont .title{position: relative;height: 4rem;line-height: 4rem;font-size: 1.5rem;font-weight: 600;}
-  .content .main .main-case .cont .title span{font-size: 1.25rem;color: #5a5a5a;display: block;float:right;margin-right: 15px;}
+  .content .main .main-case .cont .tags .style1{margin: 5px;color: #008aff;border: 1px solid #008aff;border-radius: 12px}
+  .content .main .main-case .cont .tags .style2{margin: 5px;color: #1daca4;border: 1px solid #1daca4;border-radius: 12px}
+  .content .main .main-case .cont .tags .style3{margin: 5px;color: #D33146;border: 1px solid #D33146;border-radius: 12px}
   .content .main .main-case .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;}
+  .content .right{width: 20%}
   .content .right .words{min-height: 200px;border: 1px solid #eee;margin-bottom: 20px;padding:15px;}
   .content .right .words>div.word-name{width:initial;border-bottom: 1px solid #eee;height: 4rem;line-height: 4rem;font-size: 1.5rem;font-weight: 600}
-  .content .right .words>div.word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
-      white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
+  .content .right .words>div.word-icon{width:initial;border-bottom: 1px solid #eee;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;}
+  .content .right .words>div.word-title{width:initial;border-bottom: 1px solid #eee;font-size: 1.25rem;color: #5a5a5a;}
 </style>

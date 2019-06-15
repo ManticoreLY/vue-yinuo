@@ -31,7 +31,7 @@
         this.$notify({
           title: '当前用户',
           type: 'info',
-          message: h('div', {}, `姓名: ${this.user.name}`),
+          message: h('div', {}, `角色: ${this.user.type === 0 ? '管理员' : '普通用户'}`),
           duration: 5000
         })
       },
