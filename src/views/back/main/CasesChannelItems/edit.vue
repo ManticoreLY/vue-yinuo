@@ -35,7 +35,7 @@
         this.channelItem = Object.assign(this.channelItem, entity)
       },
       saveForm() {
-        this.channelItem.type = 0
+        this.channelItem.type = 1
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {

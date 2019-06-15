@@ -83,7 +83,7 @@
       },
       saveForm() {
         this.medicalArticle.content = this.$refs.content.getUEContent()
-        this.medicalArticle.type = 0
+        this.medicalArticle.type = 1
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {

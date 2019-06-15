@@ -29,8 +29,8 @@
           <p style="color: #5a5a5a;font-size: 1.15rem;">由本文所表达的关于疾病的建议都不应该被视为医生的建议或替代品, 请咨询您的治疗医生了解更多细节. 本站信息权供参考, 医诺寰球不承担任何责任.</p>
         </div>
         <div class="other-info">
-          <span v-if="articleInfo.prevArticle">上一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.prevArticle.id"  style="color: #005cff">{{articleInfo.prevArticle.title}}</router-link></span>
-          <span v-if="articleInfo.nextArticle">下一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.nextArticle.id"  style="color: #005cff">{{articleInfo.nextArticle.title}}</router-link></span>
+          <span v-if="casesInfo.prevArticle">上一篇: <router-link tag="a" target="_blank" :to="'/casesInfo/'+casesInfo.prevArticle.id"  style="color: #005cff">{{casesInfo.prevArticle.title}}</router-link></span>
+          <span v-if="casesInfo.nextArticle">下一篇: <router-link tag="a" target="_blank" :to="'/casesInfo/'+casesInfo.nextArticle.id"  style="color: #005cff">{{casesInfo.nextArticle.title}}</router-link></span>
         </div>
       </div>
       <div class="right">
@@ -47,11 +47,11 @@
         </div>
         <div class="words">
           <div class="word-name">最新文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
+          <div class="word-title" v-for="(article,index) in casesInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
         </div>
         <div class="words">
           <div class="word-name">本周热门文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
+          <div class="word-title" v-for="(article,index) in casesInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
           author: '',
           abstractImg: ''
         },
-        articleInfo: {},
+        casesInfo: {},
         channels: [],
         items: ['乙肝新闻', '丙肝新闻', '肿瘤新闻', '试管婴儿新闻', '赴美生子新闻', '心脏支架新闻', '眼角膜新闻', 'HPV疫苗新闻', '智能诊疗新闻', '癌症早筛新闻', '海外医疗新闻', '男科新闻', '周边新闻', '糖尿病新闻', '风湿免疫新闻']
       }
@@ -85,9 +85,9 @@
           this.medicalArticle = data.obj
         })
         articleApi.findFrontInfo(this.$route.params.id).then(data => {
-          this.articleInfo = data.obj
+          this.casesInfo = data.obj
         })
-        channelApi.queryPage({ pageObj: { current: 1, size: 200 }, andCondition: { type: 0 }}).then(data => {
+        channelApi.queryPage({ pageObj: { current: 1, size: 200 }, andCondition: { type: 1 }}).then(data => {
           this.channels = data.obj.records
         })
       },

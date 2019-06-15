@@ -51,6 +51,9 @@
           },
           likeCondition: {
             name: ''
+          },
+          andCondition: {
+            type: 0
           }
         },
         page: {},

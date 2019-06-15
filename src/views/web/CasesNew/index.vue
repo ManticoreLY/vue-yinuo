@@ -18,10 +18,10 @@
           </div>
           <div class="cont">
             <div class="title">
-              <router-link tag="a" target="_blank" :to="'/articleInfo/'+item.id"  >{{ item.title }}</router-link>
+              <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  >{{ item.title }}</router-link>
             </div>
             <div class="info">{{ item.abstractText }}
-              <router-link tag="a" target="_blank" :to="'/articleInfo/'+item.id"  ><span style="color:red;font-size: initial">【详情】</span></router-link>
+              <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  ><span style="color:red;font-size: initial">【详情】</span></router-link>
             </div>
             <div class="foot">
               作者：{{item.author}}&nbsp;&nbsp;&nbsp;&nbsp;
@@ -53,11 +53,11 @@
         </div>
         <div class="words">
           <div class="word-name">最新文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
+          <div class="word-title" v-for="(article,index) in casesInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
         </div>
         <div class="words">
           <div class="word-name">本周热门文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
+          <div class="word-title" v-for="(article,index) in casesInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
         </div>
       </div>
     </div>
@@ -75,7 +75,7 @@
       return {
         channel: {},
         channels: [],
-        articleInfo: {},
+        casesInfo: {},
         query: {
           pageObj: {
             current: 1,
@@ -108,7 +108,7 @@
             this.channel = data.obj
           })
         }
-        ChannelApi.queryPage({ pageObj: { current: 1, size: 200 }, andCondition: { type: 0 }}).then(data => {
+        ChannelApi.queryPage({ pageObj: { current: 1, size: 200 }, andCondition: { type: 1 }}).then(data => {
           this.channels = data.obj.records
         })
         ArticlesApi.queryPage(this.query).then(data => {
@@ -118,11 +118,11 @@
           console.log(err)
         })
         ArticlesApi.findFrontInfo(0).then(data => {
-          this.articleInfo = data.obj
+          this.casesInfo = data.obj
         })
       },
       toChannelPage(id) {
-        const routeData = this.$router.resolve({ path: '/news/channel/' + id })
+        const routeData = this.$router.resolve({ path: '/cases/channel/' + id })
         window.open(routeData.href, '_blank')
       }
     }

@@ -66,7 +66,7 @@
             name: ''
           },
           andCondition: {
-            type: 0
+            type: 1
           }
         },
         page: {},

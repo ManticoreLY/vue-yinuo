@@ -59,7 +59,7 @@ export default [
     component: Layout,
     name: '案例管理',
     children: [
-      { path: '', name: '转阴案例管理', component: () => import('@/views/back/main/CasesManage') }
+      { path: '', name: '转阴案例管理', component: () => import('@/views/back/main/CasesManageNew') }
     ]
   },
   /* {
@@ -81,9 +81,17 @@ export default [
   {
     path: '/channel',
     component: Layout,
-    name: '频道管理',
+    name: '新闻频道管理',
     children: [
       { path: '', name: '频道栏目', component: () => import('@/views/back/main/ChannelItems') }
+    ]
+  },
+  {
+    path: '/caseChannel',
+    component: Layout,
+    name: '案例频道管理',
+    children: [
+      { path: '', name: '频道栏目', component: () => import('@/views/back/main/CasesChannelItems') }
     ]
   }
 ]
