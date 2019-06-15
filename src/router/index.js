@@ -19,6 +19,7 @@ export const asyncRouterMap = [
       { path: 'drugDB', component: () => import('@/views/web/DrugDatabase') },
       { path: 'cases', component: () => import('@/views/web/CureCase') },
       { path: 'news', component: () => import('@/views/web/MedicalNews') },
+      { path: 'news/channel/:id', component: () => import('@/views/web/MedicalNews') },
       { path: 'articleInfo/:id', component: () => import('@/views/web/MedicalNews/info') },
       { path: 'about', component: () => import('@/views/web/about') }
     ]
