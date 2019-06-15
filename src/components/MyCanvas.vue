@@ -40,7 +40,7 @@
       this.ctx = this.cancas.getContext('2d')
       this.ctx.font = `${this.fontSize}px Microsoft Yahei`// '16px Microsoft Yahei'
       this.ctx.fillStyle = `${this.fontColor}`
-      if(this.words) {
+      if (this.words) {
         this.start(this.cancas.width)
       }
 
