@@ -4,8 +4,8 @@
       <div class="item1">
         <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
       </div>
-      <my-canvas class="item2" :words="show_words" :font-color="'#ccc'" style="margin: 0 15px"></my-canvas>
-      <div class="item3" style="margin-left: 20px">
+      <my-canvas class="item2" :words="show_words" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
+      <div class="item3" style="text-align: right">
         <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
         <a class="item-title">网站地图</a>
         <a class="item-title">医疗客服</a>
@@ -47,7 +47,7 @@
     },
     data() {
       return {
-        searchWord: '',
+        searchWord: '医诺寰宇是出国看病的领导者，国内专业赴印度治疗丙肝、乙肝的团队。印度丙肝新药',
         show_words: '',
         canvas: null,
         ctx: null,
@@ -80,7 +80,7 @@
 <style scoped>
   /*color:#1CACA3*/
   #web-index{margin: 0;padding: 0;}
-  .web-title{position: relative;width:80%;padding: 0 10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
+  .web-title{position: relative;width:90%;padding-left:10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
   .web-content{position: relative;width: 80%; margin: 0 10%;}
   .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
   .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}

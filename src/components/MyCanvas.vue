@@ -40,13 +40,13 @@
       this.ctx = this.cancas.getContext('2d')
       this.ctx.font = `${this.fontSize}px Microsoft Yahei`// '16px Microsoft Yahei'
       this.ctx.fillStyle = `${this.fontColor}`
-      if(this.words) {
+      debugger
+      if (this.words) {
         this.start(this.cancas.width)
       }
 
       const can = document.getElementById('canvas')
       can.addEventListener('mouseover', (e) => {
-        console.log(e)
         if (e) {
           this.ctx.fillStyle = '#008aff'
           setTimeout(() => {
@@ -55,7 +55,6 @@
         }
       })
       can.addEventListener('mouseout', (e) => {
-        console.log(e)
         if (e) {
           this.ctx.fillStyle = `${this.fontColor}`
           this.start(this.position)
@@ -65,7 +64,7 @@
     methods: {
       start(position) {
         this.position = position
-        var length = this.words.length * this.fontSize
+        const length = this.words.length * this.fontSize
         if (this.timer) clearInterval(this.timer)
         this.timer = setInterval(() => {
           this.ctx.clearRect(0, 0, this.cancas.width, this.cancas.height)
