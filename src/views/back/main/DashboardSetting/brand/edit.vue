@@ -31,6 +31,7 @@
     data() {
       return {
         brand: {
+          id: null,
           icon: '',
           title: '',
           content: ''
@@ -44,6 +45,13 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.brand.id = null
+        this.brand.icon = ''
+        this.brand.content = ''
+        this.brand.title = ''
+      },
       editForm(entity) {
         this.isUpdate = true
         this.brand = Object.assign(this.brand, entity)

@@ -57,7 +57,7 @@
       })
     },
     methods: {
-      addForm(entity) {
+      addForm() {
         this.isUpdate = false
         this.abroadCases.id = null
         this.abroadCases.treatmentCaseId = null

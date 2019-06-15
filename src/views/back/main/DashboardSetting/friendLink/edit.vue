@@ -35,6 +35,7 @@
     data() {
       return {
         friendLink: {
+          id: '',
           name: '',
           type: null,
           img: '',
@@ -66,6 +67,15 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.friendLink.id = null
+        this.friendLink.name = ''
+        this.friendLink.type = null
+        this.friendLink.img = ''
+        this.friendLink.linkUrl = ''
+        this.friendLink.linkName = ''
+      },
       editForm(entity) {
         this.isUpdate = true
         this.friendLink = Object.assign(this.friendLink, entity)

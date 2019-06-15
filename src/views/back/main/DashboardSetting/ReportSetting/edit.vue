@@ -21,6 +21,7 @@
       return {
         obj: null,
         ReportSetting: {
+          id: null,
           newsArticleId: '',
           newsArticleTitle: ''
         },
@@ -43,6 +44,12 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.ReportSetting.id = null
+        this.ReportSetting.newsArticleId = null
+        this.ReportSetting.newsArticleTitle = ''
+      },
       editForm(entity) {
         this.isUpdate = true
         this.ReportSetting = Object.assign(this.ReportSetting, entity)

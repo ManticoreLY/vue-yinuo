@@ -1,17 +1,17 @@
 <template>
     <div>
       <el-form :inline="true" label-width="60px">
-        <el-form-item label="名称">
-          <el-input v-model="query.likeCondition.title"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
           <el-button type="success" @click="addNew">添加</el-button>
-        </el-form-item>
       </el-form>
       <el-table :data="tableList">
         <el-table-column label="名称" prop="name"></el-table-column>
-        <!--<el-table-column label="标题" prop="title"></el-table-column>-->
+        <el-table-column label="标题" prop="title"></el-table-column>
+        <el-table-column label="图片">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.img"></el-image>
+          </template>
+        </el-table-column>
+        <el-table-column label="描述" prop="description"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -49,12 +49,6 @@
           pageObj: {
             current: 1,
             size: 10
-          },
-          likeCondition: {
-            title: ''
-          },
-          andCondition: {
-            type: null
           }
         },
         page: {},

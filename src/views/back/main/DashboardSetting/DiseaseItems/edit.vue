@@ -1,13 +1,14 @@
 <template>
     <div>
-      <el-form ref="form" :model="abroadCases" label-width="120px" :rules="rules">
-        <el-form-item label="案例名称" prop="name">
-          <el-input v-model="abroadCases.name"></el-input>
+      <el-form ref="form" :model="disease" label-width="120px" :rules="rules">
+        <el-form-item label="选择疾病" prop="name">
+          <el-autocomplete v-model="disease.name" :fetch-suggestions="querySearchAsync"  placeholder="请输入疾病名称搜索" @select="handleSelect" value-key="name" value="id"></el-autocomplete>
         </el-form-item>
-        <el-form-item label="选择实例" prop="treatmentCaseId">
-          <el-select v-model="abroadCases.treatmentCaseId">
-            <el-option v-for="(opt, index) in treatmentCases" :key="index" :value="opt.id" :label="opt.title"></el-option>
-          </el-select>
+        <el-form-item label="疾病icon上传" prop="icon">
+          <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
+        </el-form-item>
+        <el-form-item label="对应药品" prop="description">
+          <el-input v-model="disease.description"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
@@ -18,14 +19,23 @@
 </template>
 
 <script>
-  import TCApi from '@/api/HomePage/TreatmentCase'
-  import caseApi from '@/api/cases'
-  // import FileUploader from '@/components/FileUploader'
-  // import { uploadFile } from '@/utils/ali-upload'
+  import DiseaseItemApi from '@/api/HomePage/DiseaseItems'
+  import DiseaseApi from '@/api/disease'
+  import FileUploader from '@/components/FileUploader'
+  import { uploadFile } from '@/utils/ali-upload'
   export default {
     name: 'edit',
     components: {
-      // FileUploader
+      FileUploader
+    },
+    computed: {
+      fileList() {
+        if (this.disease.icon) {
+          return [{ name: 'image', url: this.disease.icon }]
+        } else {
+          return []
+        }
+      }
     },
     data() {
       return {
@@ -33,13 +43,19 @@
           pageObj: {
             current: 1,
             size: 1000
+          },
+          likeCondition: {
+            name: ''
           }
         },
-        abroadCases: {
+        disease: {
+          id: null,
           name: '',
-          treatmentCaseId: ''
+          icon: '',
+          diseaseId: null,
+          description: ''
         },
-        treatmentCases: [],
+        diseases: [],
         isUpdate: false,
         rules: {
           name: [
@@ -48,30 +64,31 @@
         }
       }
     },
-    created() {
-      caseApi.queryPage(this.query).then(data => {
-        this.treatmentCases = data.obj.records
-      }).catch(err => {
-        console.log(err)
-      })
-    },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.disease.id = null
+        this.disease.name = ''
+        this.disease.diseaseId = null
+        this.disease.description = ''
+      },
       editForm(entity) {
+        debugger
         this.isUpdate = true
-        this.abroadCases = Object.assign(this.abroadCases, entity)
+        this.disease = Object.assign(this.disease, entity)
       },
       saveForm() {
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
-              TCApi.update(this.abroadCases).then(data => {
+              DiseaseItemApi.update(this.disease).then(data => {
                 this.$message.warning('修改成功！')
                 this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
             } else {
-              TCApi.save(this.abroadCases).then(data => {
+              DiseaseItemApi.save(this.disease).then(data => {
                 this.$message.warning('添加成功！')
                 this.closeForm()
               }).catch(err => {
@@ -81,19 +98,35 @@
           }
         })
       },
-      /*
+      querySearchAsync(query, callback) {
+        if (!query) return
+        else {
+          debugger
+          this.query.likeCondition.name = query
+          clearTimeout(this.timer)
+          this.timer = setTimeout(() => {
+            DiseaseApi.queryPage(this.query).then(data => {
+              console.log(data)
+              callback(data.obj.records)
+            }).catch(err => {
+              console.log(err)
+              callback([])
+            })
+          }, 500)
+        }
+      },
       fileUploadRequest(opt) {
         uploadFile(
           opt.file,
           res => {
-            this.friendLink.img = res.url
+            this.disease.icon = res.url
             opt.onSuccess(res)
           },
           err => {
             console.log(err)
           }
         )
-      },*/
+      },
       closeForm() {
         this.clearForm()
         this.$emit('close')

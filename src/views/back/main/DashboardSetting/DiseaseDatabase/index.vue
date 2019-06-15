@@ -1,11 +1,7 @@
 <template>
     <div>
       <el-form :inline="true" label-width="60px">
-        <el-form-item label="名称">
-          <el-input v-model="query.likeCondition.title"></el-input>
-        </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
@@ -49,12 +45,6 @@
           pageObj: {
             current: 1,
             size: 10
-          },
-          likeCondition: {
-            title: ''
-          },
-          andCondition: {
-            type: null
           }
         },
         page: {},

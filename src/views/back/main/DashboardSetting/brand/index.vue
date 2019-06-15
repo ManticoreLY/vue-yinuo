@@ -13,7 +13,7 @@
         <el-table-column type="expand">
           <template slot-scope="scope">
             <label>图标:</label>
-            <el-image :src="scope.row.icon" style="width: 300px;"/>
+            <el-image :src="scope.row.icon"/>
           </template>
         </el-table-column>
         <el-table-column label="名称" prop="title"></el-table-column>
@@ -82,6 +82,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'

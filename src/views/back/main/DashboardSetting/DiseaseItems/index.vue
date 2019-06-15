@@ -1,17 +1,15 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="60px">
-        <el-form-item label="名称">
-          <el-input v-model="query.likeCondition.title"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
           <el-button type="success" @click="addNew">添加</el-button>
-        </el-form-item>
-      </el-form>
       <el-table :data="tableList">
         <el-table-column label="名称" prop="name"></el-table-column>
-        <!--<el-table-column label="标题" prop="title"></el-table-column>-->
+        <el-table-column label="icon">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.icon"></el-image>
+          </template>
+        </el-table-column>
+        <el-table-column label="对应药品" prop="description">
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -34,7 +32,7 @@
 </template>
 
 <script>
-  import TCApi from '@/api/HomePage/TreatmentCase'
+  import DiseaseItemApi from '@/api/HomePage/DiseaseItems'
   // import caseApi from '@/api/cases'
   import EditForm from './edit'
   import page from '@/utils/page'
@@ -49,12 +47,6 @@
           pageObj: {
             current: 1,
             size: 10
-          },
-          likeCondition: {
-            title: ''
-          },
-          andCondition: {
-            type: null
           }
         },
         page: {},
@@ -70,7 +62,7 @@
     methods: {
       ...page(),
       search() {
-        TCApi.queryPage(this.query).then(data => {
+        DiseaseItemApi.queryPage(this.query).then(data => {
           const _this = this
           this.page = Object.assign(this.page, data.obj)
           // (async function() {
@@ -98,6 +90,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'
@@ -108,17 +103,15 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          TCApi.remove(id).then(data => {
+          DiseaseItemApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
+            this.handleFormClose()
           }).catch(err => {
             console.log(err)
             this.$message.warning('操作失败')
           })
         })
-      },
-      type_format(row) {
-        return this.linkTypes.find(item => item.value === row.type).name
       },
       handleFormClose() {
         this.editFormVisible = false

@@ -37,6 +37,7 @@
           url: ''
         },
         newsArticle: {
+          id: null,
           newsArticleId: '',
           newsArticleTitle: '',
           type: null
@@ -66,6 +67,12 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.newsArticle.id = null
+        this.newsArticle.newsArticleId = null
+        this.newsArticle.newsArticleTitle = ''
+      },
       editForm(entity) {
         debugger
         this.isUpdate = true

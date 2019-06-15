@@ -1,16 +1,16 @@
 <template>
     <div>
       <el-form :inline="true" label-width="60px">
-        <el-form-item label="名称">
-          <el-input v-model="query.likeCondition.linkName"></el-input>
-        </el-form-item>
-        <el-form-item label="类型">
-          <el-select v-model="query.andCondition.type">
-            <el-option v-for="(opt, index) in linkTypes" :key="index" :label="opt.name" :value="opt.value"></el-option>
-          </el-select>
-        </el-form-item>
+<!--        <el-form-item label="名称">-->
+<!--          <el-input v-model="query.likeCondition.linkName"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="类型">-->
+<!--          <el-select v-model="query.andCondition.type">-->
+<!--            <el-option v-for="(opt, index) in linkTypes" :key="index" :label="opt.name" :value="opt.value"></el-option>-->
+<!--          </el-select>-->
+<!--        </el-form-item>-->
         <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
+<!--          <el-button type="primary" @click="search">查询</el-button>-->
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
@@ -19,7 +19,7 @@
         <el-table-column label="类型" :formatter="type_format"></el-table-column>
         <el-table-column label="LOGO">
           <template slot-scope="scope">
-            <el-image :src="scope.row.img" style="width: 300px; height: auto"></el-image>
+            <el-image :src="scope.row.img" ></el-image>
           </template>
         </el-table-column>
         <el-table-column label="链接地址" prop="linkUrl"></el-table-column>
@@ -59,12 +59,6 @@
           pageObj: {
             current: 1,
             size: 10
-          },
-          likeCondition: {
-            linkName: ''
-          },
-          andCondition: {
-            type: null
           }
         },
         linkTypes: [
@@ -96,6 +90,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'

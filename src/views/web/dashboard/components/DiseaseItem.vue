@@ -4,7 +4,7 @@
     <div class="items">
       <div class="child">
         <a v-for="item in diseaseItems" :key="item">
-          <div style="width: 80px;text-align: center"><img :src="item.url" style="height: 60px;width: 60px;"></div>
+          <div style="width: 80px;text-align: center"><img :src="item.icon" style="height: 60px;width: 60px;"></div>
           <div style="width: 150px;display: inline-block;text-align: center">
             <span style="display:inline-block;font-size:1.75rem;padding: 5px;border-bottom: 1px solid #1caca4">{{ item.name }}</span><br/>
             <span style="display:inline-block;font-size: 1.25rem;padding: 4px;color: #7f7f7f">{{ item.description }}</span>
