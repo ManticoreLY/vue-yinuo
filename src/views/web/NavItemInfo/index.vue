@@ -35,7 +35,7 @@
           </div>
           <div class="words">
             <div class="word-name">相关文章</div>
-            <div  class="word-title" v-for="word in link_articles" :key="word.id" style="margin: 5px;padding: 5px 10px; border-radius: 15px">
+            <div  class="word-title" v-for="word in link_articles" :key="word.id" style="margin: 5px; padding: 5px">
               <p>{{word.title}}</p>
               <p style="width: 100%;text-align: right">{{word.date}}</p>
             </div>
