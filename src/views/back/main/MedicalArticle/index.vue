@@ -15,7 +15,10 @@
           </template>
         </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
-        <el-table-column label="频道栏目" :formatter="channel_formatter">
+        <el-table-column label="频道栏目" prop="channel.name">
+          <!--<template slot-scope="scope">-->
+            <!--{{channels[scope.$index]}}-->
+          <!--</template>-->
         </el-table-column>
         <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
         <el-table-column label="时间" prop="updatedDt"></el-table-column>
@@ -118,6 +121,7 @@
             console.log(err)
           })
         }
+        debugger
         return name
       },
       handleFormClose() {

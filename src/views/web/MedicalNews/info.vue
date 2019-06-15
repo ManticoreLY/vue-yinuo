@@ -14,8 +14,8 @@
           <div style="font-size: 2rem;">{{medicalArticle.title}}</div>
           <div style="font-size: 1.2rem">
             <span>时间: {{medicalArticle.updatedDt}}</span>&nbsp;&nbsp;&nbsp;
-            <span>来源: 医诺</span>&nbsp;&nbsp;&nbsp;
-            <span>作者: 医诺海外医疗</span>
+            <span>来源: {{medicalArticle.source?medicalArticle.source:'医诺'}}</span>&nbsp;&nbsp;&nbsp;
+            <span>作者: {{medicalArticle.author?medicalArticle.author:'医诺海外医疗'}}</span>
           </div>
         </div>
         <div class="content-info">
@@ -37,7 +37,7 @@
         <div class="words">
           <div class="word-name">频道栏目</div>
           <div class="word-items">
-            <el-button v-for="i in items" :key="i" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.35rem">{{i}}</el-button>
+            <el-button v-for="i in channels" :key="i.id" @click="toChannelPage(i.id)" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.35rem">{{i.name}}</el-button>
           </div>
         </div>
         <div class="words test">
@@ -60,6 +60,7 @@
 
 <script>
   import articleApi from '@/api/articlesFront'
+  import channelApi from '@/api/channelFront'
   export default {
     name: 'index',
     data() {
@@ -72,6 +73,7 @@
           abstractImg: ''
         },
         articleInfo: {},
+        channels: [],
         items: ['乙肝新闻', '丙肝新闻', '肿瘤新闻', '试管婴儿新闻', '赴美生子新闻', '心脏支架新闻', '眼角膜新闻', 'HPV疫苗新闻', '智能诊疗新闻', '癌症早筛新闻', '海外医疗新闻', '男科新闻', '周边新闻', '糖尿病新闻', '风湿免疫新闻']
       }
     },
@@ -85,6 +87,13 @@
         articleApi.findFrontInfo(this.$route.params.id).then(data => {
           this.articleInfo = data.obj
         })
+        channelApi.queryPage({ pageObj: { current: 1, size: 200 }}).then(data => {
+          this.channels = data.obj.records
+        })
+      },
+      toChannelPage(id) {
+        const routeData = this.$router.resolve({ path: '/news/channel/' + id })
+        window.open(routeData.href, '_blank')
       }
     }
   }
