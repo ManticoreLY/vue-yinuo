@@ -1,52 +1,139 @@
 <template>
     <div class="search">
       <div class="search-item" style="border: 1px solid #eee">
-        <el-image style="width: 30%;height: 100%"></el-image>
-        <div class="search-main">
-          <div class="key-word" style="height: 4rem;">吉三代 伊柯鲁沙 Epclusa</div>
-          <div class="search-content" style="height: 8rem;">处方药.索非布韦(Sofosbuvir,SOF)400mg+维帕他韦(Velpasir, VEL)100mg组成的复合剂(SOF/VEL),索非布韦(Sofosbuvir,SOF)400mg+维帕他韦(Velpasir, VEL)100mg组成的复合剂(SOF/VEL)索非布韦(Sofosbuvir,SOF)400mg+维帕他韦(Velpasir, VEL)100mg组成的复合剂(SOF/VEL)</div>
+        <el-image style="width: 30%;height: 100%" v-if="medicine && medicine.image" :src="medicine.image.split(',')[0]" ></el-image>
+        <div class="search-main" v-if="medicine">
+          <div class="key-word" style="height: 4rem;">{{medicine.name}}</div>
+          <div class="search-content" style="height: 8rem;">{{medicine.shotIntroduct}}</div>
           <div class="more" style="width: 100%;height: 2rem;text-align: right;margin-top:15px;">
             <el-button type="primary" style="padding: 5px;">立即查看</el-button>
           </div>
         </div>
       </div>
       <div class="search-list">
-        <div v-for="x in 9" :key="x" class="list-item">
-          <div class="list-title">吉三代集所有丙肝抗病毒药物优势于一身</div>
+        <div v-for="item in tableList" :key="item" class="list-item">
+          <div class="list-title">{{item.title}}</div>
           <div class="list-content">
-            <el-image style="width: 22%;height: 120px;"></el-image>
+            <el-image style="width: 22%;height: 120px;" :src="item.abstractImg"></el-image>
             <div style="position: relative;margin-left: 20px;width: 76%;height: 120px">
               <div class="item-content">
-                吉三代又名丙通沙,是美国吉利公司德公司的丙肝支柱药物, 该药的出现彻底改写丙肝治疗的历史, 让我们顺利进入到丙肝治疗泛基因时代, 吉三代可以说是集合了前几代抗病毒药物的所有优势, 成为当之无愧的治疗丙肝首选.
+                {{item.abstractText}}
               </div>
               <div class="item-info">
-                <span><i>分类:</i> 丙肝新闻</span>
-                <span><i>作者:</i> 康安途旅游</span>
-                <span><i>日期:</i> 2019-05-16</span>
-                <span><i>关键词:</i> 吉三代, 伊柯鲁沙, Epclusa</span>
+                <span><i>分类:</i> {{item.channel.name}}</span>
+                <span><i>作者:</i> {{item.author}}</span>
+                <span><i>日期:</i> {{item.updatedDt}}</span>
+                <span><i>关键词:</i>{{item.keywords}}</span>
               </div>
             </div>
           </div>
         </div>
-      <el-pagination style="margin-top: 20px"
-                     :current-page="1"
-                     :page-size="10"
-                     :total="50"
-                     prev-text="上一页"
-                     next-text="下一页"
-                     layout="prev, pager, next">
-                     </el-pagination>
+        <el-pagination style="margin-top: 20px"
+                       :current-page="page.current"
+                       :page-size="page.size"
+                       :total="page.total"
+                       @current-change="pageChange"
+                       @size-change="sizeChange"
+                       prev-text="上一页"
+                       next-text="下一页"
+                       layout="prev, pager, next">
+        </el-pagination>
       </div>
     </div>
 </template>
 
 <script>
+  import MedicineApi from '@/api/medicine'
+  import ArticlesApi from '@/api/articlesFront'
   export default {
     name: 'SearchPage',
-    data() {
-      return {}
+    mounted() {
+      this.search()
     },
-    methods: {}
+    data() {
+      return {
+        page: {},
+        tableList: [],
+        medicine: null,
+        medicineQuery: {
+          pageObj: {
+            current: 1,
+            size: 10
+          },
+          andCondition: {
+            name: ''
+          },
+          fields: [
+            'id',
+            'name',
+            'image',
+            'shot_introduct shotIntroduct'
+          ]
+        },
+        newsArticleQuery: {
+          pageObj: {
+            current: 1,
+            size: 10
+          },
+          likeCondition: {
+            title: ''
+          },
+          orderByConditionStr: {
+          },
+          fields: [
+            'id',
+            'author',
+            'channel_id channelId',
+            'title',
+            'abstract_text abstractText',
+            'abstract_img abstractImg',
+            'type',
+            'created_dt createdDt',
+            'updated_dt updatedDt'
+          ]
+        }
+      }
+    },
+    methods: {
+      search() {
+        const keywords = this.$route.query.keywords
+        this.medicineQuery.andCondition.name = keywords
+        this.newsArticleQuery.likeCondition.title = keywords
+        this.newsArticleQuery.orderByConditionStr['title like \"' + '%' + keywords + '%' + '\"'] = 'desc'
+        this.newsArticleQuery.orderByConditionStr['abstract_text like \"' + '%' + keywords + '%' + '\"'] = 'desc'
+        this.newsArticleQuery.orderByConditionStr['content like \"' + '%' + keywords + '%' + '\"'] = 'desc'
+        this.medicineSearch()
+        this.newsArticleSearch()
+      },
+      newsArticleSearch() {
+        ArticlesApi.queryPage(this.newsArticleQuery).then(data => {
+          this.page = Object.assign(this.page, data.obj)
+          this.tableList = data.obj.records
+          console.log(data.obj)
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      medicineSearch() {
+        MedicineApi.queryPage(this.medicineQuery).then(data => {
+          if (data.obj.records && data.obj.records.length > 0) {
+            this.medicine = Object.assign({}, data.obj.records[0])
+            console.log(this.medicine)
+          }
+        }).catch(err => {
+          console.log(err)
+          this.$message.warning(err.msg)
+        })
+      }
+    },
+    pageChange(val) {
+      this.newsArticleQuery.pageObj.current = val
+      this.newsArticleSearch()
+    },
+    sizeChange(val) {
+      this.newsArticleQuery.pageObj.size = val
+      this.newsArticleSearch()
+    }
   }
 </script>
 

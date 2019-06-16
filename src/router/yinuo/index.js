@@ -15,6 +15,7 @@ export default [
       { path: 'newsReport', name: '新闻报道', component: () => import('@/views/back/main/DashboardSetting/ReportSetting') },
       { path: 'newsArticle', name: '新闻资讯', component: () => import('@/views/back/main/DashboardSetting/NewsSetting') },
       { path: 'abroadCases', name: '出国实例', component: () => import('@/views/back/main/DashboardSetting/AbroadCases') },
+      { path: 'footerLinks', name: '医诺寰球', component: () => import('@/views/back/main/DashboardSetting/FooterLinks') },
       { path: 'publish', name: '官方发布', component: () => import('@/views/back/main/DashboardSetting/publish') },
       { path: 'contactUs', name: '联系我们', component: () => import('@/views/back/main/DashboardSetting/ContactUs') }
     ]
