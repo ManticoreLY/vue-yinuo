@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import MedicineApi from '@/api/medicine'
+  import MedicineApi from '@/api/medicine/medicineFront'
   import ArticlesApi from '@/api/articlesFront'
   export default {
     name: 'SearchPage',
