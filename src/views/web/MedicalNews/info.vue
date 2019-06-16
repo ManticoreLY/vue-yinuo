@@ -107,14 +107,9 @@
 .content .main{width: 70%;margin: 0; padding: 0;}
 .content .main .title-info{width: 100%;height: 100px;border-bottom: 1px solid #eee; display: flex; flex-flow: column nowrap; align-items: center; align-content: center; justify-content: space-around}
 .content .main .content-info{position: relative;width: 90%; padding: 30px 5%;min-height: 600px}
-.content .main .content-info .info{position: absolute; height: 3rem; line-height: 3rem; width: auto; left: 20px; bottom: 0; font-size: 1.15rem;}
 .content .main .clare-info{position: relative;width: 90%; margin: 15px; padding: 15px; border: 6px double #eee}
 .content .main .other-info{position: relative;width: 90%; margin: 20px; display: flex; align-items: center; align-content: center; justify-content: space-between}
 .content .main .other-info span{font-size: 1.1rem;}
 .content .right .words{position:relative;height: 100%}
 .content .right .test{min-height: 260px;display: flex; flex-flow: column nowrap; align-items: center; align-content: center; justify-content: space-around}
-.content .right .words .word-name{padding-bottom: 1rem;font-size: 1.6rem;border-bottom: 1px solid #eee;}
-.content .right .words .word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
-  white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
-.content .right .words .word-items{padding: 20px 0;display: flex;flex-flow: row wrap;}
 </style>
