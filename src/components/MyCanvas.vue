@@ -33,6 +33,7 @@
         ctx: null,
         timer: null,
         position: null,
+        hasCursor: false,
         word: {}
       }
     },
@@ -49,6 +50,7 @@
       can.addEventListener('mouseover', (e) => {
         if (e) {
           this.ctx.fillStyle = '#008aff'
+          this.hasCursor = true
           setTimeout(() => {
             this.stop()
           }, 20)
@@ -89,6 +91,10 @@
         clearInterval(this.timer)
       },
       nextWord() {
+        if (this.hasCursor) {
+          this.hasCursor = false
+          return this.word
+        }
         const index = this.words.indexOf(this.word)
         if (index === this.words.length - 1) return this.words[0]
         return this.words[index + 1]
