@@ -59,7 +59,7 @@
         if (this.scrollNews) {
           let showWords = ''
           for (const key in this.scrollNews) {
-            const html = this.scrollNews[key].abstractText
+            const html = this.scrollNews[key].title
             const href = 'javascript:void(0)'
             const a = '<a href=' + href + '>' + html + '</a>'
             showWords += a
