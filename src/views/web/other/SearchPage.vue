@@ -12,7 +12,7 @@
       </div>
       <div class="search-list">
         <div v-for="item in tableList" :key="item.id" class="list-item">
-          <div class="list-title">{{item.title}}</div>
+          <div class="list-title"><router-link tag="a" target="_blank" :to="'/articleInfo/'+item.id"  >{{item.title}}</router-link></div>
           <div class="list-content">
             <el-image style="width: 22%;height: 120px;" :src="item.abstractImg"></el-image>
             <div style="position: relative;margin-left: 20px;width: 76%;height: 120px">
@@ -132,7 +132,6 @@
         })
       },
       toMedicinePage(id) {
-        debugger
         const routeData = this.$router.resolve({ path: '/medicineInfo/' + id })
         window.open(routeData.href, '_blank')
       },
