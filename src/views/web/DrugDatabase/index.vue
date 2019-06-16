@@ -24,9 +24,10 @@
       <div class="category">
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 2rem;">{{drugDbObj.title}}</div>
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 1.375rem;color: #545454">{{drugDbObj.describe}}</div>
+        <div style="height:3rem;line-height:3rem;font-size: 2rem;font-weight: 600;color: #545454;margin:10px 0">常见传染病、慢性病</div>
         <div class="list">
           <div class="item" v-for="(item,diseaseIndex) in drugDbObj.drugDbDiseaseList" :key="diseaseIndex">
-            <el-image :src="item.disease.icon" :fit="'fit'" style="float:left"></el-image>
+            <el-image :src="item.disease.icon" :fit="'fit'" style="float:left;width: 40px;height: 40px"></el-image>
             <div class="name">
               <div>{{ item.disease.name }}</div>
               <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
@@ -108,6 +109,7 @@
     methods: {
       search() {
         DrugDbApi.findFrontOne().then(data => {
+          debugger
           this.drugDbObj = data.obj
           this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
         })
@@ -124,18 +126,18 @@
 <style scoped>
 .drug-db{width: 100%;}
 .bg{width: 100%}
-.bg1{background: url('../../../../static/img/1.png') no-repeat 100% 0}
-.bg2{background: url('../../../../static/img/2.png') no-repeat 100% 0}
-.bg3{background: url('../../../../static/img/3.png') no-repeat 100% 0}
-.bg4{background: url('../../../../static/img/4.png') no-repeat 100% 0}
+.bg1{background-image: url('../../../../static/img/1.png');background-repeat: no-repeat;background-size: 50%;background-position: 100% 100%}
+.bg2{background-image: url('../../../../static/img/2.png');background-repeat: no-repeat;background-size: 50%;background-position: 100% 100%}
+.bg3{background-image: url('../../../../static/img/3.png');background-repeat: no-repeat;background-size: 50%;background-position: 100% 100%}
+.bg4{background-image: url('../../../../static/img/4.png');background-repeat: no-repeat;background-size: 50%;background-position: 100% 100%}
 .item-list{width:90%;padding: 20px 5%;display: inline-flex;flex-direction: row;align-items: center;justify-content: space-around}
-.item-list .item{width: 18%;height: 10rem;border: 1px solid #f5f5f5;box-shadow: 2px 1px #ccc;padding: 20px;transition: margin-top .5s}
+.item-list .item{width: 18%;height: 10rem;border: 1px solid #ccc;box-shadow: 2px 1px #ccc;padding: 20px;transition: margin-top .5s}
 .item-list .item:hover{margin-top: -10px;}
 .item-list .item:hover .title{color: #2b96cc}
 .item-list .item .title{display: inline-block;font-size: 1.75rem;font-weight: 600;padding-bottom: 1rem; border-bottom: 2px solid #2b96cc}
 .item-list .item .cont{font-size: 1.25rem;padding:10px 0;color: #545454}
 .category{background: #fff;width:90%;padding: 2rem 5%;margin-top: 0px;}
-.category .list{width:100%;margin-top: 20px;display:flex;flex-flow: row wrap;align-items: stretch;align-content: stretch;justify-content: flex-start}
+.category .list{width:100%;margin-top: 10px;display:flex;flex-flow: row wrap;align-items: stretch;align-content: stretch;justify-content: flex-start}
 .category .list .item{width:24%;margin-top: 20px;}
 .category .list .item .name{width:70%;margin-left: 5%;display: inline-block;font-size: 1.75rem;}
 .category .list .item .name div{border-top:1px solid #ccc;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #7a7a7a}

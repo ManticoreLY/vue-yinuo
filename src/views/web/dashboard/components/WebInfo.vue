@@ -47,7 +47,8 @@
           <div>官方微信</div>
         </div>
         <div class="info-content3">
-          <img :src="homeFooterFixedInfo.officialWeChat" width="160" height="160">
+<!--          <img :src="homeFooterFixedInfo.officialWeChat" width="160" height="160">-->
+          <img src="static/img/医诺寰球公众号二维码.jpg" width="160" height="160">
         </div>
       </div>
     </div>

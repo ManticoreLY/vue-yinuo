@@ -1,6 +1,6 @@
 <template>
   <div class="web-news">
-    <div v-for="item in medicalNewsVo.typeVos" :key="item" class="news-module">
+    <div v-for="(item, index) in medicalNewsVo.typeVos" :key="index" class="news-module">
       <div class="module-name">{{item.name}}</div>
       <div class="module-cont">
         <div style="width: 36%;margin-right: 15px"><el-image :src="item.newsArticles[0].abstractImg" style="width: 100%;height: 160px;"/></div>
