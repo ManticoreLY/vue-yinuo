@@ -32,7 +32,7 @@
           <span v-if="articleInfo.prevArticle">上一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.prevArticle.id"  style="color: #005cff">{{articleInfo.prevArticle.title}}</router-link></span>
           <span v-if="articleInfo.nextArticle">下一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.nextArticle.id"  style="color: #005cff">{{articleInfo.nextArticle.title}}</router-link></span>
         </div>
-        <related-recommand/>
+        <related-recommand :articleInfo = articleInfo />
       </div>
       <div class="right">
         <!--频道栏目-->

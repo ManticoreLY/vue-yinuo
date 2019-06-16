@@ -4,9 +4,9 @@
         <el-tab-pane label="相关推荐" name="related">
           <div class="content">
             <div v-for="i in 4" :key="i" class="item">
-              <el-image src="" :fit="'fit'" style="width: 200px; height: 120px;margin-right: 10px;"></el-image>
+              <el-image :src="relArticles[i-1][0]?relArticles[i-1][0].abstractImg:''" :fit="'fit'" style="width: 200px; height: 120px;margin-right: 10px;"></el-image>
               <ul class="item-cont">
-                <li v-for="t in titles" :key="t" class="title ellipsis">{{t}}</li>
+                <li v-for="t in relArticles[i-1]" :key="t.id" class="title ellipsis"><router-link tag="a" target="_blank" :to="'/articleInfo/'+t.id"  >{{t.title}}</router-link></li>
               </ul>
             </div>
           </div>
@@ -14,9 +14,9 @@
         <el-tab-pane label="其它推荐" name="other">
           <div class="content">
             <div v-for="i in 4" :key="i" class="item">
-              <el-image src="" :fit="'fit'" style="width: 200px; height: 120px;margin-right: 10px;"></el-image>
+              <el-image :src="otherArticles[i-1][0]?otherArticles[i-1][0].abstractImg:''" :fit="'fit'" style="width: 200px; height: 120px;margin-right: 10px;"></el-image>
               <ul class="item-cont">
-                <li v-for="t in titles" :key="t" class="title ellipsis">{{t}}</li>
+                <li v-for="t in otherArticles[i-1]" :key="t.id" class="title ellipsis"><router-link tag="a" target="_blank" :to="'/articleInfo/'+t.id"  >{{t.title}}</router-link></li>
               </ul>
             </div>
           </div>
@@ -28,6 +28,42 @@
 <script>
   export default {
     name: 'RelatedRecommand',
+    props: {
+      articleInfo: {
+        default: {},
+        type: Object
+      }
+    },
+    computed: {
+      relArticles() {
+        const result = [[], [], [], []]
+        if (this.articleInfo.relArticles) {
+          for (let i = 0, len = this.articleInfo.relArticles.length; i < 4; i += 1) {
+            var per = Math.floor(len / 4)
+            if (i === 0) {
+              result[0] = this.articleInfo.relArticles.slice(i * per, len / 4 + len % 4)
+            } else if (len >= 4) {
+              result[i] = this.articleInfo.relArticles.slice(i * per + len % 4, (i + 1) * per + len % 4)
+            }
+          }
+        }
+        return result
+      },
+      otherArticles() {
+        const result = [[], [], [], []]
+        if (this.articleInfo.otherArticles) {
+          for (let i = 0, len = this.articleInfo.otherArticles.length; i < 4; i += 1) {
+            var per = Math.floor(len / 4)
+            if (i === 0) {
+              result[0] = this.articleInfo.otherArticles.slice(i * per, len / 4 + len % 4)
+            } else if (len >= 4) {
+              result[i] = this.articleInfo.otherArticles.slice(i * per + len % 4, (i + 1) * per + len % 4)
+            }
+          }
+        }
+        return result
+      }
+    },
     data() {
       return {
         activeName: 'related',
