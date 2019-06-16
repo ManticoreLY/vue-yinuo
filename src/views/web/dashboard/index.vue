@@ -8,7 +8,7 @@
       <div class="item3" style="text-align: right">
         <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
         <el-popover placement="bottom" trigger="hover">
-          <el-card></el-card>
+          <website-map/>
           <a slot="reference" class="item-title">网站地图</a>
         </el-popover>
         <a class="item-title">医疗客服</a>
@@ -38,12 +38,14 @@
 
 <script>
   import { WebHeader, WebInfo, NavBar } from './components'
+  import WebsiteMap from '@/views/web/components/WebsiteMap'
   import MyCanvas from '@/components/MyCanvas'
   import home from '@/api/Homepage/home'
   export default {
     name: 'index',
     components: {
       WebHeader,
+      WebsiteMap,
       WebInfo,
       NavBar,
       MyCanvas
