@@ -20,5 +20,8 @@
 </script>
 
 <style scoped>
-
+  .words{min-height: 200px;border: 1px solid #eee;margin-bottom: 20px;padding:15px;}
+  .words>div.word-name{width:initial;border-bottom: 1px solid #eee;height: 4rem;line-height: 4rem;font-size: 1.5rem;font-weight: 600}
+  .words>div.word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
+    white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
 </style>

@@ -32,27 +32,20 @@
           <span v-if="articleInfo.prevArticle">上一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.prevArticle.id"  style="color: #005cff">{{articleInfo.prevArticle.title}}</router-link></span>
           <span v-if="articleInfo.nextArticle">下一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.nextArticle.id"  style="color: #005cff">{{articleInfo.nextArticle.title}}</router-link></span>
         </div>
+        <related-recommand/>
       </div>
       <div class="right">
-        <div class="words">
-          <div class="word-name">频道栏目</div>
-          <div class="word-items">
-            <el-button v-for="i in channels" :key="i.id" @click="toChannelPage(i.id)" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.35rem">{{i.name}}</el-button>
-          </div>
-        </div>
+        <!--频道栏目-->
+        <channel/>
         <div class="words test">
           <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 120px;height: 120px"/>
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
           <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
         </div>
-        <div class="words">
-          <div class="word-name">最新文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
-        <div class="words">
-          <div class="word-name">本周热门文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
+        <!--最新文章-->
+        <latest-articles/>
+        <!--本周热门文章-->
+        <hot-articles/>
       </div>
     </div>
   </div>
@@ -61,8 +54,18 @@
 <script>
   import articleApi from '@/api/articlesFront'
   import channelApi from '@/api/channelFront'
+  import HotArticles from '../components/HotArticles'
+  import LatestArticles from '../components/LatestArticles'
+  import Channel from '../components/Channel'
+  import RelatedRecommand from '../components/RelatedRecommand'
   export default {
     name: 'index',
+    components: {
+      HotArticles,
+      LatestArticles,
+      Channel,
+      RelatedRecommand
+    },
     data() {
       return {
         medicalArticle: {
@@ -104,14 +107,9 @@
 .content .main{width: 70%;margin: 0; padding: 0;}
 .content .main .title-info{width: 100%;height: 100px;border-bottom: 1px solid #eee; display: flex; flex-flow: column nowrap; align-items: center; align-content: center; justify-content: space-around}
 .content .main .content-info{position: relative;width: 90%; padding: 30px 5%;min-height: 600px}
-.content .main .content-info .info{position: absolute; height: 3rem; line-height: 3rem; width: auto; left: 20px; bottom: 0; font-size: 1.15rem;}
 .content .main .clare-info{position: relative;width: 90%; margin: 15px; padding: 15px; border: 6px double #eee}
 .content .main .other-info{position: relative;width: 90%; margin: 20px; display: flex; align-items: center; align-content: center; justify-content: space-between}
 .content .main .other-info span{font-size: 1.1rem;}
 .content .right .words{position:relative;height: 100%}
 .content .right .test{min-height: 260px;display: flex; flex-flow: column nowrap; align-items: center; align-content: center; justify-content: space-around}
-.content .right .words .word-name{padding-bottom: 1rem;font-size: 1.6rem;border-bottom: 1px solid #eee;}
-.content .right .words .word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
-  white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
-.content .right .words .word-items{padding: 20px 0;display: flex;flex-flow: row wrap;}
 </style>

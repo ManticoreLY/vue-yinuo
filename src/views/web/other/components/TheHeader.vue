@@ -45,7 +45,7 @@
         <div class="search-frame" style="width: 50%;margin-left: 30px;">
           <el-input v-model="searchWord" class="search-bar" placeholder="请输入疾病或药品名,例如乙肝 吉三代">
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
-            <el-button slot="append">医疗搜索</el-button>
+            <el-button slot="append" @click="search">医疗搜索</el-button>
           </el-input>
         </div>
       </div>
@@ -68,10 +68,22 @@
         qq: 'static/icon/qqicon.png',
         weixin: 'static/icon/微信icon.png',
         wxgzh: 'static/icon/微信公众号icon.png',
-        weibo: 'static/icon/微博icon.png'
+        weibo: 'static/icon/微博icon.png',
+        searchWord: ''
       }
     },
-    methods: {}
+    mounted() {
+      this.searchWord = this.$route.query.keywords
+    },
+    methods: {
+      search() {
+        debugger
+        const words = this.searchWord.replace(/\s*/g, '')
+        if (words && words.length > 0) {
+          this.$router.push({ path: '/search', query: { keywords: words }})
+        }
+      }
+    }
   }
 </script>
 

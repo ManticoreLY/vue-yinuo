@@ -7,12 +7,12 @@
     name: 'MyCanvas',
     props: {
       words: {
-        type: String,
-        default: ''
+        type: Array,
+        default: []
       },
       width: {
         type: Number,
-        default: 600
+        default: 500
       },
       height: {
         type: Number,
@@ -32,7 +32,8 @@
         canvas: null,
         ctx: null,
         timer: null,
-        position: null
+        position: null,
+        word: {}
       }
     },
     mounted() {
@@ -40,7 +41,7 @@
       this.ctx = this.cancas.getContext('2d')
       this.ctx.font = `${this.fontSize}px Microsoft Yahei`// '16px Microsoft Yahei'
       this.ctx.fillStyle = `${this.fontColor}`
-      if (this.words) {
+      if (this.words && this.words.length) {
         this.start(this.cancas.width)
       }
 
@@ -50,7 +51,7 @@
           this.ctx.fillStyle = '#008aff'
           setTimeout(() => {
             this.stop()
-          }, 100)
+          }, 20)
         }
       })
       can.addEventListener('mouseout', (e) => {
@@ -59,20 +60,38 @@
           this.start(this.position)
         }
       })
+      can.addEventListener('mouseup', (e) => {
+        if (e) {
+          const route = this.$router.resolve({ path: `/articleInfo/${this.word.id}` })
+          window.open(route.href, '_blank')
+        }
+      })
     },
     methods: {
       start(position) {
-        this.position = position
-        const length = this.words.length * this.fontSize
-        if (this.timer) clearInterval(this.timer)
-        this.timer = setInterval(() => {
-          this.ctx.clearRect(0, 0, this.cancas.width, this.cancas.height)
-          this.ctx.fillText(this.words, this.position--, 22)
-          if (this.position <= -length) this.position = this.cancas.width
+        const _this = this
+        _this.position = position
+        _this.word = _this.nextWord()
+        let length = _this.ctx.measureText(_this.word.title).width
+        if (_this.timer) clearInterval(_this.timer)
+        _this.timer = setInterval(() => {
+          _this.ctx.clearRect(0, 0, _this.cancas.width, _this.cancas.height)
+          _this.ctx.fillText(_this.word.title, _this.position--, 22)
+          if (_this.position <= -length) {
+            _this.word = _this.nextWord()
+            length = _this.ctx.measureText(_this.word.title).width
+            _this.position = _this.cancas.width
+          }
         }, 20)
       },
+
       stop() {
         clearInterval(this.timer)
+      },
+      nextWord() {
+        const index = this.words.indexOf(this.word)
+        if (index === this.words.length - 1) return this.words[0]
+        return this.words[index + 1]
       }
     },
     watch: {

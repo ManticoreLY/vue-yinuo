@@ -66,4 +66,6 @@
   .many-logo .link a{margin: 10px;font-size: 1.5rem;color: #555}
   .many-logo .link a:hover{font-size: 1.5rem;color: #005cff;text-decoration: underline}
   >>> .el-tabs__content{width: 90%;margin: 0 auto}
+  >>> .el-tabs__item{font-weight: 600}
+  /*>>> .el-tabs__item.is-active, >>> .el-tabs__item:hover{color: #1daca4}*/
 </style>

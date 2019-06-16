@@ -1,5 +1,8 @@
 <template>
   <div class="page">
+    <div class="bg">
+      <el-image :src="img_url" :fit="'fill'"></el-image>
+    </div>
     <div class="nav">当前位置：
       <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
@@ -14,19 +17,15 @@
       <div class="main" style="border:none">
         <div class="main-item" v-for="(item, index) in tableList" :key="index">
           <div class="img">
-            <el-image :src="item.abstractImg" :fit="'fit'" style="width: 200px"></el-image>
+            <el-image :src="item.abstractImg" :fit="'fit'" style="width: 200px;height: 180px;"></el-image>
           </div>
           <div class="cont">
             <div class="title">
-              <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  >{{ item.title }}</router-link>
+              <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  >{{ titleFormat(item.title) }}</router-link>
+              <span>更新时间：{{ item.updatedDt }}</span>
             </div>
             <div class="info">{{ item.abstractText }}
               <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  ><span style="color:red;font-size: initial">【详情】</span></router-link>
-            </div>
-            <div class="foot">
-              作者：{{item.author}}&nbsp;&nbsp;&nbsp;&nbsp;
-              时间：{{item.updatedDt}}
-              <span style="display: inline-block;float: right">阅读量：{{item.readCount}}</span>
             </div>
           </div>
         </div>
@@ -45,12 +44,6 @@
         </div>
       </div>
       <div class="right">
-        <div class="words">
-          <div class="word-name">频道栏目</div>
-          <div class="word-items">
-            <el-button v-for="i in channels" :key="i.id"  @click="toChannelPage(i.id)" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.5rem">{{i.name}}</el-button>
-          </div>
-        </div>
         <!--最新文章-->
         <latest-articles/>
         <!--本周热门文章-->
@@ -74,6 +67,7 @@
     },
     data() {
       return {
+        img_url: 'static/img/info/banner_patientStory.png',
         channel: {},
         channels: [],
         casesInfo: {},
@@ -103,15 +97,12 @@
       ...page(),
       search() {
         if (this.$route.params.id) {
-          var channelId = this.$route.params.id
+          const channelId = this.$route.params.id
           this.query.andCondition = { 'channelId': channelId, 'type': 1 }
           ChannelApi.findFrontOne(channelId).then(data => {
             this.channel = data.obj
           })
         }
-        ChannelApi.queryPage({ pageObj: { current: 1, size: 200 }, andCondition: { type: 1 }}).then(data => {
-          this.channels = data.obj.records
-        })
         ArticlesApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
           this.tableList = data.obj.records
@@ -122,22 +113,21 @@
           this.casesInfo = data.obj
         })
       },
-      toChannelPage(id) {
-        const routeData = this.$router.resolve({ path: '/cases/channel/' + id })
-        window.open(routeData.href, '_blank')
+      titleFormat(title) {
+        if (!title && title.length > 10) {
+          return title.substring(0, 10) + '...'
+        } else {
+          return title
+        }
       }
     }
   }
 </script>
 
 <style scoped>
+.content .main .main-item .img{margin-right: 15px;}
 .content .main .main-item .cont{position: relative;height: 100%;width: 100%}
-.content .main .main-item .cont .title{position: relative;height: 4rem;padding:0 10px;line-height: 4rem;font-size: 1.5rem;font-weight: 600;}
-.content .main .main-item .cont .info{position: relative;padding:0 10px;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;text-indent: 3rem;}
-.content .main .main-item .cont .foot{position:relative;margin-top:20px;height: 1rem;line-height: 1rem;padding: 0 10px;bottom: 0; left: 0;right: 0;font-size: 1rem;color: #686868;}
-.content .right .words{position:relative;height: 100%}
-.content .right .words .word-name{padding-bottom: 1rem;font-size: 1.75rem;border-bottom: 1px solid #eee;}
-.content .right .words .word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
-  white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
-.content .right .words .word-items{padding: 20px 0;display: flex;flex-flow: row wrap;}
+.content .main .main-item .cont .title{position: relative;height: 4rem;padding:0 10px;line-height: 4rem;font-size: 1.75rem;}
+.content .main .main-item .cont .title span{font-size: 1.25rem;color: #5a5a5a;display: block;float:right;margin-right: 15px;}
+.content .main .main-item .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;text-indent: 2rem;}
 </style>

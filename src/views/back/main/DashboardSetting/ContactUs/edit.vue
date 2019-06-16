@@ -50,7 +50,7 @@
         isUpdate: false,
         rules: {
           name: [
-            { required: true, trigger: 'blur', message: '请填内容' }
+            { required: true, trigger: 'blur', message: '请填写内容' }
           ]
         }
       }

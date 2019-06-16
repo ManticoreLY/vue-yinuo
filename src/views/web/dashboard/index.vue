@@ -1,18 +1,5 @@
 <template>
   <div id="web-index">
-    <div class="web-title">
-      <div class="item1">
-        <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
-      </div>
-      <my-canvas class="item2" :words="show_words" :width="550" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
-      <div class="item3" style="text-align: right">
-        <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
-        <a class="item-title">网站地图</a>
-        <a class="item-title">医疗客服</a>
-        <a class="item-title">海外医疗：400-0000-000</a>
-        <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
-      </div>
-    </div>
     <web-header/>
     <nav-bar v-if="$route.fullPath === '/dashboard'"/>
     <div class="web-content">
@@ -35,44 +22,19 @@
 
 <script>
   import { WebHeader, WebInfo, NavBar } from './components'
-  import MyCanvas from '@/components/MyCanvas'
-  import home from '@/api/Homepage/home'
   export default {
     name: 'index',
     components: {
       WebHeader,
       WebInfo,
-      NavBar,
-      MyCanvas
+      NavBar
     },
     data() {
       return {
         searchWord: '医诺寰宇是出国看病的领导者，国内专业赴印度治疗丙肝、乙肝的团队。印度丙肝新药',
         show_words: '',
-        canvas: null,
-        ctx: null,
         scrollNews: []
       }
-    },
-    methods: {
-      fillShowWords() {
-        if (this.scrollNews) {
-          let showWords = ''
-          for (const key in this.scrollNews) {
-            const html = this.scrollNews[key].abstractText
-            const href = 'javascript:void(0)'
-            const a = '<a href=' + href + '>' + html + '</a>'
-            showWords += a
-          }
-          this.show_words = showWords
-        }
-      }
-    },
-    created() {
-      home.headerScrollNews().then(data => {
-        this.scrollNews = data.obj
-        this.fillShowWords()
-      })
     }
   }
 </script>
@@ -80,14 +42,7 @@
 <style scoped>
   /*color:#1CACA3*/
   #web-index{margin: 0;padding: 0;}
-  .web-title{position: relative;width:90%;padding-left:10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
   .web-content{position: relative;width: 80%; margin: 0 10%;}
-  .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
-  .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}
-  .web-title .item1 .text-icon .arrow-right{position:absolute;top:8px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: transparent transparent transparent #1CACA3}
-  .web-title .item3{font-size: 1.125rem;color: #545454;line-height: 1.5rem;line-height: 1.5rem;}
-  .web-title .item3 .item-title{display: inline-flex;position:relative;border-right:1px solid #545454;padding: 0 6px;}
-  .web-title .item3 .item-title .arrow-down{position:absolute;top: 5px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: #545454 transparent transparent transparent}
 
   .footer{background: #f5f5f5;border-top: 1px solid #eee;width: 80%;height: 100px;padding: 0 10%;text-align: center;font-size: .75rem;color: #545454;text-space: 5px;
    display: flex; flex-flow: row wrap; align-content: center; align-items: center;justify-content: space-around}
