@@ -48,9 +48,10 @@
             size: 10
           },
           likeCondition: {
-            title: '',
-            abstractText: '',
-            content: ''
+            title: ''
+          },
+          andCondition: {
+            type: 0
           },
           fields: [
             'id',

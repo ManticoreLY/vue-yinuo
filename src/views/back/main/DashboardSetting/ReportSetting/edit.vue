@@ -31,7 +31,10 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            title: ''
+          },
+          andCondition: {
+            type: 0
           }
         },
         timer: null,

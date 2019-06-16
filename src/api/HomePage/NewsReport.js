@@ -1,5 +1,5 @@
 import crud from '../crud'
 
 export default {
-  ...crud('api/home/homeNewsReportConfig')
+  ...crud('api/home/newsReport')
 }

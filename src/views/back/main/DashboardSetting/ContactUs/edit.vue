@@ -1,8 +1,23 @@
 <template>
     <div>
       <el-form ref="form" :model="ContactUs" label-width="120px" :rules="rules">
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="ContactUs.name"></el-input>
+        <el-form-item label="免费热线" prop="freeHotLine">
+          <el-input v-model="ContactUs.freeHotLine"></el-input>
+        </el-form-item>
+        <el-form-item label="地址" prop="address">
+          <el-input v-model="ContactUs.address"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="ContactUs.email"></el-input>
+        </el-form-item>
+        <el-form-item label="合作热线" prop="cooperationHotLine">
+          <el-input v-model="ContactUs.cooperationHotLine"></el-input>
+        </el-form-item>
+        <el-form-item label="投诉电话" prop="complaintTel">
+          <el-input v-model="ContactUs.complaintTel"></el-input>
+        </el-form-item>
+        <el-form-item label="官方微信" prop="officialWeChat">
+          <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
@@ -13,23 +28,53 @@
 </template>
 
 <script>
-  import ChannelApi from '@/api/channel'
+  import ContactUsApi from '@/api/HomePage/contactUs'
+  import FileUploader from '@/components/FileUploader'
+  import { uploadFile } from '@/utils/ali-upload'
   export default {
     name: 'edit',
+    components: {
+      FileUploader
+    },
     data() {
       return {
         ContactUs: {
-          name: ''
+          id: null,
+          freeHotLine: '',
+          address: '',
+          email: '',
+          cooperationHotLine: '',
+          complaintTel: '',
+          officialWeChat: ''
         },
         isUpdate: false,
         rules: {
           name: [
-            { required: true, trigger: 'blur', message: '请填写频道名称' }
+            { required: true, trigger: 'blur', message: '请填内容' }
           ]
         }
       }
     },
+    computed: {
+      fileList() {
+        if (this.ContactUs.officialWeChat) {
+          return [{ name: 'image', url: this.ContactUs.officialWeChat }]
+        } else {
+          return []
+        }
+      }
+    },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.ContactUs.id = null
+        this.ContactUs.freeHotLine = ''
+        this.ContactUs.address = ''
+        this.ContactUs.email = ''
+        this.ContactUs.cooperationHotLine = ''
+        this.ContactUs.complaintTel = null
+        this.ContactUs.officialWeChat = ''
+      },
       editForm(entity) {
         this.isUpdate = true
         this.ContactUs = Object.assign(this.ContactUs, entity)
@@ -38,14 +83,14 @@
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
-              ChannelApi.update(this.ContactUs).then(data => {
+              ContactUsApi.update(this.ContactUs).then(data => {
                 this.$message.warning('修改成功！')
                 this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
             } else {
-              ChannelApi.save(this.ContactUs).then(data => {
+              ContactUsApi.save(this.ContactUs).then(data => {
                 this.$message.warning('添加成功！')
                 this.closeForm()
               }).catch(err => {
@@ -54,6 +99,18 @@
             }
           }
         })
+      },
+      fileUploadRequest(opt) {
+        uploadFile(
+          opt.file,
+          res => {
+            this.ContactUs.officialWeChat = res.url
+            opt.onSuccess(res)
+          },
+          err => {
+            console.log(err)
+          }
+        )
       },
       closeForm() {
         this.clearForm()

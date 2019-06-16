@@ -2,15 +2,20 @@
     <div>
       <el-form :inline="true" label-width="120px">
         <el-form-item>
-          <el-input v-model="name"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
-        <el-table-column label="名称" prop="name"></el-table-column>
+        <el-table-column label="免费热线" prop="freeHotLine"></el-table-column>
+        <el-table-column label="地址" prop="address"></el-table-column>
+        <el-table-column label="邮箱" prop="email"></el-table-column>
+        <el-table-column label="合作热线" prop="cooperationHotLine"></el-table-column>
+        <el-table-column label="投诉电话" prop="complaintTel"></el-table-column>
+        <el-table-column label="官方微信" prop="officialWeChat">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.officialWeChat" ></el-image>
+          </template>
+        </el-table-column>
         <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
@@ -34,8 +39,8 @@
 </template>
 
 <script>
-  import BrandApi from '@/api/HomePage/brand'
-  import EditForm from '../edit'
+  import ContactUsApi from '@/api/HomePage/contactUs'
+  import EditForm from './edit'
   export default {
     name: 'index',
     components: {
@@ -47,9 +52,6 @@
           pageObj: {
             current: 1,
             size: 10
-          },
-          likeCondition: {
-            name: ''
           }
         },
         page: {},
@@ -64,7 +66,7 @@
     },
     methods: {
       search() {
-        BrandApi.queryPage(this.query).then(data => {
+        ContactUsApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
           this.tableList = data.obj.records
         }).catch(err => {
@@ -74,6 +76,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'
@@ -84,9 +89,10 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          BrandApi.remove(id).then(data => {
+          ContactUsApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
+            this.handleFormClose()
           }).catch(err => {
             console.log(err)
             this.$message.warning('操作失败')
