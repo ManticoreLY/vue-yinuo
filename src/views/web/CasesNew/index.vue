@@ -104,7 +104,7 @@
       search() {
         if (this.$route.params.id) {
           var channelId = this.$route.params.id
-          this.query.andCondition = { 'channelId': channelId }
+          this.query.andCondition = { 'channelId': channelId, 'type': 1 }
           ChannelApi.findFrontOne(channelId).then(data => {
             this.channel = data.obj
           })
