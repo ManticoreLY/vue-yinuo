@@ -98,6 +98,9 @@
           }
         })
       },
+      handleSelect(data) {
+        this.disease.diseaseId = data.id
+      },
       querySearchAsync(query, callback) {
         if (!query) return
         else {
