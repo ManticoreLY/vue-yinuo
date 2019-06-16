@@ -1,6 +1,8 @@
 <template>
   <div id="web-index">
-    <web-header/>
+    <keep-alive>
+      <web-header/>
+    </keep-alive>
     <nav-bar v-if="$route.fullPath === '/dashboard'"/>
     <div class="web-content">
       <keep-alive>

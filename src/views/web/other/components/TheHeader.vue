@@ -4,12 +4,13 @@
         <div class="item1" style="width: 180px;text-align: right">
           <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
         </div>
-        <div class="item2" style="width: 450px;height: 2.5rem;line-height: 2.5rem">
-          <canvas id="canvas" style="width: 100%;height: 2.25rem;"></canvas>
-        </div>
+        <my-canvas class="item2" :words="show_words" :width="450" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
         <div class="item3" style="width: 720px;text-align: right">
           <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
-          <a class="item-title">网站地图</a>
+          <el-popover placement="bottom" trigger="hover">
+            <website-map/>
+            <a slot="reference" class="item-title">网站地图</a>
+          </el-popover>
           <a class="item-title">医疗客服</a>
           <a class="item-title">海外医疗：400-0000-000</a>
           <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
@@ -37,7 +38,7 @@
       </span>
       </div>
       <div class="web-header">
-        <div class="web-logo" style="margin-left:5%;width: 12%">
+        <div class="web-logo" style="margin: 0 3%">
           <router-link :to="{ path: '/dashboard'}">
             <img src="static/img/医诺寰球横版logo.png" style="height: 60px;width: auto"/>
           </router-link>
@@ -50,45 +51,70 @@
         </div>
       </div>
       <div class="fix-content">
-        <a><img :src="dianhua" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
+        <el-popover placement="left" trigger="hover" :content="dianhua.content">
+          <a slot="reference"><img :src="dianhua.img" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
+        </el-popover>
         <a><img :src="qq" style="height:38px;height:38px"><br/>QQ咨询</a>
         <a><img :src="weixin" style="height:38px;height:38px"><br/>微信咨询</a>
         <a><img :src="weibo" style="height:38px;height:38px"><br/>官方微博</a>
-        <a><img :src="wxgzh" style="height:38px;height:38px"><br/>官方微信</a>
+        <el-popover placement="left" trigger="hover">
+          <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
+          <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/>官方微信</a>
+        </el-popover>
       </div>
     </div>
 </template>
 
 <script>
+  import home from '@/api/Homepage/home'
+  import HoverBar from '../../dashboard/components/HoverBar'
+  import MyCanvas from '@/components/MyCanvas'
+  import WebsiteMap from '@/views/web/components/WebsiteMap'
   export default {
     name: 'TheHeader',
+    components: {
+      HoverBar,
+      WebsiteMap,
+      MyCanvas
+    },
     data() {
       return {
-        dianhua: 'static/icon/dianhua.png',
+        dianhua: { img: 'static/icon/dianhua.png', content: '全国免费咨询电话: 4006-120-152' },
         qq: 'static/icon/qqicon.png',
         weixin: 'static/icon/微信icon.png',
-        wxgzh: 'static/icon/微信公众号icon.png',
+        wxgzh: { img: 'static/icon/微信公众号icon.png', content: '' },
         weibo: 'static/icon/微博icon.png',
-        searchWord: ''
+        searchWord: '',
+        show_words: ''
       }
     },
-    mounted() {
+    created() {
       this.searchWord = this.$route.query.keywords
+      this.fillShowWords()
     },
     methods: {
       search() {
-        debugger
         const words = this.searchWord.replace(/\s*/g, '')
         if (words && words.length > 0) {
-          this.$router.push({ path: '/search', query: { keywords: words }})
+          this.$router.replace({ path: '/search', query: { keywords: words }})
         }
+      },
+      fillShowWords() {
+        home.headerScrollNews().then(data => {
+          this.scrollNews = data.obj
+          if (this.scrollNews) {
+            this.show_words = this.scrollNews.map(news => {
+              return { id: news.id, title: news.title }
+            })
+          }
+        })
       }
     }
   }
 </script>
 
 <style scoped>
-  .web-title{position: relative;width:80%;padding: 0 10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:inline-flex;flex-flow: row nowrap;align-items: center}
+  .web-title{position: relative;width:90%;padding-left:10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
   .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
   .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}
   .web-title .item1 .text-icon .arrow-right{position:absolute;top:8px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: transparent transparent transparent #1CACA3}
@@ -96,15 +122,19 @@
   .web-title .item3 .item-title{display: inline-flex;position:relative;border-right:1px solid #545454;padding: 0 6px;}
   .web-title .item3 .item-title .arrow-down{position:absolute;top: 5px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: #545454 transparent transparent transparent}
 
-  .nav-bar{width: 76%;height: 42px;padding: 0 12%;margin-top: 20px;font-size: 1.5rem;border-bottom: 4px solid #1CACA3}
+  .web-header{width: 80%;padding: 0 10%;height: 120px;display: flex;justify-content: flex-start;align-items: center;align-content: center}
+  .web-header .search-frame .search-bar{width: 100%;height: 40px;border: 2px solid #1CACA3;border-radius: 4px;}
+  >>> .el-input-group__append{background: #1daca4;border:none;color:#fff;font-size: 18px;border-radius: 0px;}
+  >>> .el-input{border: none}
+
+  .nav-bar{width: 76%;height: 42px;padding: 0 12%;font-size: 1.5rem;border-bottom: 4px solid #1CACA3}
   .nav-bar span{display: inline-block;padding: 10px 2.25rem;}
   .nav-bar span:nth-child(1){display: inline-block;padding: 10px 2.25rem;background: #1CACA3;color: #efefef}
 
   .fix-content{position: fixed;right: 2.25rem; top: 16rem;z-index: 20;display: inline-flex;flex-flow: column nowrap;font-size: 10px;}
   .fix-content a{display: inline-block;margin:2px 0;padding: 5px;width:60px;height: 56px;text-align:center;background: #fff;box-shadow: 0 2px 5px 0 #444;z-index: 99}
 
-  .web-header{width: 80%;padding: 0 10%;height: 80px;display: flex;flex-flow:row nowrap;justify-content: left;align-items: center;align-content: center}
-  .web-header .search-frame .search-bar{width: 100%;height: 40px;border: 2px solid #1CACA3;border-radius: 4px;}
-  >>> .el-input-group__append{background: #1daca4;border:none;color:#fff;font-size: 18px;border-radius: 0px;}
+  #hover-panel{position:absolute;width: 207px;height: 450px;background: #2cbca3;top: 45px;left: 0;z-index: 100;visibility: hidden}
+  #hover-icon:hover #hover-panel{visibility: visible}
   >>> .el-input{border: none}
 </style>

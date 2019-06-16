@@ -99,7 +99,6 @@
     },
     methods: {
       search() {
-        debugger
         const words = this.searchWord.replace(/\s*/g, '')
         if (words && words.length > 0) {
           this.$router.push({ path: '/search', query: { keywords: words }})
@@ -110,13 +109,6 @@
           this.show_words = this.scrollNews.map(news => {
             return { id: news.id, title: news.title }
           })
-          /* for (const key in this.scrollNews) {
-            const html = this.scrollNews[key].title
-            const href = 'javascript:void(0)'
-            const a = '<a href=' + href + '>' + html + '</a>'
-            showWords += a
-          }
-          this.show_words = showWords*/
         }
       }
     },

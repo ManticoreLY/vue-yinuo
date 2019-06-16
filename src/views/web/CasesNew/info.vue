@@ -32,6 +32,7 @@
           <span v-if="casesInfo.prevArticle">上一篇: <router-link tag="a" target="_blank" :to="'/casesInfo/'+casesInfo.prevArticle.id"  style="color: #005cff">{{casesInfo.prevArticle.title}}</router-link></span>
           <span v-if="casesInfo.nextArticle">下一篇: <router-link tag="a" target="_blank" :to="'/casesInfo/'+casesInfo.nextArticle.id"  style="color: #005cff">{{casesInfo.nextArticle.title}}</router-link></span>
         </div>
+        <related-recommand/>
       </div>
       <div class="right">
         <!--频道栏目-->
@@ -56,12 +57,14 @@
   import HotArticles from '../components/HotArticles'
   import DiseaseCase from '../components/DiseaseCase'
   import Channel from '../components/Channel'
+  import RelatedRecommand from '../components/RelatedRecommand'
   export default {
     name: 'index',
     components: {
       HotArticles,
       DiseaseCase,
-      Channel
+      Channel,
+      RelatedRecommand
     },
     data() {
       return {

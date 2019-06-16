@@ -1,8 +1,8 @@
 <template>
     <div class="page">
-      <the-header class="head"/>
+      <the-header @searchWord="getSearchWord" class="head"/>
       <div style="margin-top: 190px;">
-        <div class="search-title">搜索<em style="font-style: normal;color: red"> 吉三代 </em>的结果</div>
+        <div class="search-title">搜索<em style="font-style: normal;color: red"> {{ searchWord }} </em>的结果</div>
         <div style="width: 100%;display: flex;align-items: flex-start;align-content: stretch;">
           <div class="main">
             <router-view/>
@@ -30,10 +30,15 @@
     },
     data() {
       return {
+        searchWord: '',
         searchWords: ['吉三代', '丙肝 吉三代', '印度 吉三代', '吉三代 伊柯鲁沙 Epclusa', '吉三代 治疗方案', '索非布韦 吉三代', '泰国吉三代']
       }
     },
-    methods: {}
+    methods: {
+      getSearchWord(searchWord) {
+        this.searchWord = searchWord
+      }
+    }
   }
 </script>
 
