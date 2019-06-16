@@ -1,5 +1,21 @@
 <template>
   <div>
+    <div class="web-title">
+      <div class="item1">
+        <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
+      </div>
+      <my-canvas class="item2" :words="show_words" :width="450" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
+      <div class="item3" style="text-align: right">
+        <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
+        <el-popover placement="bottom" trigger="hover">
+          <website-map/>
+          <a slot="reference" class="item-title">网站地图</a>
+        </el-popover>
+        <a class="item-title">医疗客服</a>
+        <a class="item-title">海外医疗：400-0000-000</a>
+        <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
+      </div>
+    </div>
     <div class="web-header">
       <div class="web-logo" style="margin-left:5%;width: 15%">
         <router-link :to="{ path: '/dashboard'}">
@@ -58,12 +74,21 @@
 </template>
 
 <script>
+  import home from '@/api/Homepage/home'
   import HoverBar from './HoverBar'
+  import MyCanvas from '@/components/MyCanvas'
+  import WebsiteMap from '@/views/web/components/WebsiteMap'
   export default {
     name: 'header',
-    components: { HoverBar },
+    components: {
+      HoverBar,
+      WebsiteMap,
+      MyCanvas
+    },
     data() {
       return {
+        scrollNews: [],
+        show_words: [],
         searchWord: '',
         dianhua: { img: 'static/icon/dianhua.png', content: '全国免费咨询电话: 4006-120-152' },
         qq: 'static/icon/qqicon.png',
@@ -79,12 +104,40 @@
         if (words && words.length > 0) {
           this.$router.push({ path: '/search', query: { keywords: words }})
         }
+      },
+      fillShowWords() {
+        if (this.scrollNews) {
+          this.show_words = this.scrollNews.map(news => {
+            return { id: news.id, title: news.title }
+          })
+          /* for (const key in this.scrollNews) {
+            const html = this.scrollNews[key].title
+            const href = 'javascript:void(0)'
+            const a = '<a href=' + href + '>' + html + '</a>'
+            showWords += a
+          }
+          this.show_words = showWords*/
+        }
       }
+    },
+    created() {
+      home.headerScrollNews().then(data => {
+        this.scrollNews = data.obj
+        this.fillShowWords()
+      })
     }
   }
 </script>
 
 <style scoped>
+  .web-title{position: relative;width:90%;padding-left:10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
+  .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
+  .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}
+  .web-title .item1 .text-icon .arrow-right{position:absolute;top:8px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: transparent transparent transparent #1CACA3}
+  .web-title .item3{font-size: 1.125rem;color: #545454;line-height: 1.5rem;line-height: 1.5rem;}
+  .web-title .item3 .item-title{display: inline-flex;position:relative;border-right:1px solid #545454;padding: 0 6px;}
+  .web-title .item3 .item-title .arrow-down{position:absolute;top: 5px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: #545454 transparent transparent transparent}
+
   .web-header{width: 80%;padding: 0 10%;height: 140px;display: flex;flex-flow:row nowrap;justify-content: space-around;align-items: center;align-content: center}
   .web-header>div.code-img{position: relative;height: 80px;display: inline-flex;align-items: center}
   .web-header .search-frame .search-bar{width: 100%;height: 40px;border: 2px solid #1CACA3;border-radius: 4px;}
