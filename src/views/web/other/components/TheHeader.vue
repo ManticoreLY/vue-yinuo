@@ -85,7 +85,7 @@
         wxgzh: { img: 'static/icon/微信公众号icon.png', content: '' },
         weibo: 'static/icon/微博icon.png',
         searchWord: '',
-        show_words: ''
+        show_words: []
       }
     },
     created() {
