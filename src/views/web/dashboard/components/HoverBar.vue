@@ -20,7 +20,6 @@
 </template>
 
 <script>
-  import DiseaseDBApi from '@/api/HomePage/home'
   export default {
     name: 'HoverBar',
     data() {
