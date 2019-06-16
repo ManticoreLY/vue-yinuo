@@ -45,8 +45,8 @@
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
           <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
         </div>
-        <!--最新文章-->
-        <latest-articles/>
+        <!--乙肝案例-->
+        <disease-case/>
         <!--本周热门文章-->
         <hot-articles/>
       </div>
@@ -58,12 +58,12 @@
   import articleApi from '@/api/articlesFront'
   import channelApi from '@/api/channelFront'
   import HotArticles from '../components/HotArticles'
-  import LatestArticles from '../components/LatestArticles'
+  import DiseaseCase from '../components/DiseaseCase'
   export default {
     name: 'index',
     components: {
       HotArticles,
-      LatestArticles
+      DiseaseCase
     },
     data() {
       return {
