@@ -6,12 +6,12 @@
           <div class="key-word" style="height: 4rem;">{{medicine.name}}</div>
           <div class="search-content" style="height: 8rem;">{{medicine.shotIntroduct}}</div>
           <div class="more" style="width: 100%;height: 2rem;text-align: right;margin-top:15px;">
-            <el-button type="primary" style="padding: 5px;">立即查看</el-button>
+            <el-button type="primary" style="padding: 5px;"  @click="toMedicinePage(medicine.id)" >立即查看</el-button>
           </div>
         </div>
       </div>
       <div class="search-list">
-        <div v-for="item in tableList" :key="item" class="list-item">
+        <div v-for="item in tableList" :key="item.id" class="list-item">
           <div class="list-title">{{item.title}}</div>
           <div class="list-content">
             <el-image style="width: 22%;height: 120px;" :src="item.abstractImg"></el-image>
@@ -20,7 +20,7 @@
                 {{item.abstractText}}
               </div>
               <div class="item-info">
-                <span><i>分类:</i> {{item.channel.name}}</span>
+                <span v-if="item.channel"><i>分类:</i> {{item.channel.name}}</span>
                 <span><i>作者:</i> {{item.author}}</span>
                 <span><i>日期:</i> {{item.updatedDt}}</span>
                 <span><i>关键词:</i>{{item.keywords}}</span>
@@ -60,7 +60,7 @@
             current: 1,
             size: 10
           },
-          andCondition: {
+          likeCondition: {
             name: ''
           },
           fields: [
@@ -94,11 +94,17 @@
         }
       }
     },
+    watch: {
+      $route() {
+        this.search()
+      }
+    },
     methods: {
       search() {
         const keywords = this.$route.query.keywords
-        this.medicineQuery.andCondition.name = keywords
+        this.medicineQuery.likeCondition.name = keywords
         this.newsArticleQuery.likeCondition.title = keywords
+        this.newsArticleQuery.orderByConditionStr = {}
         this.newsArticleQuery.orderByConditionStr['title like \"' + '%' + keywords + '%' + '\"'] = 'desc'
         this.newsArticleQuery.orderByConditionStr['abstract_text like \"' + '%' + keywords + '%' + '\"'] = 'desc'
         this.newsArticleQuery.orderByConditionStr['content like \"' + '%' + keywords + '%' + '\"'] = 'desc'
@@ -124,15 +130,20 @@
           console.log(err)
           this.$message.warning(err.msg)
         })
+      },
+      toMedicinePage(id) {
+        debugger
+        const routeData = this.$router.resolve({ path: '/medicineInfo/' + id })
+        window.open(routeData.href, '_blank')
+      },
+      pageChange(val) {
+        this.newsArticleQuery.pageObj.current = val
+        this.newsArticleSearch()
+      },
+      sizeChange(val) {
+        this.newsArticleQuery.pageObj.size = val
+        this.newsArticleSearch()
       }
-    },
-    pageChange(val) {
-      this.newsArticleQuery.pageObj.current = val
-      this.newsArticleSearch()
-    },
-    sizeChange(val) {
-      this.newsArticleQuery.pageObj.size = val
-      this.newsArticleSearch()
     }
   }
 </script>

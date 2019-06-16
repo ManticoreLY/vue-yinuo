@@ -1,6 +1,6 @@
 <template>
   <div class="hover-bar">
-    <div class="item" v-for="item in list" :key="item">
+    <div class="item" v-for="item in list" :key="item.id">
       <div class="main">{{item.name}}</div>
       <div class="sub">
         <span >{{item.disease1.name}}</span>
@@ -8,7 +8,7 @@
         <span >{{item.disease3.name}}</span>
       </div>
       <div class="panel">
-        <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i">
+        <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id">
           <h5><a>{{ i.disease.name }}</a></h5>
           <h6>
             <span v-for="p in i.disease.medicines" :key="p.id"><router-link tag="a" target="_blank" :to="'/medicineInfo/'+p.id" >{{p.shotName}}</router-link></span>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+  import DiseaseDBApi from '@/api/Homepage/home'
+
   export default {
     name: 'HoverBar',
     data() {
