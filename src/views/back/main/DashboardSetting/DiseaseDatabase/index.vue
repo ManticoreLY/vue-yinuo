@@ -8,6 +8,11 @@
       <el-table :data="tableList">
         <el-table-column label="名称" prop="name"></el-table-column>
         <!--<el-table-column label="标题" prop="title"></el-table-column>-->
+        <el-table-column label="icon">
+          <template slot-scope="scope">
+            <el-image :src="scope.row.icon"></el-image>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -30,7 +35,7 @@
 </template>
 
 <script>
-  import TCApi from '@/api/HomePage/TreatmentCase'
+  import DiseaseDBApi from '@/api/HomePage/DiseaseDatabase'
   // import caseApi from '@/api/cases'
   import EditForm from './edit'
   import page from '@/utils/page'
@@ -50,7 +55,7 @@
         page: {},
         name: '',
         tableList: [],
-        formTitle: [],
+        formTitle: '',
         editFormVisible: false
       }
     },
@@ -60,7 +65,7 @@
     methods: {
       ...page(),
       search() {
-        TCApi.queryPage(this.query).then(data => {
+        DiseaseDBApi.queryPage(this.query).then(data => {
           const _this = this
           this.page = Object.assign(this.page, data.obj)
           // (async function() {
@@ -98,7 +103,7 @@
       },
       toDelete(id) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          TCApi.remove(id).then(data => {
+          DiseaseDBApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
           }).catch(err => {

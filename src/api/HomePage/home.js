@@ -7,6 +7,13 @@ export default {
       method: 'GET'
     })
   },
+  diseaseDb() {
+    const url = '/front/home/diseaseDb'
+    return request({
+      url,
+      method: 'GET'
+    })
+  },
   diseaseColumn() {
     const url = '/front/home/diseaseColumn'
     return request({

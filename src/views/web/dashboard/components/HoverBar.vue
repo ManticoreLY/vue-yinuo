@@ -3,13 +3,15 @@
     <div class="item" v-for="item in list" :key="item">
       <div class="main">{{item.name}}</div>
       <div class="sub">
-        <span v-for="t in item.items" :key="t">{{t}}</span>
+        <span >{{item.disease1.name}}</span>
+        <span >{{item.disease2.name}}</span>
+        <span >{{item.disease3.name}}</span>
       </div>
       <div class="panel">
-        <div class="info-item" v-for="i in item.children" :key="i">
-          <h5><a>{{ i.name }}</a></h5>
+        <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i">
+          <h5><a>{{ i.disease.name }}</a></h5>
           <h6>
-            <span v-for="p in i.items" :key="p">{{p}}</span>
+            <span v-for="p in i.disease.medicines" :key="p.id"><router-link tag="a" target="_blank" :to="'/medicineInfo/'+p.id" >{{p.shotName}}</router-link></span>
           </h6>
         </div>
       </div>
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+  import DiseaseDBApi from '@/api/HomePage/home'
   export default {
     name: 'HoverBar',
     data() {
@@ -89,6 +92,19 @@
             ]
           }
         ]
+      }
+    },
+    mounted() {
+      this.search()
+    },
+    methods: {
+      search() {
+        DiseaseDBApi.diseaseDb().then(data => {
+          const _this = this
+          _this.list = data.obj
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   }
