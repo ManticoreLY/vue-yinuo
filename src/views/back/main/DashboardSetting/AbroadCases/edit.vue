@@ -4,8 +4,8 @@
         <el-form-item label="案例名称" prop="name">
           <el-input v-model="abroadCases.name"></el-input>
         </el-form-item>
-        <el-form-item label="选择实例" prop="treatmentCaseId">
-          <el-select v-model="abroadCases.treatmentCaseId">
+        <el-form-item label="选择实例" prop="newsArticleId">
+          <el-select v-model="abroadCases.newsArticleId">
             <el-option v-for="(opt, index) in treatmentCases" :key="index" :value="opt.id" :label="opt.title"></el-option>
           </el-select>
         </el-form-item>
@@ -19,7 +19,7 @@
 
 <script>
   import TCApi from '@/api/HomePage/TreatmentCase'
-  import caseApi from '@/api/cases'
+  import newsArticleApi from '@/api/articles'
   // import FileUploader from '@/components/FileUploader'
   // import { uploadFile } from '@/utils/ali-upload'
   export default {
@@ -33,24 +33,27 @@
           pageObj: {
             current: 1,
             size: 1000
+          },
+          andCondition: {
+            type: 1
           }
         },
         abroadCases: {
           id: null,
           name: '',
-          treatmentCaseId: null
+          newsArticleId: null
         },
         treatmentCases: [],
         isUpdate: false,
         rules: {
           name: [
-            { required: true, trigger: 'blur', message: '请填写名称' }
+            { required: true, trigger: 'blur', message: '请填写内容' }
           ]
         }
       }
     },
     created() {
-      caseApi.queryPage(this.query).then(data => {
+      newsArticleApi.queryPage(this.query).then(data => {
         this.treatmentCases = data.obj.records
       }).catch(err => {
         console.log(err)
@@ -60,7 +63,7 @@
       addForm() {
         this.isUpdate = false
         this.abroadCases.id = null
-        this.abroadCases.treatmentCaseId = null
+        this.abroadCases.newsArticleId = null
       },
       editForm(entity) {
         this.isUpdate = true

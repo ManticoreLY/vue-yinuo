@@ -1,8 +1,8 @@
 <template>
     <div>
-      <el-form ref="form" :model="channelItem" label-width="120px" :rules="rules">
-        <el-form-item label="名称" prop="name">
-          <el-input v-model="channelItem.name"></el-input>
+      <el-form ref="form" :model="officialPublish" label-width="120px" :rules="rules">
+        <el-form-item label="内容" prop="content">
+          <UE id = "content" :defaultMsg="officialPublish.content" :config=config ref="content"></UE>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
@@ -13,39 +13,55 @@
 </template>
 
 <script>
-  import ChannelApi from '@/api/channel'
+  import OfficialPublishApi from '@/api/HomePage/OfficialPublish'
+  import UE from '@/components/ue.vue'
   export default {
+    components: {
+      UE
+    },
     name: 'edit',
     data() {
       return {
-        channelItem: {
-          name: ''
+        config: {
+          initialFrameWidth: null,
+          initialFrameHeight: 350
+        },
+        officialPublish: {
+          id: null,
+          content: ''
         },
         isUpdate: false,
         rules: {
           name: [
-            { required: true, trigger: 'blur', message: '请填写频道名称' }
+            { required: true, trigger: 'blur', message: '请填写内容' }
           ]
         }
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+        this.officialPublish.id = null
+        this.officialPublish.content = ''
+      },
       editForm(entity) {
+        debugger
         this.isUpdate = true
-        this.channelItem = Object.assign(this.channelItem, entity)
+        this.officialPublish = Object.assign(this.officialPublish, entity)
       },
       saveForm() {
         this.$refs['form'].validate(valid => {
           if (valid) {
+            this.officialPublish.content = this.$refs.content.getUEContent()
             if (this.isUpdate) {
-              ChannelApi.update(this.channelItem).then(data => {
+              OfficialPublishApi.update(this.officialPublish).then(data => {
                 this.$message.warning('修改成功！')
                 this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
             } else {
-              ChannelApi.save(this.channelItem).then(data => {
+              OfficialPublishApi.save(this.officialPublish).then(data => {
                 this.$message.warning('添加成功！')
                 this.closeForm()
               }).catch(err => {
