@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="nav">当前位置：
-      <router-link :to="'/'">医诺寰宇海外医疗</router-link>
+      <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
       <router-link :to="'/about'">关于我们</router-link>
       > 联系我们
@@ -11,7 +11,7 @@
     </div>
     <!--<div class="main">-->
       <!--<div>-->
-        <!--<p>医诺寰宇青岛总部</p>-->
+        <!--<p>医诺寰球青岛总部</p>-->
         <!--<div class="section0">-->
           <!--<div>-->
             <!--<el-image :fit="fit" style="height: 300px;width: 300px;"></el-image>-->
@@ -56,7 +56,7 @@
       <!--<div>-->
         <!--<p>关注我们</p>-->
         <!--<div class="position">-->
-          <!--<h5>如果您想了解更多医诺寰宇资讯，可添加或扫描下列二维码关注后了解</h5>-->
+          <!--<h5>如果您想了解更多医诺寰球资讯，可添加或扫描下列二维码关注后了解</h5>-->
           <!--<div style="width: 60%">-->
             <!--<el-image src="static/img/医诺寰球客服二维码.jpeg" :fit="fit" style="width: 200px; height: 200px"></el-image>-->
             <!--<el-image src="static/img/医诺寰球公众号二维码.jpg" :fit="fit" style="width: 200px; height: 200px"></el-image>-->

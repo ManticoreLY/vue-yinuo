@@ -4,7 +4,7 @@
         <el-image :src="img_url" :fit="'fill'"></el-image>
       </div>
       <div class="nav">当前位置：
-        <router-link :to="'/'">医诺寰宇海外医疗</router-link>
+        <router-link :to="'/'">医诺寰球海外医疗</router-link>
          >
         <router-link :to="'/cases'">医疗案例</router-link>
          >

@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="footer">Copyright &copy; 2015-2019 医诺 - 青岛医诺寰宇海外医疗服务有限公司 版权所有</div>
+      <div class="footer">Copyright &copy; 2015-2019 医诺 - 青岛医诺寰球海外医疗服务有限公司 版权所有</div>
     </div>
 </template>
 

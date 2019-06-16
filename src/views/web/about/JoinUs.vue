@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="nav">当前位置：
-      <router-link :to="'/'">医诺寰宇海外医疗</router-link>
+      <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
       <router-link :to="'/about'">关于我们</router-link>
       > 加入我们

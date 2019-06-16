@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="nav">当前位置：
-      <router-link :to="'/'">医诺寰宇海外医疗</router-link>
+      <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
       <router-link :to="'/about'">关于我们</router-link>
       > 法律声明
@@ -11,7 +11,7 @@
     </div>
     <!--<div class="main">-->
       <!--<div>-->
-        <!--<p>医诺寰宇法律声明</p>-->
+        <!--<p>医诺寰球法律声明</p>-->
         <!--<h5>-->
           <!--抗癌社区提醒您：在浏览huayinyiliao.com资料前，请您务必仔细阅读并透彻理解本声明。-->
           <!--<br/><br/>-->

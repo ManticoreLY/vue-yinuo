@@ -1,7 +1,7 @@
 <template>
     <div class="cure-case">
       <div class="nav">当前位置：
-        <router-link :to="'/'">医诺寰宇海外医疗</router-link>
+        <router-link :to="'/'">医诺寰球海外医疗</router-link>
          >
         <router-link :to="'/'">首页疾病导航</router-link>
          > 二型糖尿病
