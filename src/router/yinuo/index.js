@@ -35,7 +35,7 @@ export default [
     name: '用户管理',
     meta: ['admin'],
     children: [
-      { path: '', name: '用户管理', component: () => import('@/views/back/main/user/index'), hidden: true }
+      { path: '', name: '用户管理', component: () => import('@/views/back/main/user/index') }
     ]
   },
   {

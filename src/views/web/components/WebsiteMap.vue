@@ -3,7 +3,7 @@
       <div class="section1">
         <span class="title">栏目直达</span>
         <span class="items">
-          <a v-for="item in webItems" :key="item.name">{{ item.name }}</a>
+          <router-link v-for="item in webItems" :key="item.name" :to="item.url">{{ item.name }}</router-link>
         </span>
       </div>
       <div class="section2">
@@ -27,7 +27,7 @@
     data() {
       return {
         webItems: [
-          { name: '康安首页', url: '' },
+          { name: '首页', url: '/dashboard' },
           { name: '医疗保险', url: '' },
           { name: '转阴案例', url: '' },
           { name: '康安学术', url: '' },
