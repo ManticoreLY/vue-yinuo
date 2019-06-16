@@ -34,14 +34,10 @@
           </div>
         </div>
         <div class="right">
-          <div class="words">
-            <div class="word-name">最新文章</div>
-            <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-          </div>
-          <div class="words">
-            <div class="word-name">本周热门文章</div>
-            <div class="word-title" v-for="(article,index) in articleInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-          </div>
+          <!--最新文章-->
+          <latest-articles/>
+          <!--本周热门文章-->
+          <hot-articles/>
         </div>
       </div>
     </div>
@@ -49,14 +45,18 @@
 
 <script>
   import CaseApi from '@/api/casesFront'
-  import ArticlesApi from '@/api/articlesFront'
+  import HotArticles from '../components/HotArticles'
+  import LatestArticles from '../components/LatestArticles'
   export default {
     name: 'index',
+    components: {
+      HotArticles,
+      LatestArticles
+    },
     data() {
       return {
         img_url: 'static/img/info/banner_patientStory.png',
         cases: [],
-        articleInfo: {},
         query: {
           pageObj: {
             current: 1,
@@ -79,9 +79,6 @@
         }).catch(err => {
           console.log(err)
         })
-        ArticlesApi.findFrontInfo(0).then(data => {
-          this.articleInfo = data.obj
-        })
       }
     }
   }
@@ -101,8 +98,4 @@
   .content .main .main-case .cont .title{position: relative;height: 4rem;line-height: 4rem;font-size: 1.5rem;font-weight: 600;}
   .content .main .main-case .cont .title span{font-size: 1.25rem;color: #5a5a5a;display: block;float:right;margin-right: 15px;}
   .content .main .main-case .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;}
-  .content .right .words{min-height: 200px;border: 1px solid #eee;margin-bottom: 20px;padding:15px;}
-  .content .right .words>div.word-name{width:initial;border-bottom: 1px solid #eee;height: 4rem;line-height: 4rem;font-size: 1.5rem;font-weight: 600}
-  .content .right .words>div.word-title{width:initial;border-bottom: 1px solid #eee;height: 3rem;line-height: 3rem;font-size: 1.25rem;color: #5a5a5a;
-      white-space: nowrap;overflow: hidden;text-overflow: ellipsis}
 </style>

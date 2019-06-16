@@ -51,14 +51,10 @@
             <el-button v-for="i in channels" :key="i.id"  @click="toChannelPage(i.id)" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.5rem">{{i.name}}</el-button>
           </div>
         </div>
-        <div class="words">
-          <div class="word-name">最新文章</div>
-          <div class="word-title" v-for="(article,index) in casesInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
-        <div class="words">
-          <div class="word-name">本周热门文章</div>
-          <div class="word-title" v-for="(article,index) in casesInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
+        <!--最新文章-->
+        <latest-articles/>
+        <!--本周热门文章-->
+        <hot-articles/>
       </div>
     </div>
   </div>
@@ -68,9 +64,14 @@
   import page from '@/utils/page'
   import ArticlesApi from '@/api/articlesFront'
   import ChannelApi from '@/api/channelFront'
-
+  import HotArticles from '../components/HotArticles'
+  import LatestArticles from '../components/LatestArticles'
   export default {
     name: 'index',
+    components: {
+      HotArticles,
+      LatestArticles
+    },
     data() {
       return {
         channel: {},

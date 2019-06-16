@@ -41,18 +41,14 @@
           </div>
         </div>
         <div class="words test">
-          <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 120px;height: 120px"/>
+          <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 160px;height: 160px"/>
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
           <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
         </div>
-        <div class="words">
-          <div class="word-name">最新文章</div>
-          <div class="word-title" v-for="(article,index) in casesInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
-        <div class="words">
-          <div class="word-name">本周热门文章</div>
-          <div class="word-title" v-for="(article,index) in casesInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
+        <!--最新文章-->
+        <latest-articles/>
+        <!--本周热门文章-->
+        <hot-articles/>
       </div>
     </div>
   </div>
@@ -61,8 +57,14 @@
 <script>
   import articleApi from '@/api/articlesFront'
   import channelApi from '@/api/channelFront'
+  import HotArticles from '../components/HotArticles'
+  import LatestArticles from '../components/LatestArticles'
   export default {
     name: 'index',
+    components: {
+      HotArticles,
+      LatestArticles
+    },
     data() {
       return {
         medicalArticle: {
