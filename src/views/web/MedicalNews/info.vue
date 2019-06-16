@@ -55,14 +55,14 @@
   import articleApi from '@/api/articlesFront'
   import channelApi from '@/api/channelFront'
   import HotArticles from '../components/HotArticles'
-  import DiseaseCase from '../components/DiseaseCase'
+  import LatestArticles from '../components/LatestArticles'
   import Channel from '../components/Channel'
   import RelatedRecommand from '../components/RelatedRecommand'
   export default {
     name: 'index',
     components: {
       HotArticles,
-      DiseaseCase,
+      LatestArticles,
       Channel,
       RelatedRecommand
     },

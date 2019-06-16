@@ -7,7 +7,10 @@
       <my-canvas class="item2" :words="show_words" :width="550" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
       <div class="item3" style="text-align: right">
         <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
-        <a class="item-title">网站地图</a>
+        <el-popover placement="bottom" trigger="hover">
+          <el-card></el-card>
+          <a slot="reference" class="item-title">网站地图</a>
+        </el-popover>
         <a class="item-title">医疗客服</a>
         <a class="item-title">海外医疗：400-0000-000</a>
         <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>

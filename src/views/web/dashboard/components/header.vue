@@ -41,12 +41,19 @@
       </span>
     </div>
     <div class="fix-content">
-      <a><img :src="dianhua" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
+      <el-popover placement="left" trigger="hover" :content="dianhua.content">
+          <a slot="reference">
+            <img :src="dianhua.img" style="height:38px;height:38px"><br/><b>咨询电话</b>
+          </a>
+      </el-popover>
       <a><img :src="qq" style="height:38px;height:38px"><br/>QQ咨询</a>
       <a><img :src="weixin" style="height:38px;height:38px"><br/>微信咨询</a>
       <a><img :src="weibo" style="height:38px;height:38px"><br/>官方微博</a>
-      <a><img :src="wxgzh" style="height:38px;height:38px"><br/>官方微信</a>
-    </div>
+      <el-popover placement="left" trigger="hover">
+        <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
+        <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/>官方微信</a>
+      </el-popover>
+  </div>
   </div>
 </template>
 
@@ -58,10 +65,10 @@
     data() {
       return {
         searchWord: '',
-        dianhua: 'static/icon/dianhua.png',
+        dianhua: { img: 'static/icon/dianhua.png', content: '全国免费咨询电话: 4006-120-152' },
         qq: 'static/icon/qqicon.png',
         weixin: 'static/icon/微信icon.png',
-        wxgzh: 'static/icon/微信公众号icon.png',
+        wxgzh: { img: 'static/icon/微信公众号icon.png', content: '' },
         weibo: 'static/icon/微博icon.png'
       }
     }

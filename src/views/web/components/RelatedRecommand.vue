@@ -45,7 +45,7 @@
 .content{position: relative;padding: 2px; width: 96%;display: flex; flex-flow: row wrap; align-items: flex-start; align-content: stretch; justify-content: space-between}
 .item{position: relative;width: 46%;margin: 5px; display: inline-flex; align-items: flex-start; align-content:flex-start}
 .item .item-cont{width: 60%;margin:0 0 0 -30px}
-.item .item-cont .title{font-size: 1.25rem; color: #a1a1a1}
+.item .item-cont .title{font-size: 1.25rem; color: #a1a1a1;}
 
   >>>.el-tabs__header{margin: 0}
 >>>.el-tabs__item:hover,>>>.el-tabs__item.is-active{color: #1daca4}
