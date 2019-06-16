@@ -3,13 +3,13 @@
       <div class="web-content">
         <div v-for="item in treatmentCase" :key="item.id" class="example-item">
           <div>
-            <router-link :to="`casesInfo/${item.id}`">
+            <router-link :to="`casesInfo/${item.newsArticleId}`" tag="a" target="_blank">
               <el-image :src="item.img" style="height: 100%;width: 100%"></el-image>
             </router-link>
           </div>
           <div>
             <div style="font-size: 1.75rem;height:3rem;">
-              <router-link :to="`casesInfo/${item.newsArticleId}`">{{ item.title }}</router-link>
+              <router-link :to="`casesInfo/${item.newsArticleId}`" tag="a" target="_blank">{{ item.title }}</router-link>
             </div>
             <div style="font-size: 1.25rem;color: #7f7f7f;word-wrap: break-word;white-space: pre-wrap">{{item.description}}</div>
           </div>
