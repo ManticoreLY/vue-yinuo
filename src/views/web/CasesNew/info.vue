@@ -34,12 +34,8 @@
         </div>
       </div>
       <div class="right">
-        <div class="words">
-          <div class="word-name">频道栏目</div>
-          <div class="word-items">
-            <el-button v-for="i in channels" :key="i.id" @click="toChannelPage(i.id)" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.35rem">{{i.name}}</el-button>
-          </div>
-        </div>
+        <!--频道栏目-->
+        <channel/>
         <div class="words test">
           <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 160px;height: 160px"/>
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
@@ -59,11 +55,13 @@
   import channelApi from '@/api/channelFront'
   import HotArticles from '../components/HotArticles'
   import DiseaseCase from '../components/DiseaseCase'
+  import Channel from '../components/Channel'
   export default {
     name: 'index',
     components: {
       HotArticles,
-      DiseaseCase
+      DiseaseCase,
+      Channel
     },
     data() {
       return {

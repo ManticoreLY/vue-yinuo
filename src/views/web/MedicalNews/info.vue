@@ -32,27 +32,20 @@
           <span v-if="articleInfo.prevArticle">上一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.prevArticle.id"  style="color: #005cff">{{articleInfo.prevArticle.title}}</router-link></span>
           <span v-if="articleInfo.nextArticle">下一篇: <router-link tag="a" target="_blank" :to="'/articleInfo/'+articleInfo.nextArticle.id"  style="color: #005cff">{{articleInfo.nextArticle.title}}</router-link></span>
         </div>
+        <related-recommand/>
       </div>
       <div class="right">
-        <div class="words">
-          <div class="word-name">频道栏目</div>
-          <div class="word-items">
-            <el-button v-for="i in channels" :key="i.id" @click="toChannelPage(i.id)" size="mini" border style="border: 1px solid #008aff;padding: 5px 10px;color: #008aff;margin: 5px;font-size: 1.35rem">{{i.name}}</el-button>
-          </div>
-        </div>
+        <!--频道栏目-->
+        <channel/>
         <div class="words test">
           <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 120px;height: 120px"/>
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
           <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
         </div>
-        <div class="words">
-          <div class="word-name">最新文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
-        <div class="words">
-          <div class="word-name">本周热门文章</div>
-          <div class="word-title" v-for="(article,index) in articleInfo.hotArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
-        </div>
+        <!--最新文章-->
+        <latest-articles/>
+        <!--本周热门文章-->
+        <hot-articles/>
       </div>
     </div>
   </div>
@@ -61,8 +54,18 @@
 <script>
   import articleApi from '@/api/articlesFront'
   import channelApi from '@/api/channelFront'
+  import HotArticles from '../components/HotArticles'
+  import DiseaseCase from '../components/DiseaseCase'
+  import Channel from '../components/Channel'
+  import RelatedRecommand from '../components/RelatedRecommand'
   export default {
     name: 'index',
+    components: {
+      HotArticles,
+      DiseaseCase,
+      Channel,
+      RelatedRecommand
+    },
     data() {
       return {
         medicalArticle: {
