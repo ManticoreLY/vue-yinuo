@@ -2,9 +2,9 @@
   <div class="words">
     <div class="word-name">本周热门文章</div>
     <div class="word-content" v-for="(article,index) in articleInfo.hotArticles" :key="index">
-      <div style="width: 40%"><img :src="article.abstractImg" fit="fit"></div>
+      <div style="width: 40%"><el-image :src="article.abstractImg" fit="fit"/></div>
       <div style="margin-left: 10px;width: 50%">
-        <router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link>
+        <router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="font-size: 1.15rem">{{article.title}}</router-link>
         <br/><br/>
         <span style="color: #ccc">人气：</span><span style="color: red">{{article.readCount}}</span>
       </div>
