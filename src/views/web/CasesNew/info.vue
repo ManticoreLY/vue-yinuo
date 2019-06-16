@@ -3,9 +3,9 @@
     <div class="nav">当前位置：
       <router-link :to="'/'">医诺寰宇海外医疗</router-link>
       >
-      <router-link :to="'/news'">医疗新闻</router-link>
+      <router-link :to="'/case'">医疗案例</router-link>
       >
-      <router-link :to="'/news'">肿瘤新闻</router-link>
+      <router-link :to="'/news'">治疗实例</router-link>
       > {{medicalArticle.title}}
     </div>
     <div class="content">

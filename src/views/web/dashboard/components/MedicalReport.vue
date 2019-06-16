@@ -6,14 +6,20 @@
         <div style="width: 36%;margin-right: 15px"><el-image :src="item.newsArticles[0].abstractImg" style="width: 100%;height: 160px;"/></div>
         <div style="width: 58%">
         <p style="font-size:1.75rem;color:#1daca4;height: 4.25rem;">
+          <router-link :to="'news/channel/' + item.newsArticles[0].id">
           {{item.newsArticles[0].title.substring(0, 19)}}<em v-show="item.newsArticles[0].title.length > 19">...</em>
+          </router-link>
         </p>
-        <p style="font-size: 1.25rem;color:#7f7f7f;text-indent: 2rem;height: 100px;width: 100%;overflow: hidden">1月12日，{{item.newsArticles[0].abstractText.substring(0, 60) + '...'}}<a>【详情】</a></p>
+        <p style="font-size: 1.25rem;color:#7f7f7f;text-indent: 2rem;height: 100px;width: 100%;overflow: hidden">1月12日，{{item.newsArticles[0].abstractText.substring(0, 60) + '...'}}
+          <router-link :to="'news/channel/' + item.newsArticles[0].id">【详情】</router-link>
+        </p>
         </div>
       </div>
       <div class="module-title">
-        <div v-for="(vo, index) in item.newsArticles" :key="index" v-if="index > 0" style="margin-top: 10px">
-          <div class="ellipsis" style="font-size: 1.25rem;color:#7f7f7f;width: 64%">{{vo.title}}</div>
+        <div v-for="(vo, index) in item.newsArticles" :key="index" v-if="index > 1" style="margin-top: 10px">
+          <div class="ellipsis" style="font-size: 1.25rem;color:#7f7f7f;width: 64%">
+            <router-link :to="'news/channel/' + vo.id">{{vo.title}}</router-link>
+          </div>
           <div style="width: 20%">{{vo.createdDt.substring(0, 10)}}</div>
       </div>
     </div>

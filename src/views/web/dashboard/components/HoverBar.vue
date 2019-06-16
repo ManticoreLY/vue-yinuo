@@ -10,11 +10,14 @@
       <div class="panel">
         <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id">
           <h5><a>{{ i.disease.name }}</a></h5>
+        <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i">
+          <h5><router-link to="">{{ i.disease.name }}</router-link></h5>
           <h6>
             <span v-for="p in i.disease.medicines" :key="p.id"><router-link tag="a" target="_blank" :to="'/medicineInfo/'+p.id" >{{p.shotName}}</router-link></span>
           </h6>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
