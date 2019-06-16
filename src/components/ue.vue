@@ -25,6 +25,7 @@
     },
     watch: {
       defaultMsg() {
+        debugger
         if (this.isReady) {
           this.editor.setContent(this.defaultMsg) // 确保UE加载完成后，放入内容。
         }
@@ -33,13 +34,14 @@
     mounted() {
       const _this = this
       // const UE = document.getElementById(this.id)
+      debugger
       /* global UE */
       this.editor = UE.getEditor(this.id, this.config) // 初始化UE
       this.editor.addListener('ready', function() {
         if (!_this.defaultMsg) {
           _this.defaultMsg = ''
         }
-        this.isReady = true
+        _this.isReady = true
         _this.editor.setContent(_this.defaultMsg) // 确保UE加载完成后，放入内容。
       })
     },
