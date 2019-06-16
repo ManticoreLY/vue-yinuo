@@ -1,6 +1,6 @@
 <template>
   <div class="web-news">
-    <div v-for="item in newsReportVo.newsArticles" :key="item" class="news-item">
+    <div v-for="(item,index) in newsReportVo.newsArticles" :key="index" class="news-item">
       <el-image :src="item.abstractImg" :fit="'fit'" style="width: 220px;height: 160px"/>
       <div>
         <p class="title" style="font-size: 1.75rem;height: 30px;">

@@ -30,7 +30,7 @@
     name: 'RelatedRecommand',
     props: {
       articleInfo: {
-        default: {},
+        default: function() { return {} },
         type: Object
       }
     },

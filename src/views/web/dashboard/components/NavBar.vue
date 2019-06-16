@@ -2,7 +2,7 @@
   <div class="web-nav">
     <div class="nav-images">
       <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="banner in banners" :key="banner">
+        <el-carousel-item v-for="banner in banners" :key="banner.id">
           <a :href="banner.url" target="_blank">
           <img :src="banner.img" style="width: 100%;height:100%">
           </a>

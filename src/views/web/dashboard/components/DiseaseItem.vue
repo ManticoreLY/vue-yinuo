@@ -3,7 +3,7 @@
     <div class="item-name">疾病专栏</div>
     <div class="items">
       <div class="child">
-        <a v-for="item in diseaseItems" :key="item">
+        <a v-for="item in diseaseItems" :key="item.id">
           <div style="width: 80px;text-align: center"><img :src="item.icon" style="height: 60px;width: 60px;"></div>
           <div style="width: 150px;display: inline-block;text-align: center">
             <router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.diseaseId">

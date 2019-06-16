@@ -1,7 +1,7 @@
 <template>
     <div style="margin: 20px 0">
       <div class="web-content">
-        <div v-for="item in treatmentCase" :key="item" class="example-item">
+        <div v-for="item in treatmentCase" :key="item.id" class="example-item">
           <div>
             <router-link :to="`casesInfo/${item.id}`">
               <el-image :src="item.img" style="height: 100%;width: 100%"></el-image>

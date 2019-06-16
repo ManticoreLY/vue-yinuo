@@ -1,14 +1,14 @@
 <template>
   <div class="many-logo">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName" >
       <el-tab-pane label="战略合作伙伴" name="first">
         <div v-for="item in friendLinkVo.strategyCompanies" class="logo-pane">
-          <img :src="item.img" :key="item" height="75" width="275">
+          <img :src="item.img" :key="item.id" height="75" width="275">
         </div>
       </el-tab-pane>
       <el-tab-pane label="媒体合作" name="second">
         <div v-for="item in friendLinkVo.mediaCompanies" class="logo-pane">
-          <img :src="item.img" :key="item"  height="75" width="275">
+          <img :src="item.img" :key="item.id"  height="75" width="275">
         </div>
       </el-tab-pane>
       <el-tab-pane label="链接聚合" name="third">
