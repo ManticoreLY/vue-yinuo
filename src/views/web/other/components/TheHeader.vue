@@ -91,11 +91,13 @@
     created() {
       this.searchWord = this.$route.query.keywords
       this.fillShowWords()
+      this.search()
     },
     methods: {
       search() {
         const words = this.searchWord.replace(/\s*/g, '')
         if (words && words.length > 0) {
+          this.$emit('searchWord', words)
           this.$router.replace({ path: '/search', query: { keywords: words }})
         }
       },

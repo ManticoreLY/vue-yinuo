@@ -138,9 +138,9 @@
 </script>
 
 <style scoped>
-.search{width: 100%;}
+.search{width: 100%;min-height: 600px}
 .search .search-item{display: flex; align-items: flex-start; align-content: stretch; justify-content: space-between}
-.search .search-item, .search .search-list{width: 92%;padding: 20px}
+.search .search-item, .search .search-list{width: 92%;padding: 20px;min-height: 120px}
 .search .search-item .search-main{margin-left: 20px;width: 65%;display: inline-block;flex-flow: column nowrap; align-items: flex-start;align-content: stretch;justify-content:flex-start}
 .search .search-item .search-main .key-word{font-size: 2.25rem; font-weight: 600}
 .search .search-item .search-main .search-content, .search .search-list .list-item .item-content{
