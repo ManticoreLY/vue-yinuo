@@ -9,7 +9,7 @@
           </div>
           <div>
             <div style="font-size: 1.75rem;height:3rem;">
-              <router-link :to="`casesInfo/${item.id}`">{{ item.title }}</router-link>
+              <router-link :to="`casesInfo/${item.newsArticleId}`">{{ item.title }}</router-link>
             </div>
             <div style="font-size: 1.25rem;color: #7f7f7f;word-wrap: break-word;white-space: pre-wrap">{{item.description}}</div>
           </div>
