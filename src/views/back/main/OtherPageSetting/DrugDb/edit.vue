@@ -180,12 +180,14 @@
         }
       },
       onImageChange0(file, fileList) {
+        debugger
         if (fileList && fileList.length > 0 && fileList[0].response) {
           this.drugDbObj.imageUrl = fileList[0].response.url
           this.headImage = fileList
         }
       },
       onImageChange1(file, fileList) {
+        debugger
         this.drugDbObj.imageUrlFootFileList = fileList
         var urlList = []
         for (var idx in fileList) {
@@ -193,7 +195,7 @@
             urlList.push(fileList[idx].response.url)
           }
         }
-        this.aboutObj.imageUrlFootList = urlList
+        this.drugDbObj.imageUrlFootList = urlList
       },
       saveForm() {
         this.$refs['form'].validate(valid => {

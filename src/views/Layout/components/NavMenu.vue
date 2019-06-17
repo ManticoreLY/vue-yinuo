@@ -4,7 +4,7 @@
              text-color="#bfcbd9"
              active-text-color="#409EFF"
              @open="handleOpen">
-      <template v-for="item in menus" v-if="hasRole(item) && isShow(item)">
+      <template v-for="(item,idx) in menus" v-if="hasRole(item) && isShow(item)">
         <router-link v-if="hasOneChildrenOption(item)" :to="{ path: pathResolve(item.path, item.children[0].path)}">
           <el-menu-item :index="pathResolve(item.path, item.children[0].path)">{{ item.name }}</el-menu-item>
         </router-link>

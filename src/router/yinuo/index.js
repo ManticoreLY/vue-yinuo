@@ -3,6 +3,15 @@ import Layout from '@/views/layout'
 
 export default [
   {
+    path: '/user',
+    component: Layout,
+    name: '用户管理',
+    meta: ['admin'],
+    children: [
+      { path: 'userManage', name: '用户管理', component: () => import('@/views/back/main/user/index') }
+    ]
+  },
+  {
     path: '/homePage',
     component: Layout,
     name: '首页配置',
@@ -21,46 +30,22 @@ export default [
     ]
   },
   {
-    path: '/otherPage',
+    path: '/drugDbBack',
     component: Layout,
-    name: '其他配置',
+    name: '医疗数据库',
     children: [
-      { path: 'about', name: '关于我们', component: () => import('@/views/back/main/OtherPageSetting/About/edit') },
-      { path: 'drugDb', name: '医药数据', component: () => import('@/views/back/main/OtherPageSetting/DrugDb/edit') }
+      { path: 'drugDb', name: '医药数据', component: () => import('@/views/back/main/OtherPageSetting/DrugDb/edit') },
+      { path: 'medicineManage', name: '药品管理', component: () => import('@/views/back/main/MedicineManage') },
+      { path: 'diseaseManage', name: '疾病管理', component: () => import('@/views/back/main/DiseaseManage/page') }
     ]
   },
   {
-    path: '/user',
-    component: Layout,
-    name: '用户管理',
-    meta: ['admin'],
-    children: [
-      { path: '', name: '用户管理', component: () => import('@/views/back/main/user/index') }
-    ]
-  },
-  {
-    path: '/medicine',
-    component: Layout,
-    name: '药品管理',
-    children: [
-      { path: '', name: '药品管理', component: () => import('@/views/back/main/MedicineManage') },
-      { path: 'rank', name: '排行榜管理', component: () => import('@/views/back/main/MedicineManage/rank'), hidden: true }
-    ]
-  },
-  {
-    path: '/disease',
-    component: Layout,
-    name: '疾病管理',
-    children: [
-      { path: '', name: '疾病管理', component: () => import('@/views/back/main/DiseaseManage/page') }
-    ]
-  },
-  {
-    path: '/case',
+    path: '/caseBack',
     component: Layout,
     name: '案例管理',
     children: [
-      { path: '', name: '转阴案例管理', component: () => import('@/views/back/main/CasesManageNew') }
+      { path: 'caseManage', name: '转阴案例管理', component: () => import('@/views/back/main/CasesManageNew') },
+      { path: 'caseChannelManage', name: '案例频道栏目', component: () => import('@/views/back/main/CasesChannelItems') }
     ]
   },
   /* {
@@ -76,23 +61,16 @@ export default [
     component: Layout,
     name: '文章管理',
     children: [
-      { path: '', name: '医疗文章管理', component: () => import('@/views/back/main/MedicalArticle') }
+      { path: 'articleManage', name: '医疗新闻管理', component: () => import('@/views/back/main/MedicalArticle') },
+      { path: 'articleChannelManage', name: '新闻频道管理', component: () => import('@/views/back/main/ChannelItems') }
     ]
   },
   {
-    path: '/channel',
+    path: '/aboutUs',
     component: Layout,
-    name: '新闻频道管理',
+    name: '关于我们',
     children: [
-      { path: '', name: '频道栏目', component: () => import('@/views/back/main/ChannelItems') }
-    ]
-  },
-  {
-    path: '/caseChannel',
-    component: Layout,
-    name: '案例频道管理',
-    children: [
-      { path: '', name: '频道栏目', component: () => import('@/views/back/main/CasesChannelItems') }
+      { path: 'about', name: '关于我们', component: () => import('@/views/back/main/OtherPageSetting/About/edit') },
     ]
   }
 ]

@@ -68,6 +68,14 @@
           <el-option v-for="item in articles" :key="item.id" :value="item.id" :label="item.title"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="对应疾病:">
+        <el-select v-model="form.fitDiseaseIds" value-key="id" multiple
+                   filterable
+                   reserve-keyword
+                   placeholder="请输入关键词">
+          <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveForm">保存</el-button>
         <el-button type="info" @click="resetForm">取消</el-button>
@@ -150,6 +158,7 @@
             }
             this.isUpdate = true
           })
+          this.articleRemoteMethod(' ')
         },
         saveForm() {
           this.form.introduct = this.$refs.introduct.getUEContent()
