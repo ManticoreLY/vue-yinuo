@@ -6,7 +6,7 @@
           <div>医诺寰球</div>
         </div>
         <div class="info-content1">
-          <span v-for="item in footerVo.homeFooterLinks"><a :href="item.url"><i class="el-icon-arrow-right"></i>{{item.name}}</a></span>
+          <span v-for="item in footerVo.homeFooterLinks" :key="item.id"><a :href="item.url"><i class="el-icon-arrow-right"></i>{{item.name}}</a></span>
           <!--<span><a><i class="el-icon-arrow-right"></i>丙肝医疗方案</a></span>-->
           <!--<span><a><i class="el-icon-arrow-right"></i>印度看病实录</a></span>-->
           <!--<span><a><i class="el-icon-arrow-right"></i>丙肝转阴实例</a></span>-->
@@ -22,7 +22,7 @@
           <div>官方发布</div>
         </div>
         <div class="info-content2">
-        <div v-for="item in footerVo.homeFooterOfficialPublishes">
+        <div v-for="item in footerVo.homeFooterOfficialPublishes" :key="item.id">
           <div class="main" v-html="item.content">
           </div>
         </div>

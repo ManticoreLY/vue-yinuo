@@ -1,7 +1,7 @@
 <template>
     <div class="nav-bar">
       <el-breadcrumb separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in $route.matched" :key="item" :to="item.path">{{ item.name }}</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" :to="item.path">{{ item.name }}</el-breadcrumb-item>
       </el-breadcrumb>
       <div>
         <el-dropdown split-button type="success" size="medium" @click="checkInfo">
