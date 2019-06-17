@@ -8,7 +8,7 @@ import Constant from '@/utils/constant'
 // create an axios instance
 const service = axios.create({
   baseURL: Constant.ServerUrl, // api的base_url
-  timeout: 5000, // request timeout
+  timeout: 20000, // request timeout
   // 请求头信息
   headers: { 'X-Requested-With': 'XMLHttpRequest' },
   // headers: { 'Accept': '*' },
