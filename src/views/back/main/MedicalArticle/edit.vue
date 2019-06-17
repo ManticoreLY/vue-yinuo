@@ -32,6 +32,12 @@
       <el-form-item label="作者">
         <el-input v-model="medicalArticle.author"></el-input>
       </el-form-item>
+      <el-form-item label="来源">
+        <el-input v-model="medicalArticle.source"></el-input>
+      </el-form-item>
+      <el-form-item label="阅读量(排行用)">
+        <el-input-number v-model="medicalArticle.readCount"  :min="1"  ></el-input-number>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveForm">保存</el-button>
         <el-button @click="closeForm">关闭</el-button>

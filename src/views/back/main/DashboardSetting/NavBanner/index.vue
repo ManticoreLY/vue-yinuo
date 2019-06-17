@@ -42,6 +42,7 @@
 <script>
   import NavBannerApi from '@/api/HomePage/NavBanner'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -61,7 +62,7 @@
         page: {},
         name: '',
         tableList: [],
-        formTitle: [],
+        formTitle: '',
         editFormVisible: false
       }
     },
@@ -69,6 +70,7 @@
       this.search()
     },
     methods: {
+      ...page(),
       search() {
         NavBannerApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
