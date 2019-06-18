@@ -17,9 +17,9 @@
           <!--</template>-->
         </el-table-column>
         <el-table-column label="内容摘要" prop="abstractText" width="360"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="来源" prop="source"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作" width="280">
           <template slot-scope="scope">
             <router-link tag="a" target="_blank" :to="'/articleInfo/' + scope.row.id">

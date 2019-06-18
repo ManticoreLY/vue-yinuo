@@ -85,7 +85,7 @@
       },
       save() {
         this.dataList = this.dataList.map((item, index) => {
-          return { ...item, index: index + 1 }
+          return Object.assign(item, { index: index + 1 })
         })
         this.$emit('returnData', this.dataList)
       }

@@ -18,9 +18,9 @@
         <el-table-column label="频道栏目" prop="channel.name">
         </el-table-column>
         <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="来源" prop="source"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>

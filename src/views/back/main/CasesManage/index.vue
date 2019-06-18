@@ -18,7 +18,7 @@
         <el-table-column label="案例名称" prop="name"></el-table-column>
         <el-table-column label="案例标题" prop="title"></el-table-column>
         <el-table-column label="案例描述" prop="describe"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>

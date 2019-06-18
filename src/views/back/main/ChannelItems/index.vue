@@ -11,7 +11,7 @@
       </el-form>
       <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">
         <el-table-column label="名称" prop="name"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
