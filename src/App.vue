@@ -48,5 +48,5 @@ label{font-weight: 600}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.el-input, .el-select{width: 300px}
+.el-input, .el-select{width: 240px}
 </style>

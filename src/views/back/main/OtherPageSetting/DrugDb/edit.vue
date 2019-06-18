@@ -8,7 +8,7 @@
           <el-input v-model="drugDbObj.title"></el-input>
         </el-form-item>
         <el-form-item label="药品类目内容">
-          <el-input v-model="drugDbObj.describe" type="textarea" :col="3" max-length="500" show-word-limit></el-input>
+          <el-input v-model="drugDbObj.describe" type="textarea" :col="5" max-length="500" show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="药品类目的疾病">
           <el-select v-model="drugDbObj.drugDbDiseaseIdList"
@@ -46,10 +46,11 @@
               :value="item.id">
             </el-option>
           </el-select>
+          <rank-pad v-if="" :data-list="drugDbObj.drugDbRankMedicineIdList" @returnData="(data) => {drugDbObj.drugDbRankMedicineIdList = data}"></rank-pad>
         </el-form-item>
         <el-form-item label="药厂排行标题">
           <el-input v-model="drugDbObj.rankTitleMaker"></el-input>
-        </el-form-item>+-
+        </el-form-item>
         <el-form-item label="药厂排行">
           <el-row v-for="(drugDbRankMaker, index) in drugDbObj.drugDbRankMakerList" :key="index">
             <el-col :span="3">
@@ -71,7 +72,7 @@
           <el-input v-model="drugDbObj.title"></el-input>
         </el-form-item>
         <el-form-item label="合作药厂内容">
-          <el-input v-model="drugDbObj.describe" type="textarea" :col="3" max-length="500"></el-input>
+          <el-input v-model="drugDbObj.describe" type="textarea" :col="5" max-length="500" show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="合作药厂图标">
           <FileUploader :httpRequest="fileUploadRequest" :fileList="drugDbObj.imageUrlFootFileList" :onChange="onImageChange1" :limit="6"></FileUploader>
@@ -88,6 +89,7 @@
   import DrugDbApi from '@/api/OtherPage/drugdb'
   import DiseaseApi from '@/api/disease'
   import MedicineApi from '@/api/medicine'
+  import RankPad from '@/components/RankPad'
   // import { getToken } from '@/utils/auth'
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
@@ -95,7 +97,8 @@
   export default {
     name: 'edit',
     components: {
-      FileUploader
+      FileUploader,
+      RankPad
     },
     data() {
       return {

@@ -21,7 +21,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="toDelete(scope.row.id)">删除</el-button>
+            <el-button type="danger" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -86,13 +86,14 @@
           this.$refs['editForm'].editForm(entity)
         })
       },
-      toDelete(id) {
+      toDelete(id, index) {
         this.$confirm('', '请确认删除?', {}).then(() => {
           CaseApi.remove(id).then(data => {
-            console.log(data)
+            // console.log(data)
             this.$message.success('删除成功')
+            this.tableList.splice(index, 1)
           }).catch(err => {
-            console.log(err)
+            // console.log(err)
             this.$message.warning('操作失败')
           })
         })

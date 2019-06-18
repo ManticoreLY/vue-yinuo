@@ -22,7 +22,7 @@
           <div class="cont">
             <div class="title">
               <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  >{{ titleFormat(item.title) }}</router-link>
-              <span>更新时间：{{ item.updatedDt }}</span>
+              <span>更新时间：{{ item.updatedDt ? item.updatedDt.substring(0, 10) : ' ' }}</span>
             </div>
             <div class="info">{{ item.abstractText }}
               <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  ><span style="color:red;font-size: initial">【详情】</span></router-link>

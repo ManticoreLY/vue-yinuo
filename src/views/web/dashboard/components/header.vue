@@ -43,16 +43,16 @@
           <hover-bar></hover-bar>
         </div>
       </span>
-      <span class="">
+      <span class="link">
         <router-link :to="{ path: '/drugDB' }">医药数据库</router-link>
       </span>
-      <span class="">
+      <span class="link">
         <router-link :to="{ path: '/cases' }">治疗案例</router-link>
       </span>
-      <span class="">
+      <span class="link">
         <router-link :to="{ path: '/news' }">医疗新闻</router-link>
       </span>
-      <span class="">
+      <span class="link">
         <router-link :to="{ path: '/about' }">关于我们</router-link>
       </span>
     </div>
@@ -141,6 +141,7 @@
   .nav-bar{width: 76%;height: 42px;padding: 0 12%;font-size: 1.5rem;border-bottom: 4px solid #1CACA3}
   .nav-bar span{display: inline-block;padding: 10px 2.25rem;}
   .nav-bar span:nth-child(1){display: inline-block;padding: 10px 2.25rem;background: #1CACA3;color: #efefef}
+  .nav-bar span.link.is-active a{color: #1daca4}
 
   .fix-content{position: fixed;right: 2.25rem; top: 16rem;z-index: 20;display: inline-flex;flex-flow: column nowrap;font-size: 10px;}
   .fix-content a{display: inline-block;margin:2px 0;padding: 5px;width:60px;height: 56px;text-align:center;background: #fff;box-shadow: 0 2px 5px 0 #444;z-index: 99}
