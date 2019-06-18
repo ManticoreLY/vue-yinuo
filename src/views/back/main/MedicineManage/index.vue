@@ -20,10 +20,19 @@
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <el-button type="warning" size="small" @click="edit(scope.row)">编辑</el-button>
-                        <el-button type="danger" size="small">删除</el-button>
+                        <el-button type="danger" size="small" @click="toDelete(scope.row.id)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
+          <el-pagination style="margin-top: 20px;"
+                         background
+                         :page-size="page.size"
+                         :current-page="page.current"
+                         :total="page.total" :page-count="page.pages"
+                         layout="prev, pager, next"
+                         @current-change="handlePageChange"
+                         @size-change="handleSizeChange">
+          </el-pagination>
         </div>
       <el-dialog :title="formTitle" :visible.sync="formVisible" @before-close="handleClose" width="40%">
         <medicine-edit ref="editForm" @close="handleClose"></medicine-edit>
@@ -34,6 +43,7 @@
 <script>
     import MedicineEdit from './edit'
     import MedicineApi from '@/api/medicine'
+    import page from '@/utils/page'
     export default {
       name: 'index',
       components: {
@@ -50,6 +60,7 @@
               shotName: ''
             }
           },
+          page: {},
           formVisible: false,
           formTitle: '',
           index: '1-1',
@@ -60,11 +71,13 @@
         }
       },
       mounted() {
-        this.initPage()
+        this.search()
       },
       methods: {
-        initPage() {
+        ...page(),
+        search() {
           MedicineApi.queryPage(this.query).then(data => {
+            this.page = data.obj
             this.dataList = [].concat(data.obj.records)
           }).catch(err => {
             console.log(err)
@@ -79,7 +92,7 @@
           })
         },
         queryKey() {
-          this.initPage()
+          this.search()
         },
         addSeries() {
           this.formTitle = '药品管理-添加'
@@ -88,7 +101,19 @@
         handleClose() {
           this.formVisible = false
           this.$refs['editForm'].clearForm()
-          this.initPage()
+          this.search()
+        },
+        toDelete(id) {
+          this.$confirm('', '请确认删除?', {}).then(() => {
+            MedicineApi.remove(id).then(data => {
+              console.log(data)
+              this.$message.success('删除成功')
+              this.search()
+            }).catch(err => {
+              console.log(err)
+              this.$message.warning('操作失败')
+            })
+          })
         }
       }
     }
