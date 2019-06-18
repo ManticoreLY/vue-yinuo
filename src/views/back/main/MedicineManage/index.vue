@@ -10,15 +10,19 @@
                     <el-button type="success" @click="addSeries">添加药品</el-button>
                 </el-form-item>
             </el-form>
-            <el-table :data="dataList" :default-sort="{ prop: 'index', type: 'ascending' }">
-                <el-table-column label="ID" prop="id"></el-table-column>
+            <el-table :data="dataList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
+                <el-table-column label="ID" prop="id" width="60"></el-table-column>
                 <!--<el-table-column label="序号" prop="indexNo"></el-table-column>-->
                 <el-table-column label="药品名称" prop="name"></el-table-column>
                 <el-table-column label="简介" prop="shotIntroduct"></el-table-column>
                 <el-table-column label="药品说明" prop="string"></el-table-column>
                 <el-table-column label="单位" prop="unit"></el-table-column>
-                <el-table-column label="操作">
+                <el-table-column label="更新" prop="updatedDt"></el-table-column>
+                <el-table-column label="操作" width="260">
                     <template slot-scope="scope">
+                        <router-link tag="a" target="_blank" :to="'/medicineInfo/' + scope.row.id">
+                          <el-button type="info" size="small">预览药品</el-button>
+                        </router-link>
                         <el-button type="warning" size="small" @click="edit(scope.row)">编辑</el-button>
                         <el-button type="danger" size="small" @click="toDelete(scope.row.id)">删除</el-button>
                     </template>
@@ -77,7 +81,7 @@
         ...page(),
         search() {
           MedicineApi.queryPage(this.query).then(data => {
-            this.page = data.obj
+            this.page = Object.assign(this.page, data.obj)
             this.dataList = [].concat(data.obj.records)
           }).catch(err => {
             console.log(err)

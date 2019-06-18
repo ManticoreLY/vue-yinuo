@@ -90,7 +90,6 @@
         })
       },*/
       addNew() {
-        debugger
         this.formTitle = '添加'
         this.editFormVisible = true
         this.$nextTick(() => {
@@ -98,7 +97,6 @@
         })
       },
       toEdit(entity) {
-        debugger
         this.formTitle = '编辑'
         this.editFormVisible = true
         this.$nextTick(() => {

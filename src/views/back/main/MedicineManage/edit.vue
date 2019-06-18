@@ -7,11 +7,8 @@
       <el-form-item label="药品名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
-      <el-form-item label="药品简称" prop="name">
+      <el-form-item label="简称/英文名" prop="name">
         <el-input v-model="form.shotName"></el-input>
-      </el-form-item>
-      <el-form-item label="药品英文名" prop="foreignName">
-        <el-input v-model="form.foreignName"></el-input>
       </el-form-item>
       <el-form-item label="品牌" prop="make">
         <el-input v-model="form.make"></el-input>
@@ -46,10 +43,10 @@
       <el-form-item label="耐药性" prop="resistant">
         <UE id = "resistant" :defaultMsg="form.resistant" :config=config ref="resistant"></UE>
       </el-form-item>
-      <el-form-item label="药品图片">
+      <el-form-item label="药品图片" prop="image">
         <FileUploader :httpRequest="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="6"></FileUploader>
       </el-form-item>
-      <el-form-item label="相关药品:">
+      <el-form-item label="相关药品:" prop="reMedicineIds">
         <el-select v-model="form.reMedicineIds" value-key="id" multiple
                    filterable
                    reserve-keyword
@@ -57,7 +54,7 @@
           <el-option v-for="item in relMedicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="相关新闻:">
+      <el-form-item label="相关新闻:" prop="newsArticleIds">
         <el-select v-model="form.newsArticleIds" value-key="id" multiple
                    filterable
                    reserve-keyword
@@ -68,7 +65,7 @@
           <el-option v-for="item in articles" :key="item.id" :value="item.id" :label="item.title"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="对应疾病:">
+      <el-form-item label="对应疾病:" prop="fitDiseaseIds">
         <el-select v-model="form.fitDiseaseIds" value-key="id" multiple
                    filterable
                    reserve-keyword
@@ -223,7 +220,7 @@
             })
         },
         resetForm() {
-          this.$refs['form'].resetFields()
+          this.clearForm()
           this.$emit('close')
         },
         clearForm() {

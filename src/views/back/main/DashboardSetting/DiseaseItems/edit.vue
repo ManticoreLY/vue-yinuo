@@ -73,7 +73,6 @@
         this.disease.description = ''
       },
       editForm(entity) {
-        debugger
         this.isUpdate = true
         this.disease = Object.assign(this.disease, entity)
       },
@@ -104,7 +103,6 @@
       querySearchAsync(query, callback) {
         if (!query) return
         else {
-          debugger
           this.query.likeCondition.name = query
           clearTimeout(this.timer)
           this.timer = setTimeout(() => {

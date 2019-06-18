@@ -156,7 +156,6 @@
         this.$emit('close')
       },
       onImageChange0(file, fileList) {
-        debugger
         if (fileList && fileList.length > 0 && fileList[0].response) {
           this.aboutObj.imageUrl = fileList[0].response.url
           this.imageFile = fileList

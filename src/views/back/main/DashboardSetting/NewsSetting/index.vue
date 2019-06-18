@@ -102,7 +102,6 @@
         })
       },
       handleFormClose() {
-        debugger
         this.editFormVisible = false
         this.$refs['editForm'].clearForm()
         this.search()

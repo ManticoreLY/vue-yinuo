@@ -9,8 +9,7 @@
           </el-carousel>
         </div>
         <div class="item" style="position: relative">
-          <div class="item-name">{{medicine.shotName}}</div>
-          <div class="item-extra">所有名称:{{medicine.name}}</div>
+          <div class="item-name">{{medicine.name}}({{medicine.shotName}})</div>
           <div class="item-unit">
             <p class="shallowblue">品牌: {{medicine.make}}</p>
             <p class="green">剂型: {{medicine.form}}</p>

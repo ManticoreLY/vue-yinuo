@@ -9,7 +9,7 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList">
+      <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
         <el-table-column type="expand">
           <template slot-scope="scope">
             <img  :src="scope.row.img" style="width: 300px;">
@@ -19,7 +19,7 @@
         <el-table-column label="案例标题" prop="title"></el-table-column>
         <el-table-column label="案例描述" prop="describe"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="180">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
             <el-button type="danger" @click="toDelete(scope.row.id)">删除</el-button>

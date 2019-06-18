@@ -1,6 +1,6 @@
 <template>
   <div class="words">
-    <div class="word-name">本周热门文章</div>
+    <div class="word-name">{{ name }}</div>
     <div class="word-content" v-for="(article,index) in articleInfo.hotArticles" :key="index">
       <div style="width: 40%"><el-image :src="article.abstractImg" fit="fit"/></div>
       <div style="margin-left: 10px;width: 50%">
@@ -16,6 +16,12 @@
   import ArticlesApi from '@/api/articlesFront'
   export default {
     name: 'HotArticles', // 本周热门文章
+    props: {
+      name: {
+        type: String,
+        default: '本周热门文章'
+      }
+    },
     data() {
       return {
         articleInfo: {}

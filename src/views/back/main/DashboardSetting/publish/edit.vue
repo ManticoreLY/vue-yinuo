@@ -45,7 +45,6 @@
         this.officialPublish.content = ''
       },
       editForm(entity) {
-        debugger
         this.isUpdate = true
         this.officialPublish = Object.assign(this.officialPublish, entity)
       },

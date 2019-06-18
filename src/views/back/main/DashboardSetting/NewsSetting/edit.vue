@@ -75,14 +75,12 @@
         this.newsArticle.newsArticleTitle = ''
       },
       editForm(entity) {
-        debugger
         this.isUpdate = true
         this.newsArticle = Object.assign(this.newsArticle, entity)
       },
       saveForm() {
         this.$refs['form'].validate(valid => {
           if (valid) {
-            debugger
             if (this.isUpdate) {
               HomeNewsArticleApi.update(this.newsArticle).then(data => {
                 this.$message.warning('修改成功！')
@@ -110,7 +108,6 @@
       querySearchAsync(query, callback) {
         if (!query) return
         else {
-          debugger
           this.query.likeCondition.title = query
           clearTimeout(this.timer)
           this.timer = setTimeout(() => {

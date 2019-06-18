@@ -67,7 +67,7 @@
         <div class="title">{{drugDbObj.titleFoot}}</div>
         <div class="subtitle">{{drugDbObj.describeFoot}}</div>
         <div class="logos">
-          <el-image v-for="(item,index) in drugDbObj.imageUrlFootList" :key="index" :src="item"></el-image>
+          <el-image v-for="(item,index) in drugDbObj.imageUrlFootList" :key="index" :src="item" fit="fit" style="width: 160px;height: 80px"></el-image>
         </div>
       </div>
     </div>
@@ -109,7 +109,6 @@
     methods: {
       search() {
         DrugDbApi.findFrontOne().then(data => {
-          debugger
           this.drugDbObj = data.obj
           this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
         })

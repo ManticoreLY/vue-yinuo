@@ -6,10 +6,10 @@
     <div class="nav">当前位置：
       <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
-      <router-link :to="'/news'">医疗新闻</router-link>
+      <router-link :to="'/cases'">治疗案例</router-link>
       >
       <span v-if="channel">
-      <router-link :to="'/news'">{{channel.name}}</router-link>
+      <router-link :to="'/caseInfo'">{{channel.name}}</router-link>
       >
       </span>
     </div>
@@ -45,9 +45,9 @@
       </div>
       <div class="right">
         <!--最新文章-->
-        <latest-articles/>
+        <disease-case/>
         <!--本周热门文章-->
-        <hot-articles/>
+        <hot-articles :name="'精选案例回顾'"/>
       </div>
     </div>
   </div>
@@ -58,12 +58,12 @@
   import ArticlesApi from '@/api/articlesFront'
   import ChannelApi from '@/api/channelFront'
   import HotArticles from '../components/HotArticles'
-  import LatestArticles from '../components/LatestArticles'
+  import DiseaseCase from '../components/DiseaseCase'
   export default {
     name: 'index',
     components: {
       HotArticles,
-      LatestArticles
+      DiseaseCase
     },
     data() {
       return {

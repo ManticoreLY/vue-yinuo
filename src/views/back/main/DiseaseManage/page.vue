@@ -10,7 +10,7 @@
             <el-button type="primary" @click="addNew">添加</el-button>
           </el-form-item>
         </el-form>
-        <el-table :data="tableList">
+        <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">
           <el-table-column label="名称" prop="name"></el-table-column>
           <el-table-column label="所属分类">
             <template slot-scope="scope">

@@ -1,6 +1,6 @@
 <template>
   <div class="words">
-    <div class="word-name">最新文章</div>
+    <div class="word-name">{{ name }}</div>
     <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
   </div>
 </template>
@@ -9,6 +9,12 @@
   import ArticlesApi from '@/api/articlesFront'
   export default {
     name: 'latestArticles', // 最新文章
+    props: {
+      name: {
+        type: String,
+        default: '最新文章'
+      }
+    },
     data() {
       return {
         articleInfo: {}

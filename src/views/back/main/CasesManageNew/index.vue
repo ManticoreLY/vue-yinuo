@@ -9,7 +9,7 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList">
+      <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
         <el-table-column type="expand">
           <template slot-scope="scope">
           </template>
@@ -21,7 +21,7 @@
           <!--</template>-->
         </el-table-column>
         <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
-        <el-table-column label="时间" prop="updatedDt"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="来源" prop="source"></el-table-column>
         <el-table-column label="操作">
@@ -124,7 +124,6 @@
             console.log(err)
           })
         }
-        debugger
         return name
       },
       handleFormClose() {

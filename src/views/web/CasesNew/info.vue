@@ -43,7 +43,7 @@
           <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
         </div>
         <!--乙肝案例-->
-        <disease-case/>
+        <disease-case :diseaseCases="channelData" :name="medicalArticle.channel.name"/>
         <!--本周热门文章-->
         <hot-articles/>
       </div>
@@ -68,6 +68,7 @@
     },
     data() {
       return {
+        channelData: [],
         medicalArticle: {
           title: '',
           abstractText: '',
@@ -86,6 +87,13 @@
       initData() {
         articleApi.findFrontOne(this.$route.params.id).then(data => {
           this.medicalArticle = data.obj
+          const channelId = data.obj.channelId
+          // 获取当前案例的频道其他案例
+          articleApi.queryPage({ pageObj: { current: 1, size: 10 }, andCondition: { channelId }}).then(result => {
+            this.channelData = result.obj.records
+          }).catch(err => {
+            console.log(err)
+          })
         })
         articleApi.findFrontInfo(this.$route.params.id).then(data => {
           this.casesInfo = data.obj

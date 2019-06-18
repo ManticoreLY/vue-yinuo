@@ -9,7 +9,7 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList">
+      <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="操作">
