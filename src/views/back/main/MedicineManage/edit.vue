@@ -70,8 +70,9 @@
                    filterable
                    reserve-keyword
                    placeholder="请输入关键词">
-          <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
+          <el-option v-for="item in diseases" :key="item.id" :value="item" :label="item.name"></el-option>
         </el-select>
+        <rank-pad :data-list="form.fitDiseaseIds" @returnData="(data) => { form.fitDiseaseIds = data }"></rank-pad>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveForm">保存</el-button>
@@ -87,12 +88,14 @@
     import { uploadFile } from '@/utils/ali-upload'
     import FileUploader from '@/components/FileUploader'
     import UE from '@/components/ue.vue'
+    import RankPad from '@/components/RankPad'
 
     export default {
       name: 'edit',
       components: {
         FileUploader,
-        UE
+        UE,
+        RankPad
       },
       data() {
         return {

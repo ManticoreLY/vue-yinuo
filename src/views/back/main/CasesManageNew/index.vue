@@ -36,7 +36,7 @@
                      layout="total, prev, pager, next"
                      @current-change="handlePageChange"
                      @size-change="handleSizeChange"></el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose" width="60%">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>

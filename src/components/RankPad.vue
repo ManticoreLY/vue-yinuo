@@ -2,7 +2,9 @@
   <div style="width: 50%" v-if="isShow">
     <el-table ref="table" :data="dataList" @selection-change="handleSelectChange">
       <el-table-column type="selection"></el-table-column>
-      <el-table-column v-for="f in fields" :key="f.key" :label="f.value" :prop="f.key"></el-table-column>
+<!--      <el-table-column v-for="f in fields" :key="f.key" :label="f.key" :prop="f.key"></el-table-column>-->
+      <el-table-column label="ID" prop="id"></el-table-column>
+      <el-table-column label="名称" prop="name"></el-table-column>
       <el-table-column width="120">
         <template slot="header" slot-scope="scope">
           <el-button type="text" @click="upward">上移</el-button>
@@ -34,7 +36,7 @@
     computed: {
       fields() {
         if (this.isShow) {
-          return { ...this.dataList[0] }
+          return [...this.dataList[0]]
         }
       }
     },
@@ -68,7 +70,7 @@
           const obj = this.dataList[this.index - 1]
           this.dataList.splice(this.index - 1, 1)
           this.dataList.splice(this.index, 0, obj)
-          this.index = this.dataList.findIndex(item => item === this.selection)
+          this.index--
         } else {
           this.$message.warning('当前是第一个元素，不能再上移！')
         }
@@ -78,7 +80,7 @@
           const obj = this.dataList[this.index + 1]
           this.dataList.splice(this.index + 1, 1)
           this.dataList.splice(this.index, 0, obj)
-          this.index = this.dataList.findIndex(item => item === this.selection)
+          this.index++
         } else {
           this.$message.warning('当前是最后一个元素，不能再下移！')
         }
