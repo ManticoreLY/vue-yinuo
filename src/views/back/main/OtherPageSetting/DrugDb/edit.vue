@@ -99,7 +99,7 @@
     },
     data() {
       return {
-        headImage: [{}],
+        headImage: [],
         diseases: [],
         loading: false,
         medicines: [],
@@ -122,7 +122,7 @@
           describeFoot: '',
           imageUrlsFoot: '',
           imageUrlFootList: [],
-          imageUrlFootFileList: [{}, {}, {}, {}, {}, {}]
+          imageUrlFootFileList: []
         },
         isUpdate: false
       }
@@ -134,7 +134,6 @@
       search() {
         DrugDbApi.findFrontOne().then(data => {
           this.drugDbObj = data.obj
-          this.headImage = []
           this.headImage.push({ url: this.drugDbObj.imageUrl })
           this.drugDbObj.imageUrlFootFileList = []
           this.diseases = this.drugDbObj.drugDbDiseaseList.map(item => ({ id: item.disease.id, name: item.disease.name }))

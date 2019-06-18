@@ -38,7 +38,7 @@
                          @size-change="handleSizeChange">
           </el-pagination>
         </div>
-      <el-dialog :title="formTitle" :visible.sync="formVisible" @before-close="handleClose" width="40%">
+      <el-dialog :title="formTitle" :visible.sync="formVisible" @before-close="handleClose" width="60%">
         <medicine-edit ref="editForm" @close="handleClose"></medicine-edit>
       </el-dialog>
     </div>
