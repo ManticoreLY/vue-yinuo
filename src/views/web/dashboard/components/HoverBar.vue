@@ -3,9 +3,9 @@
     <div class="item" v-for="item in list" :key="item.id">
       <div class="main">{{item.name}}</div>
       <div class="sub">
-        <span >{{item.disease1.name}}</span>
-        <span >{{item.disease2.name}}</span>
-        <span >{{item.disease3.name}}</span>
+        <span >{{item.disease1?item.disease1.name:''}}</span>
+        <span >{{item.disease2?item.disease2.name:''}}</span>
+        <span >{{item.disease3?item.disease3.name:''}}</span>
       </div>
       <div class="panel">
         <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id">
