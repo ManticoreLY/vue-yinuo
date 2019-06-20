@@ -45,9 +45,9 @@
       </div>
       <div class="right">
         <!--最新文章-->
-        <disease-case/>
+        <latest-articles :name="'最新案例'" :type = 1 />
         <!--本周热门文章-->
-        <hot-articles :name="'精选案例回顾'"/>
+        <hot-articles :name="'精选案例回顾'" :type = 1 />
       </div>
     </div>
   </div>
@@ -58,12 +58,12 @@
   import ArticlesApi from '@/api/articlesFront'
   import ChannelApi from '@/api/channelFront'
   import HotArticles from '../components/HotArticles'
-  import DiseaseCase from '../components/DiseaseCase'
+  import LatestArticles from '../components/LatestArticles'
   export default {
     name: 'index',
     components: {
       HotArticles,
-      DiseaseCase
+      LatestArticles
     },
     data() {
       return {

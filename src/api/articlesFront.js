@@ -7,9 +7,10 @@ export default {
       method: 'GET'
     })
   },
-  findFrontInfo(id) {
+  findFrontInfo(id, type) {
+    if (!type) { type = 0 }
     return request({
-      url: 'front/article/newsArticle/info/' + id,
+      url: 'front/article/newsArticle/info/' + id + '/' + type,
       method: 'GET'
     })
   },

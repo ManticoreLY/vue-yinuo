@@ -3,9 +3,9 @@
     <div class="nav">当前位置：
       <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
-      <router-link :to="'/case'">医疗案例</router-link>
+      <router-link :to="'/cases'">医疗案例</router-link>
       >
-      <router-link :to="'/news'">治疗实例</router-link>
+      <router-link :to="'/cases/channel/'+medicalArticle.channelId">{{medicalArticle.channel.name}}</router-link>
       > {{medicalArticle.title}}
     </div>
     <div class="content">
@@ -36,7 +36,7 @@
       </div>
       <div class="right">
         <!--频道栏目-->
-        <channel/>
+        <channel :type = 1 />
         <div class="words test">
           <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 160px;height: 160px"/>
           <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
@@ -45,7 +45,7 @@
         <!--乙肝案例-->
         <disease-case :diseaseCases="channelData" :name="medicalArticle.channel.name"/>
         <!--本周热门文章-->
-        <hot-articles :name="'精选案例回顾'"/>
+        <hot-articles :name="'精选案例回顾'" :type = 1 />
       </div>
     </div>
   </div>

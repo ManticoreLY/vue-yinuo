@@ -1,7 +1,7 @@
 <template>
   <div class="words">
     <div class="word-name">{{ name }}</div>
-    <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #005cff">{{article.title}}</router-link></div>
+    <div class="word-title" v-for="(article,index) in articleInfo.newArticles" :key="index"><router-link tag="a" target="_blank" :to="(type===0?'/articleInfo/':'/casesInfo/') +article.id"  style="color: #005cff">{{article.title}}</router-link></div>
   </div>
 </template>
 
@@ -13,6 +13,9 @@
       name: {
         type: String,
         default: '最新文章'
+      },
+      type: {
+        default: 0
       }
     },
     data() {
@@ -21,7 +24,7 @@
       }
     },
     mounted() {
-      ArticlesApi.findFrontInfo(0).then(data => {
+      ArticlesApi.findFrontInfo(0, this.type).then(data => {
         this.articleInfo = data.obj
       })
     }
