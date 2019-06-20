@@ -2,7 +2,7 @@
   <div class="words">
     <div class="word-name">{{ name }}</div>
     <div class="word-title" v-for="(article,index) in diseaseCases" :key="index">
-      <router-link tag="a" target="_blank" :to="'/articleInfo/'+article.id"  style="color: #545454">{{article.abstractText}}</router-link>
+      <router-link tag="a" target="_blank" :to="'/casesInfo/'+article.id"  style="color: #545454">{{article.abstractText}}</router-link>
     </div>
   </div>
 </template>
