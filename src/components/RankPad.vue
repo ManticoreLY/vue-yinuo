@@ -1,7 +1,7 @@
 <template>
   <div style="width: 50%" v-if="isShow">
-    <el-table ref="table" :data="dataList" @selection-change="handleSelectChange">
-      <el-table-column type="selection"></el-table-column>
+    <el-table ref="table" :data="dataListInner" @selection-change="handleSelectChange">
+      <el-table-column type="selection" :reserve-selection="true"></el-table-column>
 <!--      <el-table-column v-for="f in fields" :key="f.key" :label="f.key" :prop="f.key"></el-table-column>-->
       <el-table-column label="ID" prop="id"></el-table-column>
       <el-table-column label="名称" prop="name"></el-table-column>
@@ -12,9 +12,9 @@
         </template>
       </el-table-column>
     </el-table>
-    <div style="margin: 20px;">
-      <el-button type="primary" size="small" @click="save">保存</el-button>
-    </div>
+    <!--<div style="margin: 20px;" v-if="saveButton">-->
+      <!--<el-button type="primary" size="small" @click="save">保存</el-button>-->
+    <!--</div>-->
   </div>
 </template>
 
@@ -29,6 +29,7 @@
     },
     data() {
       return {
+        dataListInner: [],
         selection: {},
         index: -1
       }
@@ -41,14 +42,22 @@
       }
     },
     watch: {
-      dataList: 'isShow'
+      dataList() {
+        this.dataListInner = this.dataList
+        debugger
+        if (this.selection) {
+          // this.selection = this.dataListInner.filter(one => one.id === this.selection.id)
+          this.$refs.table.toggleRowSelection(this.dataListInner.filter(one => one.id === this.selection.id)[0], true)
+        }
+      },
+      dataListInner: 'isShow'
     },
     methods: {
       isShow() {
-        return this.dataList && this.dataList.length
+        return this.dataListInner && this.dataListInner.length
       },
       handleSelectChange(val) {
-        if (val.length === this.dataList.length) {
+        if (val.length === this.dataListInner.length) {
           this.$refs['table'].clearSelection()
           this.$message.warning('只能选择一个！')
         }
@@ -62,34 +71,36 @@
             this.selection = val[0]
           }
         })
-        this.index = this.dataList.findIndex(item => item === this.selection)
+        this.index = this.dataListInner.findIndex(item => item === this.selection)
       },
 
       upward() {
         if (this.index > 0) {
-          const obj = this.dataList[this.index - 1]
-          this.dataList.splice(this.index - 1, 1)
-          this.dataList.splice(this.index, 0, obj)
+          const obj = this.dataListInner[this.index - 1]
+          this.dataListInner.splice(this.index - 1, 1)
+          this.dataListInner.splice(this.index, 0, obj)
           this.index--
+          this.save()
         } else {
           this.$message.warning('当前是第一个元素，不能再上移！')
         }
       },
       downward() {
-        if (this.index < this.dataList.length - 1) {
-          const obj = this.dataList[this.index + 1]
-          this.dataList.splice(this.index + 1, 1)
-          this.dataList.splice(this.index, 0, obj)
+        if (this.index < this.dataListInner.length - 1) {
+          const obj = this.dataListInner[this.index + 1]
+          this.dataListInner.splice(this.index + 1, 1)
+          this.dataListInner.splice(this.index, 0, obj)
           this.index++
+          this.save()
         } else {
           this.$message.warning('当前是最后一个元素，不能再下移！')
         }
       },
       save() {
-        this.dataList = this.dataList.map((item, index) => {
+        this.dataListInner = this.dataListInner.map((item, index) => {
           return Object.assign(item, { index: index + 1 })
         })
-        this.$emit('returnData', this.dataList)
+        this.$emit('returnData', this.dataListInner)
       }
     }
   }

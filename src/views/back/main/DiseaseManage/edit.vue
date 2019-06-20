@@ -39,6 +39,7 @@
                      placeholder="请输入关键词">
             <el-option v-for="item in treatedMedicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
           </el-select>
+          <rank-pad :data-list="fitMedicines" @returnData="(data) => { disease.medicineIds = data.map(one => one.id) }"></rank-pad>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
@@ -52,10 +53,12 @@
   import DiseaseApi from '@/api/disease'
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
+  import RankPad from '@/components/RankPad'
   export default {
     name: 'edit',
     components: {
-      FileUploader
+      FileUploader,
+      RankPad
     },
     data() {
       return {
@@ -76,6 +79,11 @@
         ],
         treatedMedicines: [],
         diseases: []
+      }
+    },
+    computed: {
+      fitMedicines() {
+        return this.treatedMedicines.filter(one => this.disease.medicineIds.indexOf(one.id) > -1).sort((a, b) => this.disease.medicineIds.indexOf(a.id) - this.disease.medicineIds.indexOf(b.id))
       }
     },
     created() {

@@ -26,6 +26,7 @@
               :value="item.id">
             </el-option>
           </el-select>
+          <rank-pad v-if="" :data-list="drugDbDiseaseList" @returnData="fixDiseaseRank"></rank-pad>
         </el-form-item>
         <el-form-item label="药品排行标题">
           <el-input v-model="drugDbObj.rankTitleMedicine"></el-input>
@@ -46,7 +47,7 @@
               :value="item.id">
             </el-option>
           </el-select>
-          <rank-pad v-if="" :data-list="drugDbObj.drugDbRankMedicineIdList" @returnData="(data) => {drugDbObj.drugDbRankMedicineIdList = data}"></rank-pad>
+          <rank-pad v-if="" :data-list="drugDbRankMedicineList" @returnData="fixMedicineRank"></rank-pad>
         </el-form-item>
         <el-form-item label="药厂排行标题">
           <el-input v-model="drugDbObj.rankTitleMaker"></el-input>
@@ -130,6 +131,14 @@
         isUpdate: false
       }
     },
+    computed: {
+      drugDbRankMedicineList() {
+        return this.medicines.filter(one => this.drugDbObj.drugDbRankMedicineIdList.indexOf(one.id) > -1).sort((a, b) => this.drugDbObj.drugDbRankMedicineIdList.indexOf(a.id) - this.drugDbObj.drugDbRankMedicineIdList.indexOf(b.id))
+      },
+      drugDbDiseaseList() {
+        return this.diseases.filter(one => this.drugDbObj.drugDbDiseaseIdList.indexOf(one.id) > -1).sort((a, b) => this.drugDbObj.drugDbDiseaseIdList.indexOf(a.id) - this.drugDbObj.drugDbDiseaseIdList.indexOf(b.id))
+      }
+    },
     mounted() {
       this.search()
     },
@@ -148,6 +157,12 @@
           }
           this.isUpdate = true
         })
+      },
+      fixMedicineRank(data) {
+        this.drugDbObj.drugDbRankMedicineIdList = data.map(one => one.id)
+      },
+      fixDiseaseRank(data) {
+        this.drugDbObj.drugDbDiseaseIdList = data.map(one => one.id)
       },
       diseaseRemoteMethod(query) {
         if (query !== '') {

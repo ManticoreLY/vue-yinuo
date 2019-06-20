@@ -70,9 +70,9 @@
                    filterable
                    reserve-keyword
                    placeholder="请输入关键词">
-          <el-option v-for="item in diseases" :key="item.id" :value="item" :label="item.name"></el-option>
+          <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
         </el-select>
-        <rank-pad :data-list="form.fitDiseaseIds" @returnData="(data) => { form.fitDiseaseIds = data }"></rank-pad>
+        <rank-pad :data-list="fitDisease" @returnData="(data) => { form.fitDiseaseIds = data.map(one => one.id) }"></rank-pad>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveForm">保存</el-button>
@@ -128,6 +128,11 @@
           },
           relMedicines: [],
           diseases: []
+        }
+      },
+      computed: {
+        fitDisease() {
+          return this.diseases.filter(one => this.form.fitDiseaseIds.indexOf(one.id) > -1).sort((a, b) => this.form.fitDiseaseIds.indexOf(a.id) - this.form.fitDiseaseIds.indexOf(b.id))
         }
       },
       created() {
