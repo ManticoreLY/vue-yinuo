@@ -45,7 +45,7 @@
         <!--乙肝案例-->
         <disease-case :diseaseCases="channelData" :name="medicalArticle.channel.name"/>
         <!--本周热门文章-->
-        <hot-articles/>
+        <hot-articles :name="'精选案例回顾'"/>
       </div>
     </div>
   </div>

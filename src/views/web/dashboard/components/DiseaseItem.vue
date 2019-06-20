@@ -5,7 +5,7 @@
       <div class="child">
         <a v-for="item in diseaseItems" :key="item.id">
           <div style="width: 80px;text-align: center"><img :src="item.icon" style="height: 60px;width: 60px;"></div>
-          <div style="width: 150px;display: inline-block;text-align: center">
+          <div style="width: 70%;text-align: center">
             <router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.diseaseId">
               <span style="display:inline-block;font-size:1.75rem;padding: 5px;border-bottom: 1px solid #1caca4">{{ item.name }}</span>
             </router-link><br/>
@@ -47,8 +47,8 @@
 </script>
 
 <style scoped>
-  .web-items{width: 100%;height:225px;position:relative;display:flex;flex-flow: row nowrap;align-items: flex-start}
+  .web-items{width: 100%;height:225px;position:relative;display:flex;align-items: center;align-content: stretch;justify-content: flex-start}
   .web-items .item-name{display:inline-block;height:220px;width: 80px;display: inline-flex;align-items: center;text-align: center;background: #1CACA3;color:#efefef;font-size: 2.4rem;border-radius: 4px;word-wrap: break-word}
   .web-items .items .child{display: inline-block;margin-left: 15px;}
-  .web-items .items .child>a{display: inline-block;border-right: 1px solid #eee;height: 100px;width: 19%;display: inline-flex;align-items: center;justify-content: flex-start;margin-bottom: 10px;text-align: center}
+  .web-items .items .child>a{display: inline-block;border-right: 1px solid #eee;height: 100px;width: 19.9%;display: inline-flex;align-items: center;justify-content: flex-start;margin-bottom: 10px;text-align: center}
 </style>

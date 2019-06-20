@@ -21,10 +21,13 @@
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="来源" prop="source"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="280">
           <template slot-scope="scope">
-            <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
+            <router-link tag="a" target="_blank" :to="'/casesInfo/' + scope.row.id">
+              <el-button type="success" size="medium">预览</el-button>
+            </router-link>&nbsp;&nbsp;
+            <el-button type="warning" size="medium" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" size="medium" @click="toDelete(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

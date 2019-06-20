@@ -145,17 +145,19 @@
     methods: {
       search() {
         DrugDbApi.findFrontOne().then(data => {
-          this.drugDbObj = data.obj
-          this.headImage.push({ url: this.drugDbObj.imageUrl })
-          this.drugDbObj.imageUrlFootFileList = []
-          this.diseases = this.drugDbObj.drugDbDiseaseList.map(item => ({ id: item.disease.id, name: item.disease.name }))
-          this.medicines = this.drugDbObj.drugDbRankMedicineList.map(item => ({ id: item.medicine.id, name: item.medicine.name }))
-          for (var j in this.drugDbObj.imageUrlFootList) {
-            this.drugDbObj.imageUrlFootFileList.push({
-              url: this.drugDbObj.imageUrlFootList[j]
-            })
+          if (data.result) {
+            this.drugDbObj = data.obj
+            this.headImage.push({ url: this.drugDbObj.imageUrl })
+            this.drugDbObj.imageUrlFootFileList = []
+            this.diseases = this.drugDbObj.drugDbDiseaseList.map(item => ({ id: item.disease.id, name: item.disease.name }))
+            this.medicines = this.drugDbObj.drugDbRankMedicineList.map(item => ({ id: item.medicine.id, name: item.medicine.name }))
+            for (var j in this.drugDbObj.imageUrlFootList) {
+              this.drugDbObj.imageUrlFootFileList.push({
+                url: this.drugDbObj.imageUrlFootList[j]
+              })
+            }
+            this.isUpdate = true
           }
-          this.isUpdate = true
         })
       },
       fixMedicineRank(data) {

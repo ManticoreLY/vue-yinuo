@@ -1,14 +1,14 @@
 <template>
     <div id="medicine-info">
       <div class="description">
-        <div class="item">
+        <div class="item" style="width: 36%">
           <el-carousel :interval="5000" arrow="always">
             <el-carousel-item v-for="item in medicine.imageList" :key="item">
               <img :src="item" style="width: 100%;height: 100%">
             </el-carousel-item>
           </el-carousel>
         </div>
-        <div class="item" style="position: relative">
+        <div class="item" style="position: relative;width: 50%">
           <div class="item-name">{{medicine.name}}({{medicine.shotName}})</div>
           <div class="item-unit">
             <p class="shallowblue">品牌: {{medicine.make}}</p>
@@ -116,14 +116,13 @@
 .green{background: #29a466;color: #fff}
 .graygreen{background: #1daca4;color: #fff}
 .yellow{background: #f0a226;color: #fff}
-.description{width: 90%;background: #fff;padding: 20px 5%;display: inline-flex;flex-flow: row nowrap;align-items: flex-start;align-content: center;justify-content: space-between}
-.description .item{width: 47%}
-.description .item .item-name{font-size: 3rem;font-weight: 700}
+.description{width: 90%;background: #fff;padding: 20px 5%;display:flex;align-items: center;align-content: stretch;justify-content: space-around}
+.description .item .item-name{font-size: 2.75rem;font-weight: 600}
 .description .item .item-extra{font-size: 1.2rem;}
-.description .item .item-unit{height: 12rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;justify-content: space-around}
-.description .item .item-unit p{width: 36%;height: 40px;line-height: 40px;font-size: 1.2rem;padding-left: 5px;}
-.description .item .item-info{height: 15rem;font-size: 1.2rem;font-weight: 700}
-.description .item .item-bottom{font-size: 1rem}
+.description .item .item-unit{height: 10rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;justify-content: space-around}
+.description .item .item-unit p{width: 36%;height: 32px;line-height: 32px;font-size: 1.2rem;padding-left: 5px;}
+.description .item .item-info{height: 12rem;font-size: 1.25rem;}
+.description .item .item-bottom{font-size: 1.1rem}
 .information{width: 90%;margin-top:20px;background: #fff;padding:20px 5%}
 .information .item{margin:3rem 2rem;}
 .information .item .info-title .text{color: #29a466;font-size: 2rem;font-weight: 700}

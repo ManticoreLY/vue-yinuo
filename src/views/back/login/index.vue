@@ -48,7 +48,7 @@
               store.dispatch('login', data.obj).then(() => {
                 store.dispatch('userInfo').then(user => {
                   if (user.type === 0) {
-                    this.$router.push('/user')
+                    this.$router.push('/user/userManage')
                   } else {
                     this.$router.push('/homePage/NavBanner')
                   }

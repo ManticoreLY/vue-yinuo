@@ -34,6 +34,7 @@
 </script>
 
 <style scoped>
-  .web-nav{width: 100%;height: 380px;}
+  .web-nav{width: 100%;height: 400px;margin-bottom: 30px}
   .web-nav .nav-images{position: relative}
+  >>>.el-carousel__container{height: 380px}
 </style>

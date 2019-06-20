@@ -4,14 +4,14 @@
              text-color="#bfcbd9"
              active-text-color="#409EFF"
              @open="handleOpen">
-      <template v-for="(item,idx) in menus" v-if="hasRole(item) && isShow(item)">
+      <template v-for="item in menus" v-if="hasRole(item) && isShow(item)">
         <router-link v-if="hasOneChildrenOption(item)" :to="{ path: pathResolve(item.path, item.children[0].path)}">
           <el-menu-item :index="pathResolve(item.path, item.children[0].path)">{{ item.name }}</el-menu-item>
         </router-link>
         <el-submenu v-else :index="item.path">
           <template slot="title">{{ item.name }}</template>
           <el-menu-item-group>
-            <router-link v-for="childMenu in item.children" :key="childMenu" v-if="!childMenu.hidden" :to="{ path: pathResolve(item.path, childMenu.path) }">
+            <router-link v-for="childMenu in item.children" :key="childMenu.path" v-if="!childMenu.hidden" :to="{ path: pathResolve(item.path, childMenu.path) }">
               <el-menu-item :index="pathResolve(item.path, childMenu.path)" style="width: 180px">{{ childMenu.name }}</el-menu-item>
             </router-link>
           </el-menu-item-group>

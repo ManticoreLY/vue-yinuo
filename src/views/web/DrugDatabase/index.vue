@@ -109,8 +109,10 @@
     methods: {
       search() {
         DrugDbApi.findFrontOne().then(data => {
-          this.drugDbObj = data.obj
-          this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
+          if (data.result) {
+            this.drugDbObj = data.obj
+            this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
+          }
         })
       },
       toggleFold(t, diseaseIndex) {

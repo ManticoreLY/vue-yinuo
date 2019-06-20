@@ -4,13 +4,13 @@
       <div class="item1">
         <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
       </div>
-      <my-canvas class="item2" :words="show_words" :width="450" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
-      <div class="item3" style="text-align: right">
+      <my-canvas class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
+      <div class="item3" style="max-width: 50%;min-width: 35%;text-align: right">
         <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
-        <el-popover placement="bottom" trigger="hover">
+        <!--<el-popover placement="bottom" trigger="hover">
           <website-map/>
           <a slot="reference" class="item-title">网站地图</a>
-        </el-popover>
+        </el-popover>-->
         <a class="item-title">医疗客服</a>
         <a class="item-title">海外医疗：400-0000-000</a>
         <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
@@ -77,12 +77,12 @@
   import home from '@/api/Homepage/home'
   import HoverBar from './HoverBar'
   import MyCanvas from '@/components/MyCanvas'
-  import WebsiteMap from '@/views/web/components/WebsiteMap'
+  // import WebsiteMap from '@/views/web/components/WebsiteMap'
   export default {
     name: 'header',
     components: {
       HoverBar,
-      WebsiteMap,
+      // WebsiteMap,
       MyCanvas
     },
     data() {

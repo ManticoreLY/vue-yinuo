@@ -19,10 +19,13 @@
         <el-table-column label="案例标题" prop="title"></el-table-column>
         <el-table-column label="案例描述" prop="describe"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="260">
           <template slot-scope="scope">
-            <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="toDelete(scope.row.id)">删除</el-button>
+            <router-link tag="a" target="_blank" :to="'/caseinfo/' + scope.row.id">
+              <el-button type="success" size="medium">预览</el-button>
+            </router-link>
+            <el-button type="warning" size="medium" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" size="medium" @click="toDelete(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

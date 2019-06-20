@@ -8,7 +8,7 @@ export default [
     name: '用户管理',
     meta: ['admin'],
     children: [
-      { path: 'userManage', name: '用户管理', component: () => import('@/views/back/main/user/index') }
+      { path: 'userManage', name: '用户管理', component: () => import('@/views/back/main/user') }
     ]
   },
   {
