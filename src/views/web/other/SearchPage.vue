@@ -67,7 +67,7 @@
             'id',
             'name',
             'image',
-            'shot_introduct shotIntroduct'
+            'shotIntroduct'
           ]
         },
         newsArticleQuery: {
@@ -83,13 +83,13 @@
           fields: [
             'id',
             'author',
-            'channel_id channelId',
+            'channelId',
             'title',
-            'abstract_text abstractText',
-            'abstract_img abstractImg',
+            'abstractText',
+            'abstractImg',
             'type',
-            'created_dt createdDt',
-            'updated_dt updatedDt'
+            'createdDt',
+            'updatedDt'
           ]
         }
       }
