@@ -2,9 +2,9 @@
   <div class="web-nav">
     <div class="nav-images">
       <el-carousel indicator-position="outside">
-        <el-carousel-item v-for="banner in banners" :key="banner.id">
-          <a :href="banner.url" target="_blank">
-          <img :src="banner.img" style="width: 100%;height:100%">
+        <el-carousel-item v-for="banner in banners" :key="banner.id" style="height: 400px">
+          <a :href="`http://${banner.url}`" target="_blank">
+            <el-image :src="banner.img" style="width: 100%;height:100%" fit="fill"></el-image>
           </a>
         </el-carousel-item>
       </el-carousel>
@@ -34,7 +34,7 @@
 </script>
 
 <style scoped>
-  .web-nav{width: 100%;height: 400px;margin-bottom: 30px}
+  .web-nav{width: 100%;height: 400px;margin-bottom: 5rem}
   .web-nav .nav-images{position: relative}
-  >>>.el-carousel__container{height: 380px}
+  >>>.el-carousel__container{height: 400px}
 </style>

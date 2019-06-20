@@ -44,7 +44,6 @@
     watch: {
       dataList() {
         this.dataListInner = this.dataList
-        debugger
         if (this.selection) {
           // this.selection = this.dataListInner.filter(one => one.id === this.selection.id)
           this.$refs.table.toggleRowSelection(this.dataListInner.filter(one => one.id === this.selection.id)[0], true)
@@ -59,7 +58,7 @@
       handleSelectChange(val) {
         if (val.length === this.dataListInner.length) {
           this.$refs['table'].clearSelection()
-          this.$message.warning('只能选择一个！')
+          this.$message.warning('只能选择一条记录！')
         }
         val.forEach((row, index) => {
           if (val.length === 2) {
