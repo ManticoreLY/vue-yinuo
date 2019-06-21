@@ -1,9 +1,9 @@
 <template>
   <div id="web-index">
     <keep-alive>
-      <web-header/>
+      <web-header class="fix-header"/>
     </keep-alive>
-    <nav-bar v-if="$route.fullPath === '/dashboard'"/>
+    <nav-bar v-if="$route.fullPath === '/dashboard'" style="position: relative;width: 100%;top: 212px;"/>
     <div class="web-content">
       <keep-alive>
         <router-view></router-view>
@@ -43,8 +43,9 @@
 
 <style scoped>
   /*color:#1CACA3*/
-  #web-index{margin: 0;padding: 0;}
-  .web-content{position: relative;width: 80%; margin: 0 10%;}
+  #web-index{position: relative;margin: 0;padding: 0;}
+  .fix-header{width: 100%;height: 214px !important;position: fixed;z-index: 100;background: #fff}
+  .web-content{position: relative;width: 80%; margin: 0 10%;top: 212px;}
 
   .footer{background: #f5f5f5;border-top: 1px solid #eee;width: 80%;height: 100px;padding: 0 10%;text-align: center;font-size: .75rem;color: #545454;text-space: 5px;
    display: flex; flex-flow: row wrap; align-content: center; align-items: center;justify-content: space-around}
