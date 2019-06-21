@@ -50,7 +50,7 @@
           username: [
             { required: true, trigger: 'blur', message: '用户名不能为空' }
           ],
-          account: [
+          signName: [
             { required: true, trigger: 'blur', message: '帐号不能为空' },
             { validator: this.accountValidate, trigger: 'blur' }
           ],
@@ -61,7 +61,7 @@
             { required: true, trigger: 'blur', message: '请确认密码' },
             { validator: this.passwordConfirming, trigger: 'blur' }
           ],
-          role: [
+          type: [
             { required: true, trigger: 'blur', message: '请设置用户角色' }
           ]
         }

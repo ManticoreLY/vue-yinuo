@@ -39,8 +39,8 @@
         <channel/>
         <div class="words test">
           <img src="static/img/医诺寰球公众号二维码.jpg" style="width: 120px;height: 120px"/>
-          <div style="font-size: 1.5rem">添加医诺寰球官方客服免费咨询</div>
-          <div style="margin: 5% auto;width: 90%;font-size: 1.2rem;text-indent: 2rem">已有<em>127822</em>名患者成功添加专业医学博士, 7*24小时响应需求, 用药参考, 前沿治疗, 报告解读您在治疗过程中遇到的所有问题.</div>
+          <div style="font-size: 1.5rem">添加医诺寰球官方客服</div>
+          <div style="margin: 1% auto;width: 90%;font-size: 1.75rem;text-align: center">免费咨询</div>
         </div>
         <!--最新文章-->
         <latest-articles/>

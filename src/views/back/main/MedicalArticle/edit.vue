@@ -1,10 +1,10 @@
 <template>
   <div>
     <el-form ref="form" :model="medicalArticle" label-width="120px">
-      <el-form-item label="标题">
+      <el-form-item label="标题" prop="title">
         <el-input v-model="medicalArticle.title"></el-input>
       </el-form-item>
-      <el-form-item label="频道">
+      <el-form-item label="频道" prop="channelId">
         <el-select v-model="medicalArticle.channelId"
                    filterable
                    remote
@@ -23,20 +23,17 @@
       <el-form-item label="摘要" prop="abstractText">
         <el-input v-model="medicalArticle.abstractText" type="textarea" :col="4"  maxlength="500" show-word-limit></el-input>
       </el-form-item>
-      <el-form-item label="内容">
+      <el-form-item label="内容" prop="content">
         <UE id = "content" :defaultMsg="medicalArticle.content" :config=config ref="content"></UE>
       </el-form-item>
-      <el-form-item label="图片上传">
+      <el-form-item label="图片上传" prop="abstractImg">
         <FileUploader :http-request="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="1"></FileUploader>
       </el-form-item>
-      <el-form-item label="作者">
-        <el-input v-model="medicalArticle.author"></el-input>
-      </el-form-item>
-      <el-form-item label="来源">
+      <el-form-item label="来源" prop="source">
         <el-input v-model="medicalArticle.source"></el-input>
       </el-form-item>
-      <el-form-item label="阅读量(排行用)">
-        <el-input-number v-model="medicalArticle.readCount"  :min="1"  ></el-input-number>
+      <el-form-item label="阅读量(排行用)" prop="readCount">
+        <el-input-number v-model="medicalArticle.readCount"  :min="1" style="width: initial"></el-input-number>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="saveForm">保存</el-button>
@@ -52,12 +49,17 @@
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
   import UE from '@/components/ue.vue'
-
+  import { mapState } from 'vuex'
   export default {
     name: 'edit',
     components: {
       FileUploader,
       UE
+    },
+    computed: {
+      ...mapState({
+        user: state => state.user.user
+      })
     },
     data() {
       return {
@@ -69,7 +71,8 @@
           content: '',
           author: '',
           abstractImg: '',
-          channelId: ''
+          channelId: '',
+          readCount: 1
         },
         config: {
           initialFrameWidth: null,
@@ -88,6 +91,7 @@
         this.channels = [this.medicalArticle.channel]
       },
       saveForm() {
+        this.medicalArticle.author = this.user.name
         this.medicalArticle.content = this.$refs.content.getUEContent()
         this.medicalArticle.type = 0
         this.$refs['form'].validate(valid => {
