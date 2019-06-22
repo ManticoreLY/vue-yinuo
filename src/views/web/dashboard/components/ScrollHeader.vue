@@ -96,7 +96,7 @@
 </script>
 
 <style scoped>
-  #scroll-header{width: 100%;height: 100px;position: fixed;top: 0;left: 0;right: 0;z-index: 199;border: 1px solid #eee;box-shadow: 0 1px 1px #eee;visibility: hidden;transition: visibility .5s}
+  #scroll-header{width: 100%;height: 100px;position: fixed;top: 0;left: 0;right: 0;z-index: 199;border: 1px solid #eee;box-shadow: 0 1px 1px #eee;visibility: hidden;transition: visibility .2s}
   .web-title{position: relative;width:90%;padding-left:10%;height: 32px;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
   .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
   .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}

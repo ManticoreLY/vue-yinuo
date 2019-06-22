@@ -18,7 +18,7 @@
         </el-table-column>
         <el-table-column label="模块名称" prop="name"></el-table-column>
         <el-table-column label="跳转地址" prop="url"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="220">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
             <el-button type="danger" @click="toDelete(scope.row.id)">删除</el-button>
