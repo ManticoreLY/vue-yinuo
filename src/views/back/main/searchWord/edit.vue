@@ -31,7 +31,7 @@
       return {
         searchWord: {
           name: '',
-          show: false
+          common: false
         },
         isUpdate: false,
         rules: {
