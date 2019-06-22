@@ -16,7 +16,7 @@
             <div v-for="i in 4" :key="i" class="item">
               <el-image :src="otherArticles[i-1][0]?otherArticles[i-1][0].abstractImg:''" :fit="'fit'" style="width: 200px; height: 120px;margin-right: 10px;"></el-image>
               <ul class="item-cont">
-                <li v-for="t in otherArticles[i-1]" :key="t.id" class="title ellipsis"><router-link tag="a" target="_blank" :to="'/articleInfo/'+t.id"  >{{t.title}}</router-link></li>
+                <li v-for="t in otherArticles[i-1]" :key="t.id" class="title"><router-link class="ellipsis" tag="a" target="_blank" :to="'/articleInfo/'+t.id"  >{{t.title}}</router-link></li>
               </ul>
             </div>
           </div>
@@ -82,7 +82,8 @@
 .item{position: relative;width: 46%;margin: 5px; display: inline-flex; align-items: flex-start; align-content:flex-start}
 .item .item-cont{width: 60%;margin:0 0 0 -30px}
 .item .item-cont .title{font-size: 1.25rem; color: #a1a1a1;}
-
+.item .item-cont li a{display: inline-block;height: 1.75rem;line-height: 1.75rem;width: 100%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
+ul{list-style: none;}
   >>>.el-tabs__header{margin: 0}
 >>>.el-tabs__item:hover,>>>.el-tabs__item.is-active{color: #1daca4}
   >>>.el-tabs__content{border: 1px solid #eee;border-top: none}

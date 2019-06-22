@@ -16,25 +16,27 @@
         <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
       </div>
     </div>
-    <div class="web-header">
-      <div class="web-logo" style="margin-left:5%;width: 15%">
-        <router-link :to="{ path: '/dashboard'}">
-          <img src="static/img/医诺寰球横版logo.png" style="height: 60%;width: 100%"/>
-        </router-link>
+    <el-collapse-transition>
+      <div class="web-header transition-box" v-show="show2">
+        <div class="web-logo" style="margin-left:5%;width: 15%">
+          <router-link :to="{ path: '/dashboard'}">
+            <img src="static/img/医诺寰球横版logo.png" style="height: 60%;width: 100%"/>
+          </router-link>
+        </div>
+        <div class="search-frame" style="width: 50%">
+          <el-input v-model="searchWord" class="search-bar" placeholder="请输入疾病或药品名,例如乙肝 吉三代">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+            <el-button slot="append" @click="search">医疗搜索</el-button>
+          </el-input>
+        </div>
+        <div class="code-img" style="width:20%">
+          <img src="static/img/微信二维码-扫码咨询.jpg" style="height:80px;height: 80px;">
+          <span class="text">扫码咨询</span>
+          <img src="static/img/医诺寰球公众号二维码.jpg" style="height:80px;height: 80px;margin-left: 40px;">
+          <span class="text">扫码咨询</span>
+        </div>
       </div>
-      <div class="search-frame" style="width: 50%">
-        <el-input v-model="searchWord" class="search-bar" placeholder="请输入疾病或药品名,例如乙肝 吉三代">
-          <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          <el-button slot="append" @click="search">医疗搜索</el-button>
-        </el-input>
-      </div>
-      <div class="code-img" style="width:20%">
-        <img src="static/img/微信二维码-扫码咨询.jpg" style="height:80px;height: 80px;">
-        <span class="text">扫码咨询</span>
-        <img src="static/img/医诺寰球公众号二维码.jpg" style="height:80px;height: 80px;margin-left: 40px;">
-        <span class="text">扫码咨询</span>
-      </div>
-    </div>
+    </el-collapse-transition>
     <div class="nav-bar">
       <span style="position:relative" id="hover-icon">
         <i class="el-icon-d-arrow-right"></i>
@@ -62,12 +64,12 @@
             <img :src="dianhua.img" style="height:38px;height:38px"><br/><b>咨询电话</b>
           </a>
       </el-popover>
-      <a><img :src="qq" style="height:38px;height:38px"><br/>QQ咨询</a>
-      <a><img :src="weixin" style="height:38px;height:38px"><br/>微信咨询</a>
-      <a><img :src="weibo" style="height:38px;height:38px"><br/>官方微博</a>
+      <a><img :src="qq" style="height:38px;height:38px"><br/><b>QQ咨询</b></a>
+      <a><img :src="weixin" style="height:38px;height:38px"><br/><b>微信咨询</b></a>
+      <a><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
       <el-popover placement="left" trigger="hover">
         <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
-        <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/>官方微信</a>
+        <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/><b>官方微信</b></a>
       </el-popover>
   </div>
   </div>
@@ -77,16 +79,19 @@
   import home from '@/api/Homepage/home'
   import HoverBar from './HoverBar'
   import MyCanvas from '@/components/MyCanvas'
+  import ElCollapseTransition from 'element-ui/src/transitions/collapse-transition'
   // import WebsiteMap from '@/views/web/components/WebsiteMap'
   export default {
     name: 'header',
     components: {
+      ElCollapseTransition,
       HoverBar,
       // WebsiteMap,
       MyCanvas
     },
     data() {
       return {
+        show2: true,
         scrollNews: [],
         show_words: [],
         searchWord: '',
@@ -122,7 +127,7 @@
 </script>
 
 <style scoped>
-  .web-title{position: relative;width:90%;padding-left:10%;height: 2.75rem;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
+  .web-title{position: relative;width:90%;padding-left:10%;height: 32px;background: #f5f5f5;border-bottom: 1px solid #eee;display:flex;align-items: center; align-content: center;justify-content: flex-start}
   .web-title .item1, .web-title .item2, .web-title .item3{display: inline-block}
   .web-title .item1 .text-icon{display: inline-block;position:relative;font-size: 1rem;font-weight: 600;color: #efefef;background: #1CACA3;color: #ececec;padding: 4px 12px;border-radius: 3px;}
   .web-title .item1 .text-icon .arrow-right{position:absolute;top:8px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: transparent transparent transparent #1CACA3}
@@ -138,7 +143,7 @@
   >>> .el-input-group__append{background: #1daca4;border:none;color:#fff;font-size: 18px;border-radius: 0px;}
   >>> .el-input{border: none}
 
-  .nav-bar{width: 76%;height: 42px;padding: 0 12%;font-size: 1.5rem;border-bottom: 4px solid #1CACA3}
+  .nav-bar{width: 76%;height: 40px;padding: 0 12%;font-size: 1.5rem;border-bottom: 4px solid #1CACA3}
   .nav-bar span{display: inline-block;padding: 10px 2.25rem;}
   .nav-bar span:nth-child(1){display: inline-block;padding: 10px 2.25rem;background: #1CACA3;color: #efefef}
   .nav-bar span.link.is-active a{color: #1daca4}

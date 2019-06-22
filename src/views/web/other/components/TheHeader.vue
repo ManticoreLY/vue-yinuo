@@ -54,12 +54,12 @@
         <el-popover placement="left" trigger="hover" :content="dianhua.content">
           <a slot="reference"><img :src="dianhua.img" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
         </el-popover>
-        <a><img :src="qq" style="height:38px;height:38px"><br/>QQ咨询</a>
-        <a><img :src="weixin" style="height:38px;height:38px"><br/>微信咨询</a>
-        <a><img :src="weibo" style="height:38px;height:38px"><br/>官方微博</a>
+        <a><img :src="qq" style="height:38px;height:38px"><br/><b>QQ咨询</b></a>
+        <a><img :src="weixin" style="height:38px;height:38px"><br/><b>微信咨询</b></a>
+        <a><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
         <el-popover placement="left" trigger="hover">
           <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
-          <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/>官方微信</a>
+          <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/><b>官方微信</b></a>
         </el-popover>
       </div>
     </div>
