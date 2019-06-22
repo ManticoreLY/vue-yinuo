@@ -12,7 +12,7 @@
             <a slot="reference" class="item-title">网站地图</a>
           </el-popover>-->
           <a class="item-title">医疗客服</a>
-          <a class="item-title">海外医疗：400-0000-000</a>
+          <a class="item-title">海外医疗：{{homeFooterFixedInfo.freeHotLine}}</a>
           <a class="item-title" style="border: none">邮箱：{{homeFooterFixedInfo.email}}</a>
         </div>
       </div>

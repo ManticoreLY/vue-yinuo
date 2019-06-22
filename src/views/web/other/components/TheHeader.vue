@@ -4,16 +4,16 @@
         <div class="item1" style="width: 180px;text-align: right">
           <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
         </div>
-        <my-canvas class="item2" :words="show_words" :width="450" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
-        <div class="item3" style="width: 720px;text-align: right">
+        <my-canvas class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
+        <div class="item3" style="max-width: 50%;min-width: 35%;text-align: right">
           <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
           <el-popover placement="bottom" trigger="hover">
             <website-map/>
             <!--<a slot="reference" class="item-title">网站地图</a>-->
           </el-popover>
           <a class="item-title">医疗客服</a>
-          <a class="item-title">海外医疗：400-0000-000</a>
-          <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
+          <a class="item-title">海外医疗：{{homeFooterFixedInfo.freeHotLine}}</a>
+          <a class="item-title" style="border: none">邮箱：{{homeFooterFixedInfo.email}}</a>
         </div>
       </div>
       <div class="nav-bar">
@@ -51,15 +51,15 @@
         </div>
       </div>
       <div class="fix-content">
-        <el-popover placement="left" trigger="hover" :content="dianhua.content">
-          <a slot="reference"><img :src="dianhua.img" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
+        <el-popover placement="left" trigger="hover" :content="`全国免费咨询电话：${homeFooterFixedInfo.freeHotLine}`">
+          <a slot="reference"><img :src="dianhua" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
         </el-popover>
         <a><img :src="qq" style="height:38px;height:38px"><br/><b>QQ咨询</b></a>
         <a><img :src="weixin" style="height:38px;height:38px"><br/><b>微信咨询</b></a>
         <a><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
         <el-popover placement="left" trigger="hover">
           <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
-          <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/><b>官方微信</b></a>
+          <a slot="reference"><img :src="wxgzh" style="height:38px;height:38px"><br/><b>官方微信</b></a>
         </el-popover>
       </div>
     </div>
@@ -79,16 +79,22 @@
     },
     data() {
       return {
-        dianhua: { img: 'static/icon/dianhua.png', content: '全国免费咨询电话: 4006-120-152' },
+        footerVo: {},
+        homeFooterFixedInfo: {},
+        dianhua: 'static/icon/dianhua.png',
         qq: 'static/icon/qqicon.png',
         weixin: 'static/icon/微信icon.png',
-        wxgzh: { img: 'static/icon/微信公众号icon.png', content: '' },
+        wxgzh: 'static/icon/微信公众号icon.png',
         weibo: 'static/icon/微博icon.png',
         searchWord: '',
         show_words: []
       }
     },
     created() {
+      home.footer().then(data => {
+        this.footerVo = data.obj
+        this.homeFooterFixedInfo = this.footerVo.homeFooterFixedInfo
+      })
       this.searchWord = this.$route.query.keywords
       this.fillShowWords()
       this.search()
