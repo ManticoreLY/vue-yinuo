@@ -11,7 +11,8 @@
             <div style="width: 100%;padding: 20px;float:left">
               <p style="font-size: 1.5rem;font-weight: 600;">搜索热点</p>
               <div class="el-icon-arrow-right" style="font-size: 1.3rem; line-height: 2rem;">
-                <span v-for="word in searchWords" :key="word" style="display: inline-block;margin-right: 20px;color: #008aff">{{word}}</span>
+                <span v-for="word in searchWords" :key="word.id" style="display: inline-block;margin-right: 20px;color: #008aff">
+                  <router-link tag="a"  target="_blank" :to = "{ path: 'search', query: { keywords: word.name }}">{{word.name}}</router-link></span>
               </div>
             </div>
           </div>
@@ -23,6 +24,7 @@
 
 <script>
   import TheHeader from './components/TheHeader'
+  import searchWordApi from '@/api/searchWordFront'
   export default {
     name: 'index',
     components: {
@@ -30,13 +32,38 @@
     },
     data() {
       return {
+        query: {
+          pageObj: {
+            current: 1,
+            size: 20
+          },
+          likeCondition: {
+            name: ''
+          },
+          andCondition: {
+            common: true
+          },
+          orderByConditionStr: {
+            idx: 'asc'
+          }
+        },
         searchWord: '',
-        searchWords: ['吉三代', '丙肝 吉三代', '印度 吉三代', '吉三代 伊柯鲁沙 Epclusa', '吉三代 治疗方案', '索非布韦 吉三代', '泰国吉三代']
+        searchWords: []
       }
+    },
+    created() {
+      this.initSearchWords()
     },
     methods: {
       getSearchWord(searchWord) {
         this.searchWord = searchWord
+      },
+      initSearchWords() {
+        searchWordApi.queryPage(this.query).then(data => {
+          this.searchWords = data.obj.records
+        }).catch(err => {
+          console.log(err)
+        })
       }
     }
   }

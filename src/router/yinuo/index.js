@@ -72,6 +72,14 @@ export default [
     children: [
       { path: 'about', name: '关于我们', component: () => import('@/views/back/main/OtherPageSetting/About/edit') }
     ]
+  },
+  {
+    path: '/searchWord',
+    component: Layout,
+    name: '搜索词',
+    children: [
+      { path: 'searchWord', name: '搜索词', component: () => import('@/views/back/main/searchWord') }
+    ]
   }
 ]
 
