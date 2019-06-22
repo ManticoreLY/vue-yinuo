@@ -50,5 +50,6 @@
   .web-items{width: 100%;height:225px;position:relative;display:flex;align-items: center;align-content: stretch;justify-content: flex-start}
   .web-items .item-name{display:inline-block;height:220px;width: 80px;display: inline-flex;align-items: center;text-align: center;background: #1CACA3;color:#efefef;font-size: 2.4rem;border-radius: 4px;word-wrap: break-word}
   .web-items .items .child{display: inline-block;margin-left: 15px;}
-  .web-items .items .child>a{display: inline-block;border-right: 1px solid #eee;height: 100px;width: 19.9%;display: inline-flex;align-items: center;justify-content: flex-start;margin-bottom: 10px;text-align: center}
+  .web-items .items .child>a{display: inline-block;border-right: 1px solid #eee;height: 100px;width: 19.7%;display: inline-flex;align-items: center;justify-content: flex-start;margin-bottom: 10px;text-align: center}
+  .web-items .items .child>a:hover{box-shadow: 1px 1px 2px 2px #eee}
 </style>

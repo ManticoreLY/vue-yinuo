@@ -7,7 +7,7 @@
         <div style="width: 58%">
         <p style="font-size:1.75rem;color:#1daca4;height: 4.25rem;">
           <router-link :to="'news/channel/' + item.newsArticles[0].id">
-          {{item.newsArticles[0].title.substring(0, 19)}}<em v-show="item.newsArticles[0].title.length > 19">...</em>
+            <span class="ellipsis">{{ item.newsArticles[0].title }}</span>
           </router-link>
         </p>
         <p style="font-size: 1.25rem;color:#7f7f7f;text-indent: 2rem;height: 100px;width: 100%;overflow: hidden">1月12日，{{item.newsArticles[0].abstractText.substring(0, 60) + '...'}}
@@ -45,7 +45,6 @@
 </script>
 
 <style scoped>
-  .ellipsis{white-space:nowrap;overflow: hidden;text-overflow: ellipsis}
   .web-news{width: 100%;height: auto;display: flex;flex-flow:row wrap;justify-content: flex-start;align-items:center;align-content: stretch}
   .web-news .news-module{position:relative;display: inline-block;width: 31%;margin:5px 10px;border-right: 1px solid #ccc}
   .web-news .news-module:last-child{border:none}

@@ -1,16 +1,17 @@
 <template>
   <div id="web-index">
     <keep-alive>
-      <web-header class="fix-header"/>
+      <web-header style="background: #fff"/>
     </keep-alive>
-    <nav-bar v-if="$route.fullPath === '/dashboard'" style="position: relative;width: 100%;top: 212px;"/>
+    <scroll-header class="fix-header"></scroll-header>
+    <nav-bar v-if="$route.fullPath === '/dashboard'"/>
     <div class="web-content">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
     </div>
-    <web-info style="position:relative;top: 214px"/>
-    <footer style="position:relative;top: 214px">
+    <web-info/>
+    <footer>
       <div class="footer">
         <div>医诺寰球是出国看病的领导者，国内专业赴印度治疗丙肝、乙肝的团队。印度丙肝新药<b>索非布韦</b>、达卡他韦、<b>吉二代</b>，
           吉印度Mylan产<b>吉三代Hepbest</b>已经在印度上市，治疗所有分型丙肝。印度乙肝<b>TAF</b>新方案，副作用小价格低，
@@ -23,13 +24,14 @@
 </template>
 
 <script>
-  import { WebHeader, WebInfo, NavBar } from './components'
+  import { WebHeader, WebInfo, NavBar, ScrollHeader } from './components'
   export default {
     name: 'index',
     components: {
       WebHeader,
       WebInfo,
-      NavBar
+      NavBar,
+      ScrollHeader
     },
     data() {
       return {
@@ -44,8 +46,8 @@
 <style scoped>
   /*color:#1CACA3*/
   #web-index{position: relative;margin: 0;padding: 0;}
-  .fix-header{width: 100%;height: 214px !important;position: fixed;z-index: 100;background: #fff}
-  .web-content{position: relative;width: 80%; margin: 0 10%;top: 212px;}
+  .fix-header{width: 100%;position: fixed;background: #fff}
+  .web-content{position: relative;width: 80%; margin: 0 10%;}
 
   .footer{background: #f5f5f5;border-top: 1px solid #eee;width: 80%;height: 100px;padding: 0 10%;text-align: center;font-size: .75rem;color: #545454;text-space: 5px;
    display: flex; flex-flow: row wrap; align-content: center; align-items: center;justify-content: space-around}

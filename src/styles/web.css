@@ -1,5 +1,5 @@
 .clear{clear: both}
-
+.ellipsis{white-space:nowrap;overflow: hidden;text-overflow: ellipsis;display: inline-block;width: 100%}
 .page{position: relative;width: 100%;font-size: 12px;background: #fff;}
 .page .bg{width: 100%}
 .page .nav{width: 90%;padding: 10px 5%;height: 2rem;line-height: 2rem;font-size: 1.25rem;color: #5a5a5a}

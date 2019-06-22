@@ -9,7 +9,7 @@
       </div>
       <div class="panel">
         <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id">
-          <h5><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+i.disease.id">{{ i.disease.name }}</router-link></h5>
+          <h5 style="color: #008aff"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+i.disease.id">{{ i.disease.name }}</router-link></h5>
           <h6>
             <span v-for="p in i.disease.medicines" :key="p.id"><router-link tag="a" target="_blank" :to="'/medicineInfo/'+p.id" >{{p.shotName}}</router-link></span>
           </h6>
@@ -58,7 +58,7 @@
 .item .sub span:last-child{border:none}
 .panel{visibility: hidden;position:absolute;width: 500px;height: 95%;left: 100%;top: 0;background: #fff;padding: 1rem;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc}
 .panel .info-item{width: 100%;height: auto;border-bottom: 1px dotted #ddd;color: #545454}
-.panel .info-item a{color:#008aff}
+.panel .info-item a:hover{color:#1daca4;text-decoration: underline}
 .panel .info-item h5{padding: 0 5px}
 .panel .info-item h6>span{border-right: 1px solid #545454;padding: 0 5px}
 .panel .info-item h6>span:last-child{border: none}

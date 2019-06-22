@@ -43,9 +43,9 @@
 
 <style scoped>
   .web-brand{position:relative;width: 96%;margin: 0 auto;height: auto;display: flex;flex-flow: row wrap; justify-content: flex-start}
-  .web-brand .brand-item{height: 285px;width: 33%;}
-  .web-brand .brand-item .title{height: 75px;font-size:2.5rem;margin: 20px;display: flex;align-items: center; align-content: center;justify-content: center}
-  .web-brand .brand-item .content{height: 200px;font-size:2rem;padding:0 15px;}
+  .web-brand .brand-item{height: 250px;width: 33%;}
+  .web-brand .brand-item .title{height: 75px;font-size:2.25rem;margin: 20px;display: flex;align-items: center; align-content: center;justify-content: center}
+  .web-brand .brand-item .content{height: 200px;font-size:1.75rem;padding:0 15px;}
   .web-brand .brand-item.normal{background: #f5f5f5;}
   .web-brand .brand-item.normal .title{color: #1daca4}
   .web-brand .brand-item.blue{background: #2b96cc;color: #fff}

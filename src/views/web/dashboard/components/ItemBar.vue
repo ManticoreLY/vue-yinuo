@@ -3,7 +3,7 @@
     <span></span>
     <div>{{ name }}</div>
     <span></span>
-    <div class="description">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div>
+    <div class="description">{{subTitle}}</div>
   </div>
 </template>
 
@@ -11,7 +11,11 @@
     export default {
       name: 'ItemBar',
       props: {
-        name: String
+        name: String,
+        subTitle: {
+          type: String,
+          default: 'XXXXXXXXXXXXXXXXXXXXXXXXXXX'
+        }
       }
     }
 </script>

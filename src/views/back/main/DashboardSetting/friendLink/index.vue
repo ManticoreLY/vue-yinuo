@@ -1,22 +1,20 @@
 <template>
     <div>
       <el-form :inline="true" label-width="60px">
-<!--        <el-form-item label="名称">-->
-<!--          <el-input v-model="query.likeCondition.linkName"></el-input>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="类型">-->
-<!--          <el-select v-model="query.andCondition.type">-->
-<!--            <el-option v-for="(opt, index) in linkTypes" :key="index" :label="opt.name" :value="opt.value"></el-option>-->
-<!--          </el-select>-->
-<!--        </el-form-item>-->
+        <el-form-item label="类型">
+          <el-select v-model="query.andCondition.type">
+            <el-option v-for="(opt, index) in linkTypes" :key="index" :label="opt.text" :value="opt.value"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item>
-<!--          <el-button type="primary" @click="search">查询</el-button>-->
+          <el-button type="primary" @click="search">查询</el-button>
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
       <el-table :data="tableList">
         <el-table-column label="链接名" prop="linkName"></el-table-column>
-        <el-table-column label="类型" :formatter="type_format"></el-table-column>
+        <el-table-column label="类型"
+                         :formatter="type_format"></el-table-column>
         <el-table-column label="LOGO">
           <template slot-scope="scope">
             <el-image :src="scope.row.img" ></el-image>
@@ -59,13 +57,16 @@
           pageObj: {
             current: 1,
             size: 10
+          },
+          andCondition: {
+            type: ''
           }
         },
         linkTypes: [
-          { value: 1, name: '战略合作伙伴' },
-          { value: 2, name: '媒体合作伙伴' },
-          { value: 3, name: '链接聚合' },
-          { value: 4, name: '友情链接' }
+          { value: 1, text: '战略合作伙伴' },
+          { value: 2, text: '媒体合作伙伴' },
+          { value: 3, text: '链接聚合' },
+          { value: 4, text: '友情链接' }
         ],
         page: {},
         name: '',
@@ -112,8 +113,12 @@
           })
         })
       },
+      filterHandler(value, row, column) {
+        const property = column['property']
+        return row[property] === value
+      },
       type_format(row) {
-        return this.linkTypes.find(item => item.value === row.type).name
+        return this.linkTypes.find(item => item.value === row.type).text
       },
       handleFormClose() {
         this.editFormVisible = false

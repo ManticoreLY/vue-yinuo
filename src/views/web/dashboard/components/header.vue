@@ -13,7 +13,7 @@
         </el-popover>-->
         <a class="item-title">医疗客服</a>
         <a class="item-title">海外医疗：400-0000-000</a>
-        <a class="item-title" style="border: none">邮箱：xxxx@yinuohuanqiu.com</a>
+        <a class="item-title" style="border: none">邮箱：{{homeFooterFixedInfo.email}}</a>
       </div>
     </div>
     <el-collapse-transition>
@@ -59,9 +59,9 @@
       </span>
     </div>
     <div class="fix-content">
-      <el-popover placement="left" trigger="hover" :content="dianhua.content">
+      <el-popover placement="left" trigger="hover" :content="`全国免费咨询电话：${homeFooterFixedInfo.freeHotLine}`">
           <a slot="reference">
-            <img :src="dianhua.img" style="height:38px;height:38px"><br/><b>咨询电话</b>
+            <img :src="dianhua" style="height:38px;height:38px"><br/><b>咨询电话</b>
           </a>
       </el-popover>
       <a><img :src="qq" style="height:38px;height:38px"><br/><b>QQ咨询</b></a>
@@ -69,7 +69,7 @@
       <a><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
       <el-popover placement="left" trigger="hover">
         <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
-        <a slot="reference"><img :src="wxgzh.img" style="height:38px;height:38px"><br/><b>官方微信</b></a>
+        <a slot="reference"><img :src="wxgzh" style="height:38px;height:38px"><br/><b>官方微信</b></a>
       </el-popover>
   </div>
   </div>
@@ -94,11 +94,13 @@
         show2: true,
         scrollNews: [],
         show_words: [],
+        footerVo: {},
+        homeFooterFixedInfo: {},
         searchWord: '',
-        dianhua: { img: 'static/icon/dianhua.png', content: '全国免费咨询电话: 4006-120-152' },
+        dianhua: 'static/icon/dianhua.png',
         qq: 'static/icon/qqicon.png',
         weixin: 'static/icon/微信icon.png',
-        wxgzh: { img: 'static/icon/微信公众号icon.png', content: '' },
+        wxgzh: 'static/icon/微信公众号icon.png',
         weibo: 'static/icon/微博icon.png'
       }
     },
@@ -121,6 +123,10 @@
       home.headerScrollNews().then(data => {
         this.scrollNews = data.obj
         this.fillShowWords()
+      })
+      home.footer().then(data => {
+        this.footerVo = data.obj
+        this.homeFooterFixedInfo = this.footerVo.homeFooterFixedInfo
       })
     }
   }
@@ -151,7 +157,7 @@
   .fix-content{position: fixed;right: 2.25rem; top: 16rem;z-index: 20;display: inline-flex;flex-flow: column nowrap;font-size: 10px;}
   .fix-content a{display: inline-block;margin:2px 0;padding: 5px;width:60px;height: 56px;text-align:center;background: #fff;box-shadow: 0 2px 5px 0 #444;z-index: 99}
 
-  #hover-panel{position:absolute;width: 207px;height: 450px;background: #2cbca3;top: 45px;left: 0;z-index: 100;visibility: hidden}
+  #hover-panel{position:absolute;width: 207px;height: 450px;background: #2cbca3;top: 40px;left: 0;z-index: 100;visibility: hidden}
   #hover-icon:hover #hover-panel{visibility: visible}
 
 </style>
