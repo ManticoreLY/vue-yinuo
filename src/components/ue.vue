@@ -33,6 +33,7 @@
     mounted() {
       const _this = this
       // const UE = document.getElementById(this.id)
+      this.config.zIndex = 3000
       /* global UE */
       this.editor = UE.getEditor(this.id, this.config) // 初始化UE
       this.editor.addListener('ready', function() {
