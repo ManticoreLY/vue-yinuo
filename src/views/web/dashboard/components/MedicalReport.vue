@@ -7,7 +7,7 @@
         <div style="width: 58%">
         <p style="font-size:1.75rem;color:#1daca4;height: 4.25rem;">
           <router-link :to="'news/channel/' + item.newsArticles[0].id">
-            <span class="ellipsis">{{ item.newsArticles[0].title }}</span>
+          {{item.newsArticles[0].title.substring(0, 18)}}<em v-show="item.newsArticles[0].title.length > 18">...</em>
           </router-link>
         </p>
         <p style="font-size: 1.25rem;color:#7f7f7f;text-indent: 2rem;height: 100px;width: 100%;overflow: hidden">1月12日，{{item.newsArticles[0].abstractText.substring(0, 60) + '...'}}
@@ -24,6 +24,11 @@
       </div>
     </div>
   </div>
+    <div style="width: 100%;text-align: center;margin-top: 20px;">
+      <router-link :to="'/news'">
+        <el-button style="background-color: #1daca4;color:#efefef">查看更多</el-button>
+      </router-link>
+    </div>
   </div>
 </template>
 

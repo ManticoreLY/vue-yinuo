@@ -18,7 +18,7 @@
     </div>
     <el-collapse-transition>
       <div class="web-header transition-box" v-show="show2">
-        <div class="web-logo" style="margin-left:5%;width: 15%">
+        <div class="web-logo" style="margin-left:2%;width: 15%">
           <router-link :to="{ path: '/dashboard'}">
             <img src="static/img/医诺寰球横版logo.png" style="height: 60%;width: 100%"/>
           </router-link>
@@ -33,7 +33,7 @@
           <img src="static/img/微信二维码-扫码咨询.jpg" style="height:80px;height: 80px;">
           <span class="text">扫码咨询</span>
           <img src="static/img/医诺寰球公众号二维码.jpg" style="height:80px;height: 80px;margin-left: 40px;">
-          <span class="text">扫码咨询</span>
+          <span class="text">官方微信</span>
         </div>
       </div>
     </el-collapse-transition>
@@ -141,7 +141,7 @@
   .web-title .item3 .item-title{display: inline-flex;position:relative;border-right:1px solid #545454;padding: 0 6px;}
   .web-title .item3 .item-title .arrow-down{position:absolute;top: 5px;right: -10px;height: 0;width: 0;border-width: 5px;border-style: solid;border-color: #545454 transparent transparent transparent}
 
-  .web-header{width: 80%;padding: 0 10%;height: 140px;display: flex;flex-flow:row nowrap;justify-content: space-around;align-items: center;align-content: center}
+  .web-header{width: 80%;padding: 0 10%;height: 140px;display: flex;justify-content: space-between;align-items: center;align-content: center}
   .web-header>div.code-img{position: relative;height: 80px;display: inline-flex;align-items: center}
   .web-header .search-frame .search-bar{width: 100%;height: 40px;border: 2px solid #1CACA3;border-radius: 4px;}
   .web-header .code-img img, .web-header .code-img span{display: inline-block}

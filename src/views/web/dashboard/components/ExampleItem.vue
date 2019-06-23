@@ -11,7 +11,7 @@
             <div style="font-size: 1.75rem;height:3rem;" class="ellipsis">
               <router-link :to="`casesInfo/${item.newsArticleId}`" tag="a" target="_blank">{{ item.title }}</router-link>
             </div>
-            <div style="font-size: 1.25rem;color: #7f7f7f;word-wrap: break-word;white-space: pre-wrap">{{item.description}}</div>
+            <div class="ellipsis_3" style="font-size: 1.25rem;color: #7f7f7f;word-wrap: break-word;white-space: pre-wrap;">{{item.description}}</div>
           </div>
         </div>
       </div>
@@ -47,5 +47,5 @@
   .web-content{width: 100%;height: auto;display: flex;flex-flow:row wrap;justify-content: flex-start; align-items: center; align-content: baseline}
   .web-content .example-item{position:relative;width: 22.5%;margin:0 1% 20px 1%;border: 1px solid #ccc;}
   .web-content .example-item>div:nth-child(1){height: 240px;width: 100%;border-bottom: 4px solid #1daca4;}
-  .web-content .example-item>div:nth-child(2){height: 100px;width: 93%;padding: 10px 15px;}
+  .web-content .example-item>div:nth-child(2){height: 100px;width: 87%;padding: 10px 20px;}
 </style>

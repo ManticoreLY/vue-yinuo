@@ -1,7 +1,7 @@
 <template>
   <div class="web-brand">
     <div v-for="(item, index) in brands" :key="index" :class="classSeries(index)">
-      <div class="title"><img :src="item.icon" class="el-icon-bell" />&nbsp;&nbsp;{{ item.title }}</div>
+      <div class="title"><img :src="item.icon" class="el-icon-bell" />&nbsp;{{ item.title }}</div>
       <div class="content">{{ item.content }}</div>
     </div>
   </div>
@@ -43,8 +43,8 @@
 
 <style scoped>
   .web-brand{position:relative;width: 96%;margin: 0 auto;height: auto;display: flex;flex-flow: row wrap; justify-content: flex-start}
-  .web-brand .brand-item{height: 250px;width: 33%;}
-  .web-brand .brand-item .title{height: 75px;font-size:2.25rem;margin: 20px;display: flex;align-items: center; align-content: center;justify-content: center}
+  .web-brand .brand-item{height: 250px;width: 30%; padding: 0 15px}
+  .web-brand .brand-item .title{height: 75px;font-size:2.25rem;margin: 15px;display: flex;align-items: center; align-content: center;justify-content: center}
   .web-brand .brand-item .content{height: 200px;font-size:1.75rem;padding:0 15px;}
   .web-brand .brand-item.normal{background: #f5f5f5;}
   .web-brand .brand-item.normal .title{color: #1daca4}

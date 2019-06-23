@@ -10,10 +10,6 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
-        <el-table-column type="expand">
-          <template slot-scope="scope">
-          </template>
-        </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="频道栏目" prop="channel.name">
         </el-table-column>

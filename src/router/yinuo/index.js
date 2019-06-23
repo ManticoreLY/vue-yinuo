@@ -19,12 +19,12 @@ export default [
       { path: 'NavBanner', name: '导航配置', component: () => import('@/views/back/main/DashboardSetting/NavBanner') },
       { path: 'diseaseBase', name: '常见疾病库', component: () => import('@/views/back/main/DashboardSetting/DiseaseDatabase') },
       { path: 'diseaseItem', name: '疾病专栏', component: () => import('@/views/back/main/DashboardSetting/DiseaseItems') },
-      { path: 'brand', name: '品牌实力', component: () => import('@/views/back/main/DashboardSetting/brand') },
-      { path: 'friendLink', name: '友情链接', component: () => import('@/views/back/main/DashboardSetting/friendLink') },
+      { path: 'abroadCases', name: '出国实例', component: () => import('@/views/back/main/DashboardSetting/AbroadCases') },
       { path: 'newsReport', name: '新闻报道', component: () => import('@/views/back/main/DashboardSetting/ReportSetting') },
       { path: 'newsArticle', name: '新闻资讯', component: () => import('@/views/back/main/DashboardSetting/NewsSetting') },
-      { path: 'abroadCases', name: '出国实例', component: () => import('@/views/back/main/DashboardSetting/AbroadCases') },
+      { path: 'brand', name: '品牌实力', component: () => import('@/views/back/main/DashboardSetting/brand') },
       { path: 'footerLinks', name: '医诺寰球', component: () => import('@/views/back/main/DashboardSetting/FooterLinks') },
+      { path: 'friendLink', name: '友情链接', component: () => import('@/views/back/main/DashboardSetting/friendLink') },
       { path: 'publish', name: '官方发布', component: () => import('@/views/back/main/DashboardSetting/publish') },
       { path: 'contactUs', name: '联系我们', component: () => import('@/views/back/main/DashboardSetting/ContactUs') }
     ]

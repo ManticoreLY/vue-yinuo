@@ -9,7 +9,16 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList">
+      <el-table :data="tableList" @expand-change="handleExpand">
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+            <ol>
+              <li v-for="a in caseList" :key="a.id">
+                <router-link tag="a" target="_blank" :to="`/articleInfo/${a.id}`">{{ a.title }}</router-link>
+              </li>
+            </ol>
+          </template>
+        </el-table-column>
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作" width="220">
@@ -35,6 +44,7 @@
 
 <script>
   import ChannelApi from '@/api/channel'
+  import CaseApi from '@/api/cases'
   import EditForm from './edit'
   import page from '@/utils/page'
   export default {
@@ -59,6 +69,7 @@
         page: {},
         name: '',
         tableList: [],
+        caseList: [],
         formTitle: [],
         editFormVisible: false
       }
@@ -72,6 +83,16 @@
         ChannelApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
           this.tableList = data.obj.records
+        }).catch(err => {
+          console.log(err)
+        })
+      },
+      handleExpand(row, expandedRow) {
+        if (expandedRow.length === 0) return
+        else if (expandedRow.length > 1) expandedRow.shift()
+        const query = Object.assign(this.query, { andCondition: { channel_id: row.id }})
+        CaseApi.queryPage(query).then(data => {
+          this.caseList = data.obj.records
         }).catch(err => {
           console.log(err)
         })

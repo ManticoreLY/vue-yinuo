@@ -51,16 +51,17 @@
 .item:last-child{border: none}
 .item:hover{background: #fff;border-left:3px solid #008aff;}
 .item:hover .main,.item:hover .sub{color: #008aff;}
-.item .main{font-size: 1.25rem;color: #f5f5f5;padding: 10px;}
+.item .main{font-size: 1.4rem;color: #f5f5f5;padding: 10px;}
 .item .sub{font-size: 1rem;color: #eee;padding: 5px;}
 .item .sub span{padding: 0 5px;border-right: 1px solid #eee;}
-.item:hover .sub span{padding: 0 5px;border-right: 1px solid #008aff;text-decoration: underline}
+.item:hover .sub span{padding: 0 5px;border-right: 1px solid #008aff;}
 .item .sub span:last-child{border:none}
 .panel{visibility: hidden;position:absolute;width: 500px;height: 95%;left: 100%;top: 0;background: #fff;padding: 1rem;border-right: 1px solid #ccc;border-bottom: 1px solid #ccc}
 .panel .info-item{width: 100%;height: auto;border-bottom: 1px dotted #ddd;color: #545454}
-.panel .info-item a:hover{color:#1daca4;text-decoration: underline}
+.panel .info-item a:hover{text-decoration: underline}
 .panel .info-item h5{padding: 0 5px}
 .panel .info-item h6>span{border-right: 1px solid #545454;padding: 0 5px}
+.panel .info-item h6>span a:hover{color: #008aff;}
 .panel .info-item h6>span:last-child{border: none}
 .item:hover .panel{visibility: visible}
 </style>
