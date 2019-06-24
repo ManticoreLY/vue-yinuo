@@ -1,8 +1,24 @@
 <template>
     <div>
       <el-form :inline="true" label-width="120px">
-        <el-form-item>
-          <el-input v-model="name"></el-input>
+        <el-form-item label = "标题">
+          <el-input v-model="query.likeCondition.title" ></el-input>
+        </el-form-item>
+        <el-form-item label = "栏目">
+          <el-select v-model="query.andCondition.channelId"
+                     filterable
+                     remote
+                     reserve-keyword
+                     placeholder="请输入关键词"
+                     :remote-method="remoteMethod"
+                     :loading="loading">
+            <el-option
+              v-for="item in channels"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -71,6 +87,9 @@
         page: {},
         name: '',
         tableList: [],
+        channels: [],
+        channelId: '',
+        loading: false,
         formTitle: '',
         editFormVisible: false
       }
@@ -91,6 +110,11 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          if (this.query.andCondition.channelId) {
+            this.$refs['editForm'].addForm({ channelId: this.query.andCondition.channelId, channel: this.channels.filter(one => one.id === this.query.andCondition.channelId)[0] })
+          }
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'
@@ -98,6 +122,22 @@
         this.$nextTick(() => {
           this.$refs['editForm'].editForm(entity)
         })
+      },
+      remoteMethod(query) {
+        if (query !== '') {
+          this.loading = true
+          setTimeout(() => {
+            this.loading = false
+            ChannelApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }, andCondition: { type: 0 }}).then(data => {
+              this.channels = data.obj.records
+            }).catch(err => {
+              console.log(err)
+              this.$message.warning(err.msg)
+            })
+          }, 200)
+        } else {
+          this.channels = []
+        }
       },
       toDelete(id, index) {
         this.$confirm('', '请确认删除?', {}).then(() => {

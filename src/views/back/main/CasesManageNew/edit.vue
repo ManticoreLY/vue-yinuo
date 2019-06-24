@@ -29,6 +29,9 @@
       <el-form-item label="图片上传">
         <FileUploader :http-request="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="1"></FileUploader>
       </el-form-item>
+      <el-form-item label="来源" prop="source">
+        <el-input v-model="medicalArticle.source"></el-input>
+      </el-form-item>
       <el-form-item label="作者">
         <el-input v-model="medicalArticle.author"></el-input>
       </el-form-item>
@@ -74,6 +77,10 @@
       }
     },
     methods: {
+      addForm(entity) {
+        this.medicalArticle = Object.assign(this.medicalArticle, entity)
+        this.channels = [this.medicalArticle.channel]
+      },
       editForm(entity) {
         this.isUpdate = true
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
@@ -148,6 +155,14 @@
       },
       clearForm() {
         this.$refs['form'].resetFields()
+        this.medicalArticle = {
+          title: '',
+          abstractText: '',
+          content: '',
+          author: '',
+          abstractImg: '',
+          channelId: ''
+        }
       }
     }
   }

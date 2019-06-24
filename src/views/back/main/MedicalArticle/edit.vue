@@ -32,6 +32,9 @@
       <el-form-item label="来源" prop="source">
         <el-input v-model="medicalArticle.source"></el-input>
       </el-form-item>
+      <el-form-item label="作者" prop="author">
+        <el-input v-model="medicalArticle.author"></el-input>
+      </el-form-item>
       <el-form-item label="阅读量(排行用)" prop="readCount">
         <el-input-number v-model="medicalArticle.readCount"  :min="1" style="width: initial"></el-input-number>
       </el-form-item>
@@ -83,6 +86,10 @@
       }
     },
     methods: {
+      addForm(entity) {
+        this.medicalArticle = Object.assign(this.medicalArticle, entity)
+        this.channels = [this.medicalArticle.channel]
+      },
       editForm(entity) {
         this.isUpdate = true
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
@@ -91,7 +98,7 @@
         this.channels = [this.medicalArticle.channel]
       },
       saveForm() {
-        this.medicalArticle.author = this.user.name
+        // this.medicalArticle.author = this.user.name
         this.medicalArticle.content = this.$refs.content.getUEContent()
         this.medicalArticle.type = 0
         this.$refs['form'].validate(valid => {
@@ -158,6 +165,14 @@
       },
       clearForm() {
         this.$refs['form'].resetFields()
+        this.medicalArticle = {
+          title: '',
+          abstractText: '',
+          content: '',
+          author: '',
+          abstractImg: '',
+          channelId: ''
+        }
       }
     }
   }
