@@ -30,9 +30,9 @@
           </el-input>
         </div>
         <div class="code-img" style="width:20%">
-          <img src="static/img/微信二维码-扫码咨询.jpg" style="height:80px;height: 80px;">
+          <img src="static/img/微信二维码-扫码咨询.jpg" style="height:90px;height: 90px;">
           <span class="text">扫码咨询</span>
-          <img src="static/img/医诺寰球公众号二维码.jpg" style="height:80px;height: 80px;margin-left: 40px;">
+          <img src="static/img/医诺寰球公众号二维码.jpg" style="height:90px;height: 90px;margin-left: 20px;">
           <span class="text">官方微信</span>
         </div>
       </div>
@@ -145,7 +145,7 @@
   .web-header>div.code-img{position: relative;height: 80px;display: inline-flex;align-items: center}
   .web-header .search-frame .search-bar{width: 100%;height: 40px;border: 2px solid #1CACA3;border-radius: 4px;}
   .web-header .code-img img, .web-header .code-img span{display: inline-block}
-  .web-header .code-img .text{display: inline-flex;height: 80px;width: 2rem;font-size: 1.125rem;color: #ccc;flex-flow: column wrap}
+  .web-header .code-img .text{display: inline-flex;height: 80px;width: 2rem;font-size: 1.25rem;color: #8a8a8a;flex-flow: column wrap}
   >>> .el-input-group__append{background: #1daca4;border:none;color:#fff;font-size: 18px;border-radius: 0px;}
   >>> .el-input{border: none}
 
