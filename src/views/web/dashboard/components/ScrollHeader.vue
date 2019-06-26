@@ -4,7 +4,7 @@
         <div class="item1">
           <div class="text-icon">寰球医疗最新动态<i class="arrow-right"></i></div>
         </div>
-        <my-canvas class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
+        <my-canvas v-if="doReset" class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
         <div class="item3" style="max-width: 50%;min-width: 35%;text-align: right">
           <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
           <!--<el-popover placement="bottom" trigger="hover">
@@ -60,6 +60,7 @@
     },
     data() {
       return {
+        doReset: true,
         searchWord: '',
         scrollNews: [],
         show_words: [],
@@ -68,6 +69,11 @@
       }
     },
     created() {
+      // 重置组件
+      this.doReset = false
+      this.$nextTick(() => {
+        this.doReset = true
+      })
       home.headerScrollNews().then(data => {
         this.scrollNews = data.obj
         this.fillShowWords()
