@@ -53,21 +53,21 @@
           <el-input v-model="drugDbObj.rankTitleMaker"></el-input>
         </el-form-item>
         <el-form-item label="药厂排行">
-          <el-row v-for="(drugDbRankMaker, index) in drugDbObj.drugDbRankMakerList" :key="index">
-            <el-col :span="3">
+          <div v-for="(drugDbRankMaker, index) in drugDbObj.drugDbRankMakerList" :key="index" style="margin: 0 10px 10px 0">
+            <span>
               <el-input v-model="drugDbRankMaker.area" placeholder="地区"></el-input>
-            </el-col>
-            <el-col class="line" :span="1">-</el-col>
-            <el-col :span="3">
+            </span>
+            <span>-</span>
+            <span>
               <el-input v-model="drugDbRankMaker.name" placeholder="药厂"></el-input>
-            </el-col>
-            <el-col :span="2">
+            </span>
+            <span>
               <el-button type="danger" @click="removeMaker(index)">删除</el-button>
-            </el-col>
-          </el-row>
-          <el-col :span="11">
+            </span>
+          </div>
+          <div>
             <el-button type="primary" @click="addMaker">增加一个</el-button>
-          </el-col>
+          </div>
         </el-form-item>
         <el-form-item label="合作药厂标题">
           <el-input v-model="drugDbObj.title"></el-input>
@@ -259,5 +259,4 @@
 </script>
 
 <style scoped>
-
 </style>
