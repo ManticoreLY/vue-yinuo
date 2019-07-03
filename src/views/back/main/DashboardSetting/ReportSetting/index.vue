@@ -9,11 +9,12 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList">
-        <el-table-column label="新闻ID" prop="newsArticleId"></el-table-column>
-        <el-table-column label="新闻title" prop="newsArticleTitle">
+      <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending'}">
+        <el-table-column label="ID" prop="newsArticleId" sortable></el-table-column>
+        <el-table-column label="新闻标题" prop="newsArticleTitle">
         </el-table-column>
         <el-table-column label="跳转地址" prop="url"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>

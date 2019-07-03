@@ -152,7 +152,7 @@
         uploadFile(
           opt.file,
           res => {
-            this.NavBanner.icon = res.url
+            this.NavBanner.img = res.url
             opt.onSuccess(res)
           },
           err => {

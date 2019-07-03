@@ -12,16 +12,19 @@
           <el-select v-model="diseaseDb.diseaseId1"
                      filterable
                      placeholder="请输入关键词">
+            <el-option :value="null" label="无"></el-option>
             <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
           </el-select>
           <el-select v-model="diseaseDb.diseaseId2"
                      filterable
                      placeholder="请输入关键词">
+            <el-option :value="null" label="无"></el-option>
             <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
           </el-select>
           <el-select v-model="diseaseDb.diseaseId3"
                      filterable
                      placeholder="请输入关键词">
+            <el-option :value="null" :label="'无'"></el-option>
             <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>

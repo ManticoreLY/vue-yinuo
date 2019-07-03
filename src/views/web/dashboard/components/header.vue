@@ -6,21 +6,20 @@
       </div>
       <my-canvas class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
       <div class="item3" style="max-width: 50%;min-width: 35%;text-align: right">
-        <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
+        <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><b style="color: #1daca4;font-weight: 500">寰球首页</b></router-link>
         <!--<el-popover placement="bottom" trigger="hover">
           <website-map/>
           <a slot="reference" class="item-title">网站地图</a>
         </el-popover>-->
-        <a class="item-title">医疗客服</a>
         <a class="item-title">海外医疗：{{homeFooterFixedInfo.freeHotLine}}</a>
         <a class="item-title" style="border: none">邮箱：{{homeFooterFixedInfo.email}}</a>
       </div>
     </div>
     <el-collapse-transition>
       <div class="web-header transition-box" v-show="show2">
-        <div class="web-logo" style="margin-left:2%;width: 15%">
+        <div class="web-logo" style="margin-left:30px;width: 15%">
           <router-link :to="{ path: '/dashboard'}">
-            <img src="static/img/医诺寰球横版logo.png" style="height: 60%;width: 100%"/>
+            <img src="static/img/医诺寰球横版logo.png" style="width: 207px"/>
           </router-link>
         </div>
         <div class="search-frame" style="width: 50%">

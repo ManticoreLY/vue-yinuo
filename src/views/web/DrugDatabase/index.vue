@@ -132,7 +132,7 @@
 .bg3{background-image: url('../../../../static/img/3.png');background-repeat: no-repeat;background-size: 50%;background-position: 100% 100%}
 .bg4{background-image: url('../../../../static/img/4.png');background-repeat: no-repeat;background-size: 50%;background-position: 100% 100%}
 .item-list{width:90%;padding: 20px 5%;display: inline-flex;flex-direction: row;align-items: center;justify-content: space-around}
-.item-list .item{width: 18%;height: 10rem;border: 1px solid #ccc;box-shadow: 2px 1px #ccc;padding: 20px;transition: margin-top .5s}
+.item-list .item{width: 18%;height: 10rem;border: 1px solid #ccc;box-shadow: 1px 1px 2px #ccc;padding: 20px;transition: margin-top .5s}
 .item-list .item:hover{margin-top: -10px;}
 .item-list .item:hover .title{color: #2b96cc}
 .item-list .item .title{display: inline-block;font-size: 1.75rem;font-weight: 600;padding-bottom: 1rem; border-bottom: 2px solid #2b96cc}
