@@ -52,13 +52,21 @@
       </div>
       <div class="fix-content">
         <el-popover placement="left" trigger="hover" :content="`全国免费咨询电话：${homeFooterFixedInfo.freeHotLine}`">
-          <a slot="reference"><img :src="dianhua" style="height:38px;height:38px"><br/><b>咨询电话</b></a>
+          <a slot="reference">
+            <img :src="dianhua" style="height:38px;height:38px"><br/><b>咨询电话</b>
+          </a>
         </el-popover>
-        <a><img :src="qq" style="height:38px;height:38px"><br/><b>QQ咨询</b></a>
-        <a><img :src="weixin" style="height:38px;height:38px"><br/><b>微信咨询</b></a>
-        <a><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
         <el-popover placement="left" trigger="hover">
-          <el-image src="static/img/医诺寰球客服二维码.jpeg" style="width: 180px;height: 180px"></el-image>
+          <el-image :src="homeFooterFixedInfo.qq" style="width: 180px;height: 180px"></el-image>
+          <a slot="reference"><img :src="qq" style="height:38px;height:38px"><br/><b>QQ咨询</b></a>
+        </el-popover>
+        <el-popover placement="left" trigger="hover">
+          <el-image :src="homeFooterFixedInfo.weixin" style="width: 180px;height: 180px"></el-image>
+          <a slot="reference"><img :src="weixin" style="height:38px;height:38px"><br/><b>微信咨询</b></a>
+        </el-popover>
+        <a :href="homeFooterFixedInfo.weibo" target="_blank"><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
+        <el-popover placement="left" trigger="hover">
+          <el-image :src="homeFooterFixedInfo.officialWeChat" style="width: 180px;height: 180px"></el-image>
           <a slot="reference"><img :src="wxgzh" style="height:38px;height:38px"><br/><b>官方微信</b></a>
         </el-popover>
       </div>
