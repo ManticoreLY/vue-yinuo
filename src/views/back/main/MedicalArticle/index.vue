@@ -1,10 +1,10 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item label = "标题">
+      <el-form :inline="true" label-width="80px">
+        <el-form-item label="标题">
           <el-input v-model="query.likeCondition.title" ></el-input>
         </el-form-item>
-        <el-form-item label = "栏目">
+        <el-form-item label="栏目">
           <el-select v-model="query.andCondition.channelId"
                      filterable
                      remote

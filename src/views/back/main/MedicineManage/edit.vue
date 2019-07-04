@@ -29,7 +29,7 @@
         <el-input v-model="form.introductTitle"></el-input>
       </el-form-item>
       <el-form-item label="药品简介" prop="introduct">
-        <UE id = "introduct" :defaultMsg="form.introduct" :config=config ref="introduct"></UE>
+        <UE id="introduct" :defaultMsg="form.introduct" :config=config ref="introduct"></UE>
       </el-form-item>
       <el-form-item label="副作用及并发症标题" prop="sideEffectTitle">
         <el-input v-model="form.sideEffectTitle"></el-input>
@@ -111,12 +111,19 @@
             indexNo: null,
             shotName: '',
             foreignName: '',
+            image: '',
+            make: '',
             spec: '',
             unit: '',
+            shotIntroduct: '',
             introduct: '',
+            introductTitle: '',
             sideEffect: '',
             resistant: '',
-            reMedicineIds: []
+            resistantTitle: '',
+            reMedicineIds: [],
+            sideEffectTitle: '',
+            fitDiseaseIds: ''
           },
           rules: {
             name: [
