@@ -23,7 +23,9 @@
           <file-uploader :http-request="fileUploadRequest_wx" :file-list="fileList2" :limit="1"></file-uploader>
         </el-form-item>
         <el-form-item label="官方微博" prop="weibo">
-          <el-input v-model="ContactUs.weibo"></el-input>
+          <el-input v-model="ContactUs.weibo" style="width: 320px">
+            <el-button slot="prepend">https://</el-button>
+          </el-input>
         </el-form-item>
         <el-form-item label="官方微信" prop="officialWeChat">
           <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
