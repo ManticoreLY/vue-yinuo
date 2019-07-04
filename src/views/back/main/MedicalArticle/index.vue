@@ -36,11 +36,13 @@
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="阅读量" prop="readCount"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
-        <el-table-column label="操作" width="280">
+        <el-table-column label="操作" width="360">
           <template slot-scope="scope">
             <router-link tag="a" target="_blank" :to="'/articleInfo/' + scope.row.id">
-              <el-button type="success" size="small">预览</el-button>
+              <el-button type="primary" size="small">预览</el-button>
             </router-link>&nbsp;&nbsp;
+            <el-button v-if="scope.row.isScroll === 0" type="success" size="small" @click="setScrollUp(scope.row, 1)">设置滚动</el-button>
+            <el-button v-else type="info" size="small" @click="setScrollUp(scope.row, 0)">取消滚动</el-button>
             <el-button type="warning" size="small" @click="toEdit(scope.row)">编辑</el-button>
             <el-button type="danger" size="small" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
           </template>
@@ -151,6 +153,16 @@
           })
         })
       },
+      setScrollUp(entity, status) {
+        this.$confirm('', '请确认当前的操作?', '').then(() => {
+          entity = Object.assign(entity, { isScroll: status })
+          ArticlesApi.update(entity).then(() => {
+            this.$message.success('操作成功! 请刷新主页')
+          }, err => {
+            console.log(err)
+          })
+        })
+      },
       async channel_formatter(row) {
         var name = ''
         if (row.channelId) {
@@ -164,7 +176,6 @@
             console.log(err)
           })
         }
-        debugger
         return name
       },
       handleFormClose() {

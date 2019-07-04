@@ -16,6 +16,15 @@
         <el-form-item label="投诉电话" prop="complaintTel">
           <el-input v-model="ContactUs.complaintTel"></el-input>
         </el-form-item>
+        <el-form-item label="QQ咨询" prop="qq">
+          <file-uploader :http-request="fileUploadRequest_qq" :file-list="fileList1" :limit="1"></file-uploader>
+        </el-form-item>
+        <el-form-item label="微信咨询" prop="weixin">
+          <file-uploader :http-request="fileUploadRequest_wx" :file-list="fileList2" :limit="1"></file-uploader>
+        </el-form-item>
+        <el-form-item label="官方微博" prop="weibo">
+          <el-input v-model="ContactUs.weibo"></el-input>
+        </el-form-item>
         <el-form-item label="官方微信" prop="officialWeChat">
           <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
         </el-form-item>
@@ -43,6 +52,9 @@
           freeHotLine: '',
           address: '',
           email: '',
+          qq: '',
+          weixin: '',
+          weibo: '',
           cooperationHotLine: '',
           complaintTel: '',
           officialWeChat: ''
@@ -62,6 +74,20 @@
         } else {
           return []
         }
+      },
+      fileList1() {
+        if (this.ContactUs.qq) {
+          return [{ name: 'image', url: this.ContactUs.qq }]
+        } else {
+          return []
+        }
+      },
+      fileList2() {
+        if (this.ContactUs.weixin) {
+          return [{ name: 'image', url: this.ContactUs.weixin }]
+        } else {
+          return []
+        }
       }
     },
     methods: {
@@ -71,6 +97,9 @@
         this.ContactUs.freeHotLine = ''
         this.ContactUs.address = ''
         this.ContactUs.email = ''
+        this.ContactUs.qq = ''
+        this.ContactUs.weixin = ''
+        this.ContactUs.weibo = ''
         this.ContactUs.cooperationHotLine = ''
         this.ContactUs.complaintTel = null
         this.ContactUs.officialWeChat = ''
@@ -105,6 +134,30 @@
           opt.file,
           res => {
             this.ContactUs.officialWeChat = res.url
+            opt.onSuccess(res)
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      },
+      fileUploadRequest_qq(opt) {
+        uploadFile(
+          opt.file,
+          res => {
+            this.ContactUs.qq = res.url
+            opt.onSuccess(res)
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      },
+      fileUploadRequest_wx(opt) {
+        uploadFile(
+          opt.file,
+          res => {
+            this.ContactUs.weixin = res.url
             opt.onSuccess(res)
           },
           err => {
