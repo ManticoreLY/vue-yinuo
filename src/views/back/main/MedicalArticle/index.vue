@@ -1,15 +1,15 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="80px">
+      <el-form :inline="true">
         <el-form-item label="标题">
-          <el-input v-model="query.likeCondition.title" ></el-input>
+          <el-input v-model="query.likeCondition.title" placeholder="请输入标题"></el-input>
         </el-form-item>
         <el-form-item label="栏目">
           <el-select v-model="query.andCondition.channelId"
                      filterable
                      remote
                      reserve-keyword
-                     placeholder="请输入关键词"
+                     placeholder="请输入栏目"
                      :remote-method="remoteMethod"
                      :loading="loading">
             <el-option

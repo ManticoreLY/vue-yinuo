@@ -2,12 +2,12 @@
     <div>
       <div class="page">
         <el-form :inline="true">
-          <el-form-item label="搜索：">
-            <el-input v-model="name"></el-input>
+          <el-form-item>
+            <el-input v-model="name" placeholder="请输入疾病名称查询"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="addNew">添加</el-button>
+            <el-button type="success" @click="addNew">添加</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">

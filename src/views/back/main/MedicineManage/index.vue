@@ -2,7 +2,7 @@
     <div>
         <div class="page">
            <el-form :inline="true" class="demo-form-inline">
-                <el-form-item label="搜索:">
+                <el-form-item>
                     <el-input v-model="query.likeCondition.shotName" placeholder="输入药品名称查询"></el-input>
                 </el-form-item>
                 <el-form-item>

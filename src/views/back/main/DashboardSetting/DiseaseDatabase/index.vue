@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="60px">
+      <el-form :inline="true">
         <el-form-item>
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
