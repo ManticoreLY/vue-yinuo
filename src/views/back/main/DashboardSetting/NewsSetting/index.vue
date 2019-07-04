@@ -2,10 +2,7 @@
     <div>
       <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="query.likeCondition.typeName" placeholder="请输入关键字查询"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
+<!--          <el-button type="primary" @click="search">查询</el-button>-->
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
