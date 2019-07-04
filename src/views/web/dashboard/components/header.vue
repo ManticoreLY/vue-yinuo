@@ -6,7 +6,7 @@
       </div>
       <my-canvas class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
       <div class="item3" style="max-width: 50%;min-width: 35%;text-align: right">
-        <router-link v-show="$route.fullPath !== '/dashboard'" to="/dashboard" class="item-title"><b style="color: #1daca4;font-weight: 500">寰球首页</b></router-link>
+        <router-link to="/dashboard" class="item-title"><b style="color: #1daca4;font-weight: 500">寰球首页</b></router-link>
         <!--<el-popover placement="bottom" trigger="hover">
           <website-map/>
           <a slot="reference" class="item-title">网站地图</a>
