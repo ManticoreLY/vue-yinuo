@@ -20,22 +20,25 @@
                 <!--<el-tag size="small" class="style2">一周一次口服</el-tag>-->
                 <!--<el-tag size="small" class="style3">低血糖发生率低</el-tag>-->
               </div>
-              <div class="info"><span style="font-weight: 600">药品特性: </span>{{item.spec}}</div>
-              <div class="info"><span style="font-weight: 600">药品简介: </span>{{item.intro}}<router-link  tag="a" target="_blank" :to="'/medicineInfo/'+item.id" style="color:#008aff">...【详情】</router-link></div>
-              <div class="info" style="font-weight: 600">更多信息请见详细介绍，或咨询康安途医学顾问：4006120152。</div>
+              <div class="info"><span style="font-weight: 600">药品规格: </span>{{item.spec}}</div>
+              <div class="info"><span style="font-weight: 600">药品简介: </span>{{removeTag(item.introduct).substring(0, 50)}}<router-link  tag="a" target="_blank" :to="'/medicineInfo/'+item.id" style="color:#008aff">...【详情】</router-link></div>
+              <div class="info"><span style="font-weight: 600">药品剂型: </span>{{item.form}}</div>
+              <div class="info"><span style="font-weight: 600">药品单位: </span>{{item.unit}}</div>
+              <div class="info"><span style="font-weight: 600">厂家: </span>{{item.make}}</div>
+<!--              <div class="info" style="font-weight: 600">更多信息请见详细介绍，或咨询医诺寰球微信客服：DrYiNuoInternational</div>-->
             </div>
           </div>
         </div>
         <div class="right">
-          <div class="words">
+          <!--<div class="words">
             <div class="word-name">相关链接</div>
             <div class="word-icon">
               <el-button size="small" v-for="word in link_words" :key="word.id" @click="toMedicinePage(word.id)" style="margin: 5px;padding: 5px 10px; border-radius: 15px">{{word.shotName}}</el-button>
             </div>
-          </div>
+          </div>-->
           <div class="words">
             <div class="word-name">相关文章</div>
-            <div  class="word-title" v-for="word in link_articles" :key="word.id" style="margin: 5px; padding: 5px">
+            <div class="word-title" v-for="(word, index) in link_articles" :key="index" v-if="index < 8" style="margin: 5px; padding: 5px">
               <p><router-link tag="a" target="_blank" :to="'/articleInfo/'+word.id"  >{{word.title}}</router-link></p>
               <p style="width: 100%;text-align: right">{{word.updatedDt}}</p>
             </div>
@@ -91,6 +94,9 @@
           }
         })
         // this.disease = Object.assign(this.disease, entity)
+      },
+      removeTag(text) {
+        return text.replace(/<\/?.+?\/?>/g, '')
       },
       toMedicinePage(id) {
         const routeData = this.$router.resolve({ path: '/medicineInfo/' + id })

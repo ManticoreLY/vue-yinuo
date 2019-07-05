@@ -6,7 +6,7 @@
         </div>
         <my-canvas class="item2" :words="show_words" :width="500" :font-color="'#ccc'" style="margin-left: 10px"></my-canvas>
         <div class="item3" style="max-width: 50%;min-width: 35%;text-align: right">
-          <router-link to="/dashboard" class="item-title"><i class="my-icon-home" style="color: #1daca4;font-size: 1.2rem">&nbsp;医诺寰球首页</i></router-link>
+          <router-link to="/dashboard" class="item-title"><b style="color: #1daca4;font-weight: 500">医诺寰球首页</b></router-link>
           <el-popover placement="bottom" trigger="hover">
             <website-map/>
             <!--<a slot="reference" class="item-title">网站地图</a>-->
@@ -64,7 +64,7 @@
           <el-image :src="homeFooterFixedInfo.weixin" style="width: 180px;height: 180px"></el-image>
           <a slot="reference"><img :src="weixin" style="height:38px;height:38px"><br/><b>微信咨询</b></a>
         </el-popover>
-        <a :href="homeFooterFixedInfo.weibo" target="_blank"><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
+        <a :href="`https://${homeFooterFixedInfo.weibo}`" target="_blank"><img :src="weibo" style="height:38px;height:38px"><br/><b>官方微博</b></a>
         <el-popover placement="left" trigger="hover">
           <el-image :src="homeFooterFixedInfo.officialWeChat" style="width: 180px;height: 180px"></el-image>
           <a slot="reference"><img :src="wxgzh" style="height:38px;height:38px"><br/><b>官方微信</b></a>
