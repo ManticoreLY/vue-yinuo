@@ -24,8 +24,8 @@
             <router-link tag="a" target="_blank" :to="'/caseinfo/' + scope.row.id">
               <el-button type="success" size="medium">预览</el-button>
             </router-link>
-            <el-button type="warning" size="medium" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" size="medium" @click="toDelete(scope.row.id)">删除</el-button>
+            <el-button type="warning" size="small" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" size="small" @click="toDelete(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

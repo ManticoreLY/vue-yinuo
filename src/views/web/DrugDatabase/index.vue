@@ -1,8 +1,5 @@
 <template>
     <div class="drug-db">
-      <div class="bg">
-        <el-image :src="drugDbObj.imageUrl" :fit="'fill'"></el-image>
-      </div>
       <div class="item-list">
         <div class="item bg1">
           <div class="title">数据全面</div>

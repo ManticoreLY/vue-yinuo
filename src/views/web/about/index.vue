@@ -7,11 +7,11 @@
         </div>
       </div>
       <div>
-        <page v-show="items[0].show" :data = aboutObj.aboutUs></page>
-        <declear v-show="items[1].show" :data = aboutObj.legal></declear>
-        <credential v-show="items[2].show" :data = aboutObj.aboutQualifies></credential>
-        <join-us v-show="items[3].show" :data = aboutObj.joinUs></join-us>
-        <contact-us v-show="items[4].show" :data = aboutObj.contactUs></contact-us>
+        <page v-show="items[0].show" :data=aboutObj.aboutUs></page>
+        <declear v-show="items[1].show" :data=aboutObj.legal></declear>
+        <credential v-show="items[2].show" :data=aboutObj.aboutQualifies></credential>
+        <join-us v-show="items[3].show" :data=aboutObj.joinUs></join-us>
+        <contact-us v-show="items[4].show" :data=aboutObj.contactUs></contact-us>
       </div>
     </div>
 </template>

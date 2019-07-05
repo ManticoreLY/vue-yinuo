@@ -5,6 +5,12 @@
     </keep-alive>
     <scroll-header class="fix-header"></scroll-header>
     <nav-bar v-if="$route.fullPath === '/dashboard'"/>
+    <div class="bg" v-else-if="$route.fullPath === '/cases'">
+      <el-image :src="img_url_case" :fit="'fill'"></el-image>
+    </div>
+    <div class="bg" v-else-if="$route.fullPath === '/drugDB'">
+      <el-image :src="img_url_drugdb" :fit="'fill'"></el-image>
+    </div>
     <div class="web-content">
       <keep-alive>
         <router-view></router-view>
@@ -36,6 +42,8 @@
     data() {
       return {
         searchWord: '医诺寰球是出国看病的领导者，国内专业赴印度治疗丙肝、乙肝的团队。印度丙肝新药',
+        img_url_case: 'static/img/info/banner_patientStory.png',
+        img_url_drugdb: 'static/img/info/医药数据库banner2.jpg',
         show_words: '',
         scrollNews: []
       }

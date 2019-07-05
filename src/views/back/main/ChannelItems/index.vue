@@ -23,8 +23,8 @@
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
-            <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
+            <el-button type="warning" size="small" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" size="small" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
