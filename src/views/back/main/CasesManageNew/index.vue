@@ -79,6 +79,9 @@
           },
           andCondition: {
             type: 1
+          },
+          orderByCondition: {
+            updatedDt: false
           }
         },
         page: {},

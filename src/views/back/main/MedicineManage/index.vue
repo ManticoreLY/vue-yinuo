@@ -62,6 +62,9 @@
             },
             likeCondition: {
               shotName: ''
+            },
+            orderByCondition: {
+              updatedDt: false
             }
           },
           page: {},

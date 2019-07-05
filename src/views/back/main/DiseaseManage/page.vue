@@ -61,6 +61,9 @@ export default {
         },
         likeCondition: {
           name: ''
+        },
+        orderByCondition: {
+          updatedDt: false
         }
       },
       page: {},

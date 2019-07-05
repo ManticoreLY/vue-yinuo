@@ -84,6 +84,9 @@
           },
           andCondition: {
             type: 0
+          },
+          orderByCondition: {
+            updatedDt: false
           }
         },
         page: {},
