@@ -25,22 +25,28 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
-        <el-table-column label="序号" prop="idx"></el-table-column>
-        <el-table-column label="标题" prop="title" width="220"></el-table-column>
-        <el-table-column label="频道栏目" prop="channel.name" width="100">
+      <el-table :data="tableList" :default-sort="{ prop: 'idx', order: 'ascending' }">
+        <el-table-column label="排序" prop="idx" sortable width="80">
+          <template slot-scope="scope">
+<!--            <el-tag type="primary" @click.stop="modifyIdx">{{ scope.row.idx}}</el-tag>-->
+            <el-input v-model="scope.row.idx" @blur="saveIndex(scope.row)" style="width: 50px"></el-input>
+          </template>
         </el-table-column>
-        <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
-        <el-table-column label="作者" prop="author" width="120"></el-table-column>
-        <el-table-column label="来源" prop="source" width="120"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt" sortable width="100"></el-table-column>
-        <el-table-column label="操作" width="260">
+        <el-table-column label="标题" prop="title"></el-table-column>
+        <el-table-column label="频道栏目" prop="channel.name">
+        </el-table-column>
+        <el-table-column label="内容摘要" prop="abstractText">
+          <template slot-scope="scope">{{ scope.row.abstractText.substring(0, 30)}}...</template>
+        </el-table-column>
+        <el-table-column label="作者" prop="author"></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
+        <el-table-column label="操作" width="280">
           <template slot-scope="scope">
             <router-link tag="a" target="_blank" :to="'/casesInfo/' + scope.row.id">
-              <el-button type="success" size="small">预览</el-button>
+              <el-button type="success" size="medium">预览</el-button>
             </router-link>&nbsp;&nbsp;
-            <el-button type="warning" size="small" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" size="small" @click="toDelete(scope.row.id)">删除</el-button>
+            <el-button type="warning" size="medium" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" size="medium" @click="toDelete(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -73,16 +79,13 @@
         query: {
           pageObj: {
             current: 1,
-            size: 10
+            size: null
           },
           likeCondition: {
             name: ''
           },
           andCondition: {
             type: 1
-          },
-          orderByCondition: {
-            updatedDt: false
           }
         },
         page: {},
@@ -171,7 +174,14 @@
         this.editFormVisible = false
         this.$refs['editForm'].clearForm()
         this.search()
-      }
+      },
+      saveIndex(entity) {
+        ArticlesApi.update(entity).then().catch(err => {
+          console.log(err)
+          this.$message.info('已保存')
+        })
+      },
+      modifyIdx() {}
     }
   }
 </script>
