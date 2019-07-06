@@ -1,6 +1,9 @@
 <template>
   <div>
     <el-form ref="form" :model="medicalArticle" label-width="120px">
+      <el-form-item label="序号">
+        <el-input-number v-model="medicalArticle.idx" :min="1" style="width: initial"></el-input-number>
+      </el-form-item>
       <el-form-item label="标题" prop="title">
         <el-input v-model="medicalArticle.title"></el-input>
       </el-form-item>

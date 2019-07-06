@@ -26,6 +26,7 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
+        <el-table-column label="序号" prop="idx"></el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="频道栏目" prop="channel.name">
           <!--<template slot-scope="scope">-->
