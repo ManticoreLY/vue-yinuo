@@ -32,6 +32,12 @@
             <el-input v-model="scope.row.idx" @blur="saveIndex(scope.row)" style="width: 50px"></el-input>
           </template>
         </el-table-column>
+        <el-table-column label="发布" prop="idx" sortable width="80">
+          <template slot-scope="scope">
+            <!--            <el-tag type="primary" @click.stop="modifyIdx">{{ scope.row.idx}}</el-tag>-->
+            <el-switch v-model="scope.row.enable" @change="saveEnable(scope.row)" style="width: 50px"></el-switch>
+          </template>
+        </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="频道栏目" prop="channel.name">
           <!--<template slot-scope="scope">-->
@@ -151,6 +157,12 @@
         }
       },
       saveIndex(entity) {
+        ArticlesApi.update(entity).then().catch(err => {
+          console.log(err)
+          this.$message.info('已保存')
+        })
+      },
+      saveEnable(entity) {
         ArticlesApi.update(entity).then().catch(err => {
           console.log(err)
           this.$message.info('已保存')

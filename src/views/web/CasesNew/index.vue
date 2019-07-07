@@ -81,7 +81,8 @@
             name: ''
           },
           andCondition: {
-            type: 1
+            type: 1,
+            enable: true
           },
           orderByCondition: {
             idx: true,
