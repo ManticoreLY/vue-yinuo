@@ -26,7 +26,12 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
-        <el-table-column label="序号" prop="idx"></el-table-column>
+        <el-table-column label="排序" prop="idx" sortable width="80">
+          <template slot-scope="scope">
+            <!--            <el-tag type="primary" @click.stop="modifyIdx">{{ scope.row.idx}}</el-tag>-->
+            <el-input v-model="scope.row.idx" @blur="saveIndex(scope.row)" style="width: 50px"></el-input>
+          </template>
+        </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="频道栏目" prop="channel.name">
           <!--<template slot-scope="scope">-->
@@ -144,6 +149,12 @@
         } else {
           this.channels = []
         }
+      },
+      saveIndex(entity) {
+        ArticlesApi.update(entity).then().catch(err => {
+          console.log(err)
+          this.$message.info('已保存')
+        })
       },
       toDelete(id, index) {
         this.$confirm('', '请确认删除?', {}).then(() => {

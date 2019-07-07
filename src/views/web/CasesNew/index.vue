@@ -82,6 +82,10 @@
           },
           andCondition: {
             type: 1
+          },
+          orderByCondition: {
+            idx: true,
+            updatedDt: false
           }
         },
         page: {},
@@ -99,7 +103,7 @@
       search() {
         if (this.$route.params.id) {
           const channelId = this.$route.params.id
-          this.query.andCondition = { 'channelId': channelId, 'type': 1 }
+          this.query.andCondition.channelId = channelId
           ChannelApi.findFrontOne(channelId).then(data => {
             this.channel = data.obj
           })

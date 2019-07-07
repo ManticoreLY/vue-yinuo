@@ -85,6 +85,10 @@
           },
           andCondition: {
             type: 0
+          },
+          orderByCondition: {
+            idx: true,
+            updatedDt: false
           }
         },
         page: {},
