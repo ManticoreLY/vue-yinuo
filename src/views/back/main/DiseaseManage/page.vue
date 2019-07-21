@@ -3,7 +3,7 @@
       <div class="page">
         <el-form :inline="true">
           <el-form-item>
-            <el-input v-model="name" placeholder="请输入疾病名称查询"></el-input>
+            <el-input v-model="query.likeCondition.name" placeholder="请输入疾病名称查询"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">查询</el-button>
@@ -103,7 +103,7 @@ export default {
     },
     toDelete(id, index) {
       this.$confirm('', '请确认删除?', {}).then(() => {
-        DiseaseApi.delete(id).then(data => {
+        DiseaseApi.remove(id).then(data => {
           console.log(data)
           this.$message.success('删除成功')
           this.tableList.splice(index, 1)

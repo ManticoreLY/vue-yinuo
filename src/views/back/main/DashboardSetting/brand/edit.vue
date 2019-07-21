@@ -11,6 +11,9 @@
         <el-form-item label="文本内容" prop="content">
           <el-input v-model="brand.content" type="textarea" :col="3" maxlength="100" show-word-limit></el-input>
         </el-form-item>
+        <el-form-item label="链接" prop="url">
+          <el-input v-model="brand.url" type="textarea" :col="2" maxlength="100"></el-input>
+        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
           <el-button type="" @click="closeForm">取消</el-button>
@@ -34,7 +37,8 @@
           id: null,
           icon: '',
           title: '',
-          content: ''
+          content: '',
+          url: ''
         },
         isUpdate: false,
         rules: {

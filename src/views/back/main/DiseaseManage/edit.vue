@@ -107,19 +107,20 @@
         })
         // this.disease = Object.assign(this.disease, entity)
       },
-      saveType() {},
       saveForm() {
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
               DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('修改成功！')
+                this.clearForm()
               }).catch(err => {
                 console.log(err)
               })
             } else {
               DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('添加成功！')
+                this.clearForm()
               }).catch(err => {
                 console.log(err)
               })

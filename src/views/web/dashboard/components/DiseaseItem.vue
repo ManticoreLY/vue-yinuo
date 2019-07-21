@@ -4,7 +4,7 @@
     <div class="items">
       <div class="child">
         <a v-for="(item, index) in diseaseItems" :key="index">
-          <div style="width: 80px;text-align: center"><img :src="item.icon" style="height: 60px;width: 60px;"></div>
+          <div style="width: 80px;text-align: center"><img :src="item.icon" style="height: 50px;width: 50px;"></div>
           <div style="width: 70%;text-align: center">
             <router-link  tag="a" target="_blank" :to="index === diseaseItems.length-1 ? '/drugDB' : '/navItemInfo/'+item.diseaseId">
               <span style="display:inline-block;font-size:1.75rem;padding: 5px;border-bottom: 1px solid #1caca4">{{ item.name }}</span>

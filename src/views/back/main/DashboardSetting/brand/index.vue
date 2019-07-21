@@ -18,6 +18,7 @@
         </el-table-column>
         <el-table-column label="名称" prop="title"></el-table-column>
         <el-table-column label="文本内容" prop="content"></el-table-column>
+        <el-table-column label="链接" prop="url"></el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>

@@ -3,7 +3,7 @@
         <div class="page">
            <el-form :inline="true" class="demo-form-inline">
                 <el-form-item>
-                    <el-input v-model="query.likeCondition.shotName" placeholder="输入药品名称查询"></el-input>
+                    <el-input v-model="query.likeCondition.name" placeholder="输入药品名称查询"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="queryKey">查询</el-button>

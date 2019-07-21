@@ -8,7 +8,7 @@
             </router-link>
           </div>
           <div>
-            <div style="font-size: 1.75rem;height:3rem;">
+            <div style="font-size: 1.75rem;height:3rem;font-weight: 600">
               <router-link :to="`casesInfo/${item.newsArticleId}`" tag="a" target="_blank">{{ item.title.length > 11 ? item.title.substring(0, 11) : item.title}}</router-link>
             </div>
             <div class="ellipsis_3" style="font-size: 1.25rem;color: #7f7f7f;height: 60px;text-align: center">{{item.description}}</div>
