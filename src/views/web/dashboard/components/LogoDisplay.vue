@@ -59,7 +59,7 @@
 </script>
 
 <style scoped>
-  .many-logo{width: 100%; min-height: 360px; margin: 20px;}
+  .many-logo{width: 100%; min-height: 360px; margin: 20px 0;}
   .many-logo .logo-pane{position: relative;width: 20%;display: inline-flex;flew-flow: row wrap;align-items: center;align-content: stretch;justify-content: space-between}
   .many-logo .logo-pane img{margin: 25px}
   .many-logo .link{}

@@ -73,7 +73,7 @@
 </script>
 
 <style scoped>
-.web-info{width: 80%;padding: 0 10%;position: relative;display: inline-flex;flex-flow: row nowrap;align-items: flex-start;align-content: center;justify-content: space-around;}
+.web-info{width: 83%;padding: 0 8.5%;position: relative;display: inline-flex;flex-flow: row nowrap;align-items: flex-start;align-content: center;justify-content: space-around;}
 .web-info>div{width: 22%;height: 25rem;margin-top: 40px;}
 .web-info>div .info-title{position: relative;width: 100%;border-bottom: 1px solid #ccc;}
 .web-info>div .info-title>div{display: inline-block;padding: .75rem 0;border-bottom:1px solid #1CACA3;color: #1CACA3;font-size: 2rem;}

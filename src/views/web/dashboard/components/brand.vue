@@ -52,7 +52,7 @@
 
 <style scoped>
   a:hover{color:#1daca4}
-  .web-brand{position:relative;width: 100%;margin: 0 20px;height: auto;display: flex;flex-flow: row wrap; justify-content: flex-start}
+  .web-brand{position:relative;width: 100%;height: auto;display: flex;flex-flow: row wrap; justify-content: flex-start}
   .web-brand .brand-item{height: 250px;width: 31.3%; padding: 0 1%}
   .web-brand .brand-item .title{height: 75px;font-size:2.25rem;margin: 15px;display: flex;align-items: center; align-content: center;justify-content: center}
   .web-brand .brand-item .content{height: 200px;font-size:1.75rem;padding:0 15px;}
