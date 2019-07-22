@@ -36,7 +36,8 @@ export default [
     children: [
       { path: 'drugDb', name: '医药数据', component: () => import('@/views/back/main/OtherPageSetting/DrugDb/edit') },
       { path: 'medicineManage', name: '药品管理', component: () => import('@/views/back/main/MedicineManage') },
-      { path: 'diseaseManage', name: '疾病管理', component: () => import('@/views/back/main/DiseaseManage/page') }
+      { path: 'diseaseManage', name: '疾病管理', component: () => import('@/views/back/main/DiseaseManage/page') },
+      { path: 'diseaseTypeManage', name: '疾病类型管理', component: () => import('@/views/back/main/DiseaseTypeManage') }
     ]
   },
   {

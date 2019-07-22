@@ -90,8 +90,11 @@
     },
     methods: {
       addForm(entity) {
+        this.isUpdate = false
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
-        this.channels = [this.medicalArticle.channel]
+        if (this.medicalArticle.channel) {
+          this.channels = [this.medicalArticle.channel]
+        }
       },
       editForm(entity) {
         this.isUpdate = true
@@ -129,7 +132,7 @@
           this.loading = true
           setTimeout(() => {
             this.loading = false
-            ChannelApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }, andCondition: { type: 1 }}).then(data => {
+            ChannelApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }, andCondition: { type: 0 }}).then(data => {
               this.channels = data.obj.records
             }).catch(err => {
               console.log(err)

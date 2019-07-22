@@ -130,6 +130,8 @@
         this.$nextTick(() => {
           if (this.query.andCondition.channelId) {
             this.$refs['editForm'].addForm({ channelId: this.query.andCondition.channelId, channel: this.channels.filter(one => one.id === this.query.andCondition.channelId)[0] })
+          } else {
+            this.$refs['editForm'].addForm()
           }
         })
       },

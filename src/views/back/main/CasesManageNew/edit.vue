@@ -27,7 +27,7 @@
         <el-input v-model="medicalArticle.abstractText" type="textarea" :col="4"  maxlength="500" show-word-limit></el-input>
       </el-form-item>
       <el-form-item label="内容">
-        <UE id = "content" :defaultMsg="medicalArticle.content" :config=config ref="content"></UE>
+        <UE id = "medicalArticle" :defaultMsg="medicalArticle.content" :config=config ref="content"></UE>
       </el-form-item>
       <el-form-item label="图片上传">
         <FileUploader :http-request="fileUploadRequest" :fileList="imageFile" :onChange="onImageChange0"  :limit="1"></FileUploader>
@@ -81,8 +81,11 @@
     },
     methods: {
       addForm(entity) {
+        this.isUpdate = false
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
-        this.channels = [this.medicalArticle.channel]
+        if (this.medicalArticle.channel) {
+          this.channels = [this.medicalArticle.channel]
+        }
       },
       editForm(entity) {
         this.isUpdate = true
