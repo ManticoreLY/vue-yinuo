@@ -5,7 +5,7 @@
           <el-select v-model="disease.types">
             <el-option v-for="opt in DiseaseTypes" :key="opt.value" :value="opt.value" :label="opt.name"></el-option>
           </el-select>
-          <!--<el-popover placement="bottom" width="400" trigger="click">
+          <el-popover placement="bottom" width="400" trigger="click">
             <el-form ref="typeForm" label-width="80px">
               <el-form-item label="分类名称">
                 <el-input v-model="newType"></el-input>
@@ -15,7 +15,7 @@
               </div>
             </el-form>
             <el-button type="primary" size="medium" class="el-icon-plus" slot="reference">增加分类</el-button>
-          </el-popover>-->
+          </el-popover>
         </el-form-item>
         <el-form-item label="名称:" prop="name">
           <el-input v-model="disease.name"></el-input>
@@ -96,6 +96,7 @@
     },
     methods: {
       editForm(entity) {
+        this.icon = [].concat([{ name: '', url: entity.icon }])
         DiseaseApi.getFullDisease(entity.id).then(data => {
           this.disease = Object.assign(this.disease, data.obj)
           if (this.disease.parentId === 0) {
@@ -106,6 +107,9 @@
           this.isUpdate = true
         })
         // this.disease = Object.assign(this.disease, entity)
+      },
+      saveType() {
+        if (!this.newType) return
       },
       saveForm() {
         this.$refs['form'].validate(valid => {
@@ -120,7 +124,7 @@
             } else {
               DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('添加成功！')
-                this.clearForm()
+                this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
