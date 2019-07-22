@@ -11,7 +11,7 @@
                 </el-form-item>
             </el-form>
             <el-table :data="dataList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
-                <el-table-column label="ID" prop="id" width="60"></el-table-column>
+                <!--<el-table-column label="ID" prop="id" width="60" ></el-table-column>-->
                 <!--<el-table-column label="序号" prop="indexNo"></el-table-column>-->
                 <el-table-column label="药品名称" prop="name"></el-table-column>
                 <el-table-column label="简介" prop="shotIntroduct"></el-table-column>

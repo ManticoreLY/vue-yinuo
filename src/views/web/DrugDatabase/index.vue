@@ -21,15 +21,17 @@
       <div class="category">
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 2rem;">{{drugDbObj.title}}</div>
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 1.375rem;color: #545454">{{drugDbObj.describe}}</div>
-        <div style="height:3rem;line-height:3rem;font-size: 2rem;font-weight: 600;color: #545454;margin:10px 0">常见传染病、慢性病</div>
-        <div class="list">
-          <div class="item" v-for="(item,diseaseIndex) in drugDbObj.drugDbDiseaseList" :key="diseaseIndex">
-            <el-image :src="item.disease.icon" :fit="'fit'" style="float:left;width: 40px;height: 40px"></el-image>
-            <div class="name">
-              <div>{{ item.disease.name }}</div>
-              <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
-              <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
-              <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>
+        <div v-for="(diseases,diseaseTypeName,diseaseTypeIndex) in drugDbObj.drugDbDiseaseMap" :key="diseaseTypeIndex">
+          <div style="height:3rem;line-height:3rem;font-size: 2rem;font-weight: 600;color: #545454;margin:10px 0">{{diseaseTypeName}}</div>
+          <div class="list">
+            <div class="item" v-for="(item,diseaseIndex) in diseases" :key="diseaseIndex">
+              <el-image :src="item.disease.icon" :fit="'fit'" style="float:left;width: 40px;height: 40px"></el-image>
+              <div class="name">
+                <div>{{ item.disease.name }}</div>
+                <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
+                <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(diseaseTypeName, item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
+                <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(diseaseTypeName, item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>
+              </div>
             </div>
           </div>
         </div>
@@ -85,6 +87,7 @@
           describe: '',
           drugDbDiseaseList: [],
           drugDbDiseaseIdList: [],
+          drugDbDiseaseMap: {},
           rankTitleMedicine: '',
           drugDbRankMedicineList: [],
           drugDbRankMedicineIdList: [],
@@ -108,14 +111,16 @@
         DrugDbApi.findFrontOne().then(data => {
           if (data.result) {
             this.drugDbObj = data.obj
-            this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
+            for (var key in this.drugDbObj.drugDbDiseaseMap) {
+              this.drugDbObj.drugDbDiseaseMap[key].forEach(item => { item.show = false })
+            }
           }
         })
       },
-      toggleFold(t, diseaseIndex) {
-        const item = this.drugDbObj.drugDbDiseaseList[diseaseIndex]
+      toggleFold(diseaseTypeName, t, diseaseIndex) {
+        const item = this.drugDbObj.drugDbDiseaseMap[diseaseTypeName][diseaseIndex]
         item.show = !item.show
-        this.$set(this.drugDbObj.drugDbDiseaseList, diseaseIndex, item)
+        this.$set(this.drugDbObj.drugDbDiseaseMap[diseaseTypeName], diseaseIndex, item)
       }
     }
   }

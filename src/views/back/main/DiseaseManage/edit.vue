@@ -2,8 +2,8 @@
     <div>
       <el-form ref="form" :model="disease" label-width="120px">
         <el-form-item label="疾病分类:" prop="types">
-          <el-select v-model="disease.types">
-            <el-option v-for="opt in DiseaseTypes" :key="opt.value" :value="opt.value" :label="opt.name"></el-option>
+          <el-select v-model="disease.typeIds" multiple="true">
+            <el-option v-for="opt in DiseaseTypes" :key="opt.id" :value="opt.id" :label="opt.name"></el-option>
           </el-select>
           <el-popover placement="bottom" width="400" trigger="click">
             <el-form ref="typeForm" label-width="80px">
@@ -51,6 +51,7 @@
 
 <script>
   import DiseaseApi from '@/api/disease'
+  import DiseaseTypeApi from '@/api/diseaseType'
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
   import RankPad from '@/components/RankPad'
@@ -69,7 +70,8 @@
           name: '',
           isChildren: '',
           medicines: [],
-          medicineIds: []
+          medicineIds: [],
+          typeIds: []
         },
         newType: '',
         isUpdate: false,
@@ -96,6 +98,9 @@
     },
     methods: {
       editForm(entity) {
+        DiseaseTypeApi.queryPage({ pageObj: { current: 1, size: 100 }}).then(data => {
+          this.DiseaseTypes = data.obj.records
+        })
         this.icon = [].concat([{ name: '', url: entity.icon }])
         DiseaseApi.getFullDisease(entity.id).then(data => {
           this.disease = Object.assign(this.disease, data.obj)
