@@ -68,7 +68,7 @@
           types: '',
           name: '',
           isChildren: '',
-          medicines: '',
+          medicines: [],
           medicineIds: []
         },
         newType: '',
@@ -113,7 +113,7 @@
             if (this.isUpdate) {
               DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('修改成功！')
-                this.clearForm()
+                this.closeForm()
               }).catch(err => {
                 console.log(err)
               })

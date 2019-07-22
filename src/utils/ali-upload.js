@@ -4,14 +4,14 @@ var { randomUUID } = require('./random')
 var OSS = require('ali-oss')
 // var fs = require('fs')
 var client = new OSS({
-  region: 'oss-cn-shenzhen',
-  bucket: 'yinuo-web',
-  accessKeyId: 'LTAIlaiCnL1tQLzt',
-  accessKeySecret: 'rr8XcGNc6Oeokn5THSFDWfpRUbvaXJ'
+  region: 'oss-ap-southeast-1',
+  bucket: 'yinuo-website',
+  accessKeyId: 'LTAI5ESIUtw1hgNx',
+  accessKeySecret: 'f3xPJBGcEYxEzzB0uoPtE3OhZPK1FZ'
 })
 
 var ali_oss = {
-  endPoint: 'http://oss-cn-shenzhen.aliyuncs.com/',
+  endPoint: 'http://oss-ap-southeast-1.aliyuncs.com/',
   dir: '/'
 }
 

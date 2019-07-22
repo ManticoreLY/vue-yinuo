@@ -8,7 +8,12 @@
           <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
         </el-form-item>
         <el-form-item label="对应药品" prop="description">
-          <el-input v-model="disease.description"></el-input>
+          <el-select v-model="disease.medicineIds" value-key="id" multiple
+                     filterable
+                     reserve-keyword
+                     placeholder="请输入关键词">
+            <el-option v-for="item in disease.disease.medicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveForm">保存</el-button>
