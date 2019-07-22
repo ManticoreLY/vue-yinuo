@@ -11,7 +11,7 @@
         <span v-if = "item.disease3"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease3.id">{{item.disease3?item.disease3.name:''}}</router-link></span>
       </div>
       <div class="panel">
-        <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id">
+        <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id" v-if="i.disease">
           <h5 style="color: #008aff;font-weight: 600"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+i.disease.id">{{ i.disease.name }}</router-link></h5>
           <h6>
             <span v-for="p in i.disease.medicines" :key="p.id"><router-link tag="a" target="_blank" :to="'/medicineInfo/'+p.id" >{{p.shotName}}</router-link></span>
@@ -38,6 +38,7 @@
     methods: {
       search() {
         DiseaseDBApi.diseaseDb().then(data => {
+          debugger
           const _this = this
           _this.list = data.obj
         }).catch(err => {
