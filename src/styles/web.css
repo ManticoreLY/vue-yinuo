@@ -22,3 +22,5 @@
 .el-pagination{margin: 20px auto;text-align: center;font-size: 1.375rem}
 .el-pagination .el-pager li.number.active{background: #1daca4;color: #fff}
 .el-pagination .el-pager li.number,.el-pagination button{background: #fff;color: #545454;border:1px solid #1daca4;margin: 0 5px;}
+
+p img{max-width: 100%;height: auto}
