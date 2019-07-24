@@ -38,7 +38,6 @@
     methods: {
       search() {
         DiseaseDBApi.diseaseDb().then(data => {
-          debugger
           const _this = this
           _this.list = data.obj
         }).catch(err => {
