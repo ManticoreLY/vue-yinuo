@@ -101,7 +101,9 @@
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
         this.imageFile = []
         this.imageFile.push({ url: this.medicalArticle.abstractImg })
-        this.channels = [this.medicalArticle.channel]
+        if (this.medicalArticle.channel) {
+          this.channels = [this.medicalArticle.channel]
+        }
       },
       saveForm() {
         // this.medicalArticle.author = this.user.name
