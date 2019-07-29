@@ -58,7 +58,8 @@
           name: '',
           icon: '',
           diseaseId: null,
-          description: ''
+          description: '',
+          disease: {}
         },
         diseases: [],
         isUpdate: false,
