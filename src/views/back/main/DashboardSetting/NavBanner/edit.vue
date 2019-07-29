@@ -81,7 +81,6 @@
     },
     watch: {
       obj(value, oldValue) {
-        debugger
         this.NavBanner.url = window.location.host + '/#' + value.url + (value.rel ? ('/' + value.id) : '')
       }
     },

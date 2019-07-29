@@ -13,10 +13,10 @@
       <el-form-item label="品牌" prop="make">
         <el-input v-model="form.make"></el-input>
       </el-form-item>
-      <el-form-item label="剂型" prop="form">
+      <el-form-item label="用量" prop="form">
         <el-input v-model="form.form"></el-input>
       </el-form-item>
-      <el-form-item label="单位" prop="unit">
+      <el-form-item label="俗名" prop="unit">
         <el-input v-model="form.unit"></el-input>
       </el-form-item>
       <el-form-item label="规格" prop="spec">

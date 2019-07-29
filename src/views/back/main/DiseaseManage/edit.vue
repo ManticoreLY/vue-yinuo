@@ -2,7 +2,7 @@
     <div>
       <el-form ref="form" :model="disease" label-width="120px">
         <el-form-item label="疾病分类:" prop="types">
-          <el-select v-model="disease.typeIds" multiple>
+          <el-select v-model="disease.typeIds">
             <el-option v-for="opt in DiseaseTypes" :key="opt.id" :value="opt.id" :label="opt.name"></el-option>
           </el-select>
           <!--<el-popover placement="bottom" width="400" trigger="click">-->

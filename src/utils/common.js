@@ -21,7 +21,7 @@ export default (_t, api) => {
     },
     toDelete(id) {
       _t.$confirm('', '请确认删除?', {}).then(() => {
-        api.delete(id).then(data => {
+        api.remove(id).then(data => {
           console.log(data)
           this.$message.success('删除成功')
         }).catch(err => {

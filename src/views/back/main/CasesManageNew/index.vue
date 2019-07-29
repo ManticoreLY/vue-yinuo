@@ -153,7 +153,7 @@
       },
       toDelete(id, index) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          ArticlesApi.delete(id).then(data => {
+          ArticlesApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
             this.tableList.splice(index, 1)

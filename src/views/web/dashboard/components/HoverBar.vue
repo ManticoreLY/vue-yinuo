@@ -6,16 +6,16 @@
         <span style="margin-left: 10px">{{item.name}}</span>
       </div>
       <div class="sub">
-        <span v-if = "item.disease1"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease1.id">{{item.disease1?item.disease1.name:''}}</router-link></span>
-        <span v-if = "item.disease2"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease2.id">{{item.disease2?item.disease2.name:''}}</router-link></span>
-        <span v-if = "item.disease3"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease3.id">{{item.disease3?item.disease3.name:''}}</router-link></span>
+        <span v-if="item.disease1"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease1.id">{{item.disease1?item.disease1.name:''}}</router-link></span>
+        <span v-if="item.disease2"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease2.id">{{item.disease2?item.disease2.name:''}}</router-link></span>
+        <span v-if="item.disease3"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease3.id">{{item.disease3?item.disease3.name:''}}</router-link></span>
       </div>
       <div class="panel">
         <div class="info-item" v-for="i in item.diseaseDbDetailConfigList" :key="i.id" v-if="i.disease">
           <h5 style="color: #008aff;font-weight: 600"><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+i.disease.id">{{ i.disease.name }}</router-link></h5>
-          <h6>
+          <h5>
             <span v-for="p in i.disease.medicines" :key="p.id"><router-link tag="a" target="_blank" :to="'/medicineInfo/'+p.id" >{{p.shotName}}</router-link></span>
-          </h6>
+          </h5>
         </div>
       </div>
     </div>
@@ -63,8 +63,8 @@
 .panel .info-item{width: 100%;height: auto;border-bottom: 1px dotted #ddd;color: #545454}
 .panel .info-item a:hover{text-decoration: underline}
 .panel .info-item h5{padding: 0 5px}
-.panel .info-item h6>span{border-right: 1px solid #545454;padding: 0 5px}
-.panel .info-item h6>span a:hover{color: #008aff;}
-.panel .info-item h6>span:last-child{border: none}
+.panel .info-item h5>span{border-right: 1px solid #545454;padding: 0 5px}
+.panel .info-item h5>span a:hover{color: #008aff;}
+.panel .info-item h5>span:last-child{border: none}
 .item:hover .panel{visibility: visible}
 </style>

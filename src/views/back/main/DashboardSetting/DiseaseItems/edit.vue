@@ -12,7 +12,7 @@
                      filterable
                      reserve-keyword
                      placeholder="请输入关键词">
-            <el-option v-for="item in disease.disease.medicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
+            <el-option v-for="item in disease.disease.medicines" :key="item.id" :value="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>

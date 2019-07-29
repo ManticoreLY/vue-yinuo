@@ -54,7 +54,7 @@
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
           <el-table :data="drugDbObj.drugDbRankMakerList" :border=false>
-            <el-table-column type="index" label="排名"></el-table-column>
+            <el-table-column type="index" label="排名" align="center"></el-table-column>
             <el-table-column label="药厂名称" prop="name" align="center">
             </el-table-column>
             <el-table-column label="所属地区" prop="area" align="center">

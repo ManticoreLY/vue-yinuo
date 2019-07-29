@@ -12,11 +12,7 @@
         </el-form>
         <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">
           <el-table-column label="名称" prop="name"></el-table-column>
-          <el-table-column label="所属分类">
-            <template slot-scope="scope">
-              {{ scope.row.types === '0' ? '常见传染病、慢性病' : '癌症、肿瘤' }}
-            </template>
-          </el-table-column>
+          <el-table-column label="所属分类" prop="diseaseType"></el-table-column>
           <el-table-column label="症状说明" prop="instruction"></el-table-column>
           <el-table-column label="药物治疗" prop=""></el-table-column>
           <el-table-column label="说明"></el-table-column>
@@ -46,6 +42,7 @@
 <script>
 import EditForm from './edit'
 import DiseaseApi from '@/api/disease'
+import DiseaseTypeApi from '@/api/diseaseType'
 import page from '@/utils/page'
 export default {
   name: 'page',
@@ -66,6 +63,7 @@ export default {
           updatedDt: false
         }
       },
+      diseaseTypes: [],
       page: {},
       name: '',
       tableList: [
@@ -82,12 +80,18 @@ export default {
   methods: {
     ...page(),
     search() {
-      DiseaseApi.queryPage(this.query).then(data => {
-        this.page = Object.assign(this.page, data.obj)
-        this.tableList = data.obj.records
-      }).catch(err => {
-        console.log(err)
-        this.$message.warning(err.msg)
+      const _t = this
+      DiseaseTypeApi.queryPage({ pageObj: { current: 1, size: 20 }}).then(data1 => {
+        DiseaseApi.queryPage(_t.query).then(data => {
+          _t.page = Object.assign(_t.page, data.obj)
+          _t.diseaseTypes = data1.obj.records
+          _t.tableList = data.obj.records.map(item => {
+            return { ...item, diseaseType: _t.diseaseTypes.find(t => t.id === parseInt(item.types)).name }
+          })
+        }).catch(err => {
+          console.log(err)
+          this.$message.warning(err.msg)
+        })
       })
     },
     addNew() {

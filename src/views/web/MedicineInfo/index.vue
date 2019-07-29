@@ -116,15 +116,15 @@
 .green{background: #29a466;color: #fff}
 .graygreen{background: #1daca4;color: #fff}
 .yellow{background: #f0a226;color: #fff}
-.description{width: 90%;background: #fff;padding: 20px 5%;display:flex;align-items: center;align-content: stretch;justify-content: space-around}
+.description{width: 90%;background: #fff;padding: 10px 5%;display:flex;align-items: center;align-content: stretch;justify-content: space-around}
 .description .item .item-name{font-size: 2.75rem;font-weight: 600}
 .description .item .item-extra{font-size: 1.2rem;}
 .description .item .item-unit{height: 10rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;justify-content: space-around}
-.description .item .item-unit p{width: 36%;height: 32px;line-height: 32px;font-size: 1.2rem;padding-left: 5px;}
+.description .item .item-unit p{width: 36%;height: 32px;line-height: 32px;font-size: 1.2rem;padding-left: 5px;margin: 10px}
 .description .item .item-info{height: 12rem;font-size: 1.25rem;}
 .description .item .item-bottom{font-size: 1.1rem}
-.information{width: 90%;margin-top:20px;background: #fff;padding:20px 5%}
-.information .item{margin:3rem 2rem;}
+.information{width: 90%;margin:20px 0;background: #fff;padding:0 5%}
+.information .item{margin:2rem;}
 .information .item .info-title .text{color: #29a466;font-size: 2rem;font-weight: 700}
 .information .item .info-question{height: 3rem;line-height: 3rem;font-size: 1.75rem;font-weight: 800}
 .information .item .info-answer{line-height: 1.75rem;font-size: 1.2rem;font-weight: 800}

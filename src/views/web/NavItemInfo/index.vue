@@ -17,14 +17,19 @@
               <div class="title">{{item.name}}</div>
               <div class="tags">
                 <el-tag size="small" class="style1"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+item.id" >{{disease.name}}</router-link></el-tag>
-                <!--<el-tag size="small" class="style2">一周一次口服</el-tag>-->
+                <p style="display: flex;flex-flow: row wrap;align-items: center;justify-content: space-between">
+                  <span size="small" class="style2">药品规格: {{item.spec}}</span>
+                  <span size="small" class="style2">药品单位: {{item.unit}}</span>
+                  <span size="small" class="style2">药品用量: {{item.form}}</span>
+                  <span size="small" class="style2">药品厂家: {{item.make}}</span>
+                </p>
                 <!--<el-tag size="small" class="style3">低血糖发生率低</el-tag>-->
               </div>
-              <div class="info"><span style="font-weight: 600">药品规格: </span>{{item.spec}}</div>
+<!--              <div class="info"><span style="font-weight: 600">药品规格: </span>{{item.spec}}</div>-->
               <div class="info"><span style="font-weight: 600">药品简介: </span>{{removeTag(item.introduct).substring(0, 50)}}<router-link  tag="a" target="_blank" :to="'/medicineInfo/'+item.id" style="color:#008aff">...【详情】</router-link></div>
-              <div class="info"><span style="font-weight: 600">药品剂型: </span>{{item.form}}</div>
-              <div class="info"><span style="font-weight: 600">药品单位: </span>{{item.unit}}</div>
-              <div class="info"><span style="font-weight: 600">厂家: </span>{{item.make}}</div>
+<!--              <div class="info"><span style="font-weight: 600">药品剂型: </span>{{item.form}}</div>-->
+<!--              <div class="info"><span style="font-weight: 600">药品单位: </span>{{item.unit}}</div>-->
+<!--              <div class="info"><span style="font-weight: 600">厂家: </span>{{item.make}}</div>-->
 <!--              <div class="info" style="font-weight: 600">更多信息请见详细介绍，或咨询医诺寰球微信客服：DrYiNuoInternational</div>-->
             </div>
           </div>
@@ -118,8 +123,8 @@
   .content .main .main-case .img{width: 35%;}
   .content .main .main-case .cont{width: 55%;}
   .content .main .main-case .cont .title{position: relative;height: 4rem;line-height: 4rem;font-size: 2.25rem;}
-  .content .main .main-case .cont .tags .style1{margin: 5px;color: #008aff;border: 1px solid #008aff;border-radius: 12px}
-  .content .main .main-case .cont .tags .style2{margin: 5px;color: #1daca4;border: 1px solid #1daca4;border-radius: 12px}
+  .content .main .main-case .cont .tags .style1{margin: 10px;color: #008aff;border: 1px solid #008aff;border-radius: 12px}
+  .content .main .main-case .cont .tags .style2{display:inline-block;width: 42%;margin: 10px;text-align: center;background: #1daca4;padding:7px 0;color: #fff;border: 1px solid #1daca4;border-radius: 4px}
   .content .main .main-case .cont .tags .style3{margin: 5px;color: #D33146;border: 1px solid #D33146;border-radius: 12px}
   .content .main .main-case .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;}
   .content .right{width: 20%}
