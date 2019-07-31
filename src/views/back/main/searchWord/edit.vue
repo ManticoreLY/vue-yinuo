@@ -42,6 +42,9 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.isUpdate = true
         this.searchWord = Object.assign(this.searchWord, entity)

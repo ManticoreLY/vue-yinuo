@@ -19,7 +19,7 @@
                 <el-tag size="small" class="style1"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+item.id" >{{disease.name}}</router-link></el-tag>
                 <p style="display: flex;flex-flow: row wrap;align-items: center;justify-content: space-between">
                   <span size="small" class="style2">药品规格: {{item.spec}}</span>
-                  <span size="small" class="style2">药品单位: {{item.unit}}</span>
+                  <span size="small" class="style2">药品俗名: {{item.unit}}</span>
                   <span size="small" class="style2">药品用量: {{item.form}}</span>
                   <span size="small" class="style2">药品厂家: {{item.make}}</span>
                 </p>

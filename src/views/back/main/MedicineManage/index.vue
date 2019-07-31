@@ -61,7 +61,7 @@
               size: 10
             },
             likeCondition: {
-              shotName: ''
+              name: ''
             },
             orderByCondition: {
               updatedDt: false

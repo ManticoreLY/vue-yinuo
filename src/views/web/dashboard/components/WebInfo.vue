@@ -79,9 +79,9 @@
 .web-info>div .info-title>div{display: inline-block;padding: .75rem 0;border-bottom:1px solid #1CACA3;color: #1CACA3;font-size: 2rem;}
 .web-info>div .info-content1{height: 18rem;margin:2rem 0;display: flex;flex-flow: row wrap; align-items: flex-start;align-content: stretch; justify-content: space-between}
 .web-info>div .info-content1>span{display: inline-block;width: 45%;font-size: 1.2rem;color: #545454}
-.web-info>div .info-content2{height: 18rem;margin:2rem 0;display: flex;flex-flow: column wrap; align-items: center;align-content: stretch; justify-content: flex-start;font-size: 1.2rem;color: #545454}
+.web-info>div .info-content2{height: 18rem;margin:2rem 0;display: flex;flex-flow: column wrap; align-content: stretch; justify-content: flex-start;font-size: 1.2rem;color: #545454}
 .web-info>div .info-content2 div{height: 7rem}
-.web-info>div .info-content3{height: 18rem;margin:2rem 0;display: flex;flex-flow: column wrap; align-items: flex-start;align-content: stretch; justify-content: space-between;font-size: 1.2rem;color: #545454}
+.web-info>div .info-content3{height: 16rem;margin:2rem 0;display: flex;flex-flow: column wrap; align-items: flex-start;align-content: stretch; justify-content: space-between;font-size: 1.2rem;color: #545454}
 .web-info>div .info-content3>span{display: inline-block;width: 80%;}
 #grad {
   border: none;height: 3px;width:100%;position: absolute;top: 0;

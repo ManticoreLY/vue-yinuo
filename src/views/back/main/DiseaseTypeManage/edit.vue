@@ -31,6 +31,9 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.isUpdate = true
         this.diseaseType = Object.assign(this.diseaseType, entity)

@@ -103,6 +103,9 @@
     created() {
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.isUpdate = true
         this.NavBanner = Object.assign(this.NavBanner, entity)

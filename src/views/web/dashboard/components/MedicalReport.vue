@@ -3,14 +3,14 @@
     <div v-for="(item, index) in medicalNewsVo.typeVos" :key="index" class="news-module">
       <div class="module-name">{{item.name}}</div>
       <div class="module-cont">
-        <div style="width: 36%;margin-right: 15px"><el-image :src="item.newsArticles[0].abstractImg" style="width: 100%;height: 160px;"/></div>
+        <div style="width: 36%;margin-right: 15px;margin-top: 10px"><el-image :src="item.newsArticles[0].abstractImg" style="width: 100%;height: 160px;"/></div>
         <div style="width: 58%">
         <p style="font-size:1.75rem;color:#1daca4;height: 4.25rem;">
           <router-link :to="'articleInfo/' + item.newsArticles[0].id" tag="a" target="_blank">
           {{item.newsArticles[0].title.substring(0, 18)}}<em v-show="item.newsArticles[0].title.length > 18">...</em>
           </router-link>
         </p>
-        <p style="font-size: 1.25rem;color:#7f7f7f;text-indent: 2rem;height: 100px;width: 100%;overflow: hidden">1月12日，{{item.newsArticles[0].abstractText.substring(0, 60) + '...'}}
+        <p style="font-size: 1.25rem;color:#7f7f7f;text-indent: 2rem;height: 100px;width: 100%;overflow: hidden;margin-top: 10px;">1月12日，{{item.newsArticles[0].abstractText.substring(0, 60) + '...'}}
           <router-link :to="'articleInfo/' + item.newsArticles[0].id" tag="a" target="_blank">【详情】</router-link>
         </p>
         </div>

@@ -97,6 +97,9 @@ export default {
     addNew() {
       this.formTitle = '添加'
       this.editFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['editForm'].addForm()
+      })
     },
     toEdit(entity) {
       this.formTitle = '编辑'

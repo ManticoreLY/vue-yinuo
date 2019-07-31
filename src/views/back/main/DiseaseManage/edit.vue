@@ -106,6 +106,9 @@
           this.DiseaseTypes = data.obj.records
         })
       },
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.icon = [].concat([{ name: '', url: entity.icon }])
         DiseaseApi.getFullDisease(entity.id).then(data => {

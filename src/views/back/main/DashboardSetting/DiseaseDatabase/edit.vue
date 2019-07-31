@@ -107,6 +107,9 @@
       })
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.isUpdate = true
         this.diseaseDb = Object.assign(this.diseaseDb, entity)

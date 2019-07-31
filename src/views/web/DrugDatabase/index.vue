@@ -27,7 +27,7 @@
             <div class="item" v-for="(item,diseaseIndex) in diseases" :key="diseaseIndex">
               <el-image :src="item.disease.icon" :fit="'fit'" style="float:left;width: 40px;height: 40px"></el-image>
               <div class="name">
-                <div>{{ item.disease.name }}</div>
+                <div><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease.id">{{ item.disease.name }}</router-link></div>
                 <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
                 <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(diseaseTypeName, item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
                 <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(diseaseTypeName, item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>

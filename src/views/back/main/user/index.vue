@@ -88,6 +88,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(row) {
         this.formTitle = '编辑'

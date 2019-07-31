@@ -12,8 +12,8 @@
           <div class="item-name">{{medicine.name}}({{medicine.shotName}})</div>
           <div class="item-unit">
             <p class="shallowblue">品牌: {{medicine.make}}</p>
-            <p class="green">剂型: {{medicine.form}}</p>
-            <p class="graygreen">单位: {{medicine.unit}}</p>
+            <p class="green">用量: {{medicine.form}}</p>
+            <p class="graygreen">俗名: {{medicine.unit}}</p>
             <p class="yellow">规格: {{medicine.spec}}</p>
           </div>
           <div class="item-info">{{medicine.shotIntroduct}}</div>
@@ -43,13 +43,13 @@
       <div class="information">
         <div class="item">
           <div class="info-title">
-            <el-divider content-position="center"><b style="font-size: 1.8rem">相关药品</b></el-divider>
+            <el-divider content-position="center"><b class="text" style="font-size: 1.8rem">相关药品</b></el-divider>
           </div>
           <div class="info-items">
             <el-button v-for="item in medicine.reMedicines" :key="item.id" round><router-link tag="a" target="_blank" :to="'/medicineInfo/'+item.id" >{{ item.shotName }}</router-link></el-button>
           </div>
           <div class="info-title">
-            <el-divider content-position="center"><b style="font-size: 1.8rem">常见问题</b></el-divider>
+            <el-divider content-position="center"><b class="text" style="font-size: 1.8rem">常见问题</b></el-divider>
           </div>
           <div class="info-display">
             <div style="width: 20%">
@@ -119,8 +119,8 @@
 .description{width: 90%;background: #fff;padding: 10px 5%;display:flex;align-items: center;align-content: stretch;justify-content: space-around}
 .description .item .item-name{font-size: 2.75rem;font-weight: 600}
 .description .item .item-extra{font-size: 1.2rem;}
-.description .item .item-unit{height: 10rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;justify-content: space-around}
-.description .item .item-unit p{width: 36%;height: 32px;line-height: 32px;font-size: 1.2rem;padding-left: 5px;margin: 10px}
+.description .item .item-unit{height: 10rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;}
+.description .item .item-unit p{width: 36%;height: 32px;line-height: 32px;font-size: 1.2rem;padding-left: 5px;margin: 10px 30px 10px 0px;}
 .description .item .item-info{height: 12rem;font-size: 1.25rem;}
 .description .item .item-bottom{font-size: 1.1rem}
 .information{width: 90%;margin:20px 0;background: #fff;padding:0 5%}
