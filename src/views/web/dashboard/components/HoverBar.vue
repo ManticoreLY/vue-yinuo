@@ -1,8 +1,8 @@
 <template>
   <div class="hover-bar">
-    <div class="item" v-for="(item, index) in list" :key="item.id">
-      <div class="main" @mouseover="mouseOver(item, index)"
-           @mouseleave="mouseLeave(item, index)">
+    <div class="item" v-for="(item, index) in list" :key="item.id" @mouseover="mouseOver(item, index)"
+         @mouseleave="mouseLeave(item, index)">
+      <div class="main" >
         <img :src="item.iconInner" style="width:28px;height:28px;">
         <span style="margin-left: 10px">{{item.name}}</span>
       </div>
