@@ -5,7 +5,7 @@
       >
       <router-link :to="'/news'">医疗新闻</router-link>
       >
-      <router-link :to="'/news'">肿瘤新闻</router-link>
+      <router-link :to="'/news/channel/' + medicalArticle.channelId">肿瘤新闻</router-link>
       > {{medicalArticle.title}}
     </div>
     <div class="content">

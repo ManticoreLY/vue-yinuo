@@ -86,7 +86,7 @@ export default {
           _t.page = Object.assign(_t.page, data.obj)
           _t.diseaseTypes = data1.obj.records
           _t.tableList = data.obj.records.map(item => {
-            return { ...item, diseaseType: _t.diseaseTypes.find(t => t.id === parseInt(item.types)).name }
+            return { ...item, diseaseType: item.typeNames ? item.typeNames.join(',') : '类型被删除' }
           })
         }).catch(err => {
           console.log(err)

@@ -2,7 +2,7 @@
     <div>
       <el-form ref="form" :model="disease" label-width="120px">
         <el-form-item label="疾病分类:" prop="types">
-          <el-select v-model="disease.typeIds">
+          <el-select v-model="disease.typeIds" multiple>
             <el-option v-for="opt in DiseaseTypes" :key="opt.id" :value="opt.id" :label="opt.name"></el-option>
           </el-select>
           <!--<el-popover placement="bottom" width="400" trigger="click">-->
@@ -98,12 +98,15 @@
       this.$store.dispatch('getAllDiseases').then(data => {
         this.diseases = data
       })
+      this.initType()
     },
     methods: {
-      editForm(entity) {
+      initType() {
         DiseaseTypeApi.queryPage({ pageObj: { current: 1, size: 100 }}).then(data => {
           this.DiseaseTypes = data.obj.records
         })
+      },
+      editForm(entity) {
         this.icon = [].concat([{ name: '', url: entity.icon }])
         DiseaseApi.getFullDisease(entity.id).then(data => {
           this.disease = Object.assign(this.disease, data.obj)

@@ -1,8 +1,9 @@
 <template>
   <div class="hover-bar">
-    <div class="item" v-for="item in list" :key="item.id">
-      <div class="main">
-        <img :src="item.icon" style="width:28px;height:28px;">
+    <div class="item" v-for="(item, index) in list" :key="item.id">
+      <div class="main" @mouseover="mouseOver(item, index)"
+           @mouseleave="mouseLeave(item, index)">
+        <img :src="item.iconInner" style="width:28px;height:28px;">
         <span style="margin-left: 10px">{{item.name}}</span>
       </div>
       <div class="sub">
@@ -36,10 +37,18 @@
       this.search()
     },
     methods: {
+      mouseOver(item, index) {
+        item.iconInner = item.icon1
+        this.$set(this.list, index, item)
+      },
+      mouseLeave(item, index) {
+        item.iconInner = item.icon
+        this.$set(this.list, index, item)
+      },
       search() {
         DiseaseDBApi.diseaseDb().then(data => {
-          const _this = this
-          _this.list = data.obj
+          this.list = data.obj
+          this.list.forEach(one => { one.iconInner = one.icon })
         }).catch(err => {
           console.log(err)
         })
