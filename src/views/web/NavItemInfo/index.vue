@@ -78,7 +78,6 @@
       link_articles() {
         var result = []
         this.disease.medicines.forEach(one => {
-          debugger
           if (one.newsArticles) {
             result = result.concat(one.newsArticles.filter(one1 => {
               return one1
@@ -104,7 +103,7 @@
         // this.disease = Object.assign(this.disease, entity)
       },
       removeTag(text) {
-        return text.replace(/<\/?.+?\/?>/g, '')
+        return text ? text.replace(/<\/?.+?\/?>/g, '') : '暂无简介'
       },
       toMedicinePage(id) {
         const routeData = this.$router.resolve({ path: '/medicineInfo/' + id })
