@@ -78,8 +78,11 @@
       link_articles() {
         var result = []
         this.disease.medicines.forEach(one => {
+          debugger
           if (one.newsArticles) {
-            result = result.concat(one.newsArticles)
+            result = result.concat(one.newsArticles.filter(one1 => {
+              return one1
+            }))
           }
         })
         return result
