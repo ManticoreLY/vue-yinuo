@@ -68,6 +68,7 @@
             <el-table-column label="药厂名称" prop="name" align="left">
             </el-table-column>
             <el-table-column label="所属地区" prop="area" align="center">
+              <template slot-scope="scope"><span style="    color: #999;">{{ scope.row.area }}</span></template>
             </el-table-column>
           </el-table>
         </div>
