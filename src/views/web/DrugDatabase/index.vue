@@ -40,7 +40,12 @@
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMedicine}}</el-divider>
           <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' }">
-            <el-table-column type="index" label="排名"></el-table-column>
+            <el-table-column  label="排名">
+              <template slot-scope="scope">
+                <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
+                <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
+              </template>
+            </el-table-column>
             <el-table-column label="药品名称" align="center">
               <template slot-scope="scope">
                 <router-link  tag="a" target="_blank" :to="'/medicineInfo/'+ scope.row.medicine.id"> {{ scope.row.medicine.name }}</router-link>
@@ -54,7 +59,12 @@
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
           <el-table :data="drugDbObj.drugDbRankMakerList" :border=false>
-            <el-table-column type="index" label="排名" align="center"></el-table-column>
+            <el-table-column  label="排名" align="center">
+              <template slot-scope="scope">
+                <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
+                <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
+              </template>
+            </el-table-column>
             <el-table-column label="药厂名称" prop="name" align="center">
             </el-table-column>
             <el-table-column label="所属地区" prop="area" align="center">
