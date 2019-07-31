@@ -6,7 +6,7 @@
           <a v-for="t in items" :key="t" href="javascript: void(0)" @click="toggle(t)">{{ t.name }}</a>
         </div>
       </div>
-      <div>
+      <div style="width: 80%;margin: 0 auto">
         <page v-show="items[0].show" :data=aboutObj.aboutUs></page>
         <declear v-show="items[1].show" :data=aboutObj.legal></declear>
         <credential v-show="items[2].show" :data=aboutObj.aboutQualifies></credential>
@@ -72,7 +72,7 @@
 </script>
 
 <style scoped>
-.bg{position: relative}
+.bg{position: relative;}
 .bg .foot{position: absolute;left:0;bottom: 0;width: 100%;height: 4rem;line-height: 4rem;background: rgba(0,0,0,.5);text-align: center}
 .bg .foot a{display: inline-block;width: auto;height: 4rem;line-height:4rem;padding: 0 40px;font-size: 1.5rem;color: #f5f5f5}
 .bg .foot a:hover{background: #1daca4;color: #fff}

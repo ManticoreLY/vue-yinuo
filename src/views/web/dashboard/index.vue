@@ -11,7 +11,12 @@
     <div class="bg" v-else-if="$route.fullPath === '/drugDB'">
       <el-image :src="img_url_drugdb" :fit="'fill'"></el-image>
     </div>
-    <div class="web-content">
+    <div v-if="$route.fullPath === '/about'" class="web-content1">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </div>
+    <div v-else class="web-content">
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
@@ -56,7 +61,7 @@
   #web-index{position: relative;margin: 0;padding: 0;}
   .fix-header{width: 100%;position: fixed;background: #fff}
   .web-content{position: relative;width: 80%; margin: 0 10%;}
-
+  .web-content1{position: relative;width: initial;}
   .footer{background: #f5f5f5;border-top: 1px solid #eee;width: 80%;height: 100px;padding: 0 10%;text-align: center;font-size: .75rem;color: #545454;text-space: 5px;
    display: flex; flex-flow: row wrap; align-content: center; align-items: center;justify-content: space-around}
   .footer div{line-height: 28px}
