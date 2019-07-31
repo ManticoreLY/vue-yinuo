@@ -39,33 +39,33 @@
       <div class="table">
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMedicine}}</el-divider>
-          <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' }">
-            <el-table-column  label="排名">
+          <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' } " :header-cell-style="rankHeaderCellStyle">
+            <el-table-column  label="排名" width="50px">
               <template slot-scope="scope">
                 <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
                 <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
               </template>
             </el-table-column>
-            <el-table-column label="药品名称" align="center">
+            <el-table-column label="药品名称" align="left">
               <template slot-scope="scope">
                 <router-link  tag="a" target="_blank" :to="'/medicineInfo/'+ scope.row.medicine.id"> {{ scope.row.medicine.name }}</router-link>
               </template>
             </el-table-column>
             <el-table-column label="适应症" align="center">
-              <template slot-scope="scope">{{ scope.row.medicine.fitDisease }}</template>
+              <template slot-scope="scope"><span style="    color: #999;">{{ scope.row.medicine.fitDisease }}</span></template>
             </el-table-column>
           </el-table>
         </div>
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
-          <el-table :data="drugDbObj.drugDbRankMakerList" :border=false>
+          <el-table :data="drugDbObj.drugDbRankMakerList" :border=false :header-cell-style="rankHeaderCellStyle">
             <el-table-column  label="排名" align="center">
               <template slot-scope="scope">
                 <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
                 <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
               </template>
             </el-table-column>
-            <el-table-column label="药厂名称" prop="name" align="center">
+            <el-table-column label="药厂名称" prop="name" align="left">
             </el-table-column>
             <el-table-column label="所属地区" prop="area" align="center">
             </el-table-column>
@@ -110,6 +110,12 @@
           imageUrlFootList: [],
           imageUrlFootFileList: [{}, {}, {}, {}, {}, {}]
         },
+        rankHeaderCellStyle: {
+          'background': '#fafafa',
+          'border-top': '1px solid #e8e8e8',
+          'border-bottom': '1px solid #e8e8e8',
+          'font-size': '12px',
+          'font-weight': 'normal' },
         img_url: 'static/img/1.png'
       }
     },
