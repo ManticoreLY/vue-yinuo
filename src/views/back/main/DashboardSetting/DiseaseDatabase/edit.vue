@@ -67,7 +67,7 @@
         diseaseDb: {
           name: '',
           icon: '',
-          icon1:'',
+          icon1: '',
           diseaseId1: '',
           diseaseId2: '',
           diseaseId3: '',
