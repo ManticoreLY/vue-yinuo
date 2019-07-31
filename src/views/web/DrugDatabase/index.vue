@@ -40,7 +40,7 @@
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMedicine}}</el-divider>
           <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' } " :header-cell-style="rankHeaderCellStyle">
-            <el-table-column  label="排名" width="50px">
+            <el-table-column  label="排名" width="100px">
               <template slot-scope="scope">
                 <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
                 <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
@@ -59,7 +59,7 @@
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
           <el-table :data="drugDbObj.drugDbRankMakerList" :border=false :header-cell-style="rankHeaderCellStyle">
-            <el-table-column  label="排名" align="center">
+            <el-table-column  label="排名"  width="100px">
               <template slot-scope="scope">
                 <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
                 <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
