@@ -29,7 +29,7 @@
         <el-table-column label="排序" prop="idx" sortable width="80">
           <template slot-scope="scope">
             <!--            <el-tag type="primary" @click.stop="modifyIdx">{{ scope.row.idx}}</el-tag>-->
-            <el-input v-model="scope.row.idx" @blur="saveIndex(scope.row)" style="width: 50px"></el-input>
+            <el-input v-model="scope.row.idx" @blur="saveIndex(scope.row)" style="width: 65px"></el-input>
           </template>
         </el-table-column>
         <el-table-column label="发布" prop="idx" sortable width="80">

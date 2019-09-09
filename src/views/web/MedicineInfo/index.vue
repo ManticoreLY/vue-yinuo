@@ -85,16 +85,7 @@
           resistant: '',
           reMedicineIds: []
         },
-        img_url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg',
-        medicine_info_images: [
-          'static/img/info/INBEC1.jpg',
-          'static/img/info/INBEC2.jpg',
-          'static/img/info/INBEC3.jpg',
-          'static/img/info/INBEC4.jpg'
-        ],
-        medicine_name: ['达拉非尼', '达卡他韦', '艾曲博帕', '恩西地平', '恩替卡韦', '恩杂鲁胺', '依维莫司', '鲁索替尼', '乐伐替尼',
-          '来曲唑', '马法兰', '米哚妥林', '尼罗替尼', '尼达尼布', '奥拉帕尼', '奥沙利铂', '帕博西尼', '帕妥珠单抗', '雷莫卢单抗',
-          '苏金单抗体', '托法替尼', '曲美替尼', '凡德他尼', '威罗菲尼', '伏立诺他', '达沙替尼', '尼拉帕尼', '恩格列净', '曲格列汀', '索拉非尼', '伊马替尼']
+        img_url: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
       }
     },
     created() {
@@ -120,7 +111,7 @@
 .description .item .item-name{font-size: 2.75rem;font-weight: 600}
 .description .item .item-extra{font-size: 1.2rem;}
 .description .item .item-unit{height: 10rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;}
-.description .item .item-unit p{width: 36%;height: 32px;line-height: 32px;font-size: 1.2rem;padding-left: 5px;margin: 10px 30px 10px 0px;}
+.description .item .item-unit p{width: 42%;height: 32px;line-height: 32px;font-size: 1.1rem;padding-left: 5px;margin: 10px 30px 10px 0px;}
 .description .item .item-info{height: 12rem;font-size: 1.25rem;}
 .description .item .item-bottom{font-size: 1.1rem}
 .information{width: 90%;margin:20px 0;background: #fff;padding:0 5%}
