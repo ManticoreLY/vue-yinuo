@@ -219,11 +219,16 @@
           }
         },
         onImageChange0(file, fileList) {
+          debugger
           this.imageFile = fileList
           var urlList = []
           for (var idx in fileList) {
-            if (fileList[idx].response) {
-              urlList.push(fileList[idx].response.url)
+            if (fileList[idx].status === 'success') {
+              if (fileList[idx].response) {
+                urlList.push(fileList[idx].response.url)
+              } else {
+                urlList.push(fileList[idx].url)
+              }
             }
           }
           this.form.image = urlList.join(',')

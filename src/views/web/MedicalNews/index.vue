@@ -135,7 +135,7 @@
 <style scoped>
 .content .main .main-item .img{margin-right: 15px;}
 .content .main .main-item .cont{position: relative;height: 100%;width: 100%}
-.content .main .main-item .cont .title{position: relative;height: 4rem;padding:0 10px;line-height: 4rem;font-size: 1.75rem;}
+.content .main .main-item .cont .title{position: relative;height: 4rem;padding:0 10px;font-size: 1.75rem;}
 .content .main .main-item .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;text-indent: 2rem;}
 .content .main .main-item .cont .foot{position:relative;margin-top:20px;height: 1rem;line-height: 1rem;padding: 0 10px;bottom: 0; left: 0;right: 0;font-size: 1rem;color: #686868;}
 </style>

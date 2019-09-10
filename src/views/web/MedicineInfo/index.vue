@@ -111,7 +111,7 @@
 .description .item .item-name{font-size: 2.75rem;font-weight: 600}
 .description .item .item-extra{font-size: 1.2rem;}
 .description .item .item-unit{height: 10rem;display: flex;flex-flow: row wrap;align-items: center;align-content: center;}
-.description .item .item-unit p{width: 42%;height: 32px;line-height: 32px;font-size: 1.1rem;padding-left: 5px;margin: 10px 30px 10px 0px;}
+.description .item .item-unit p{width: 43%;height: 32px;line-height: 32px;font-size: 1.1rem;padding-left: 5px;margin: 10px 30px 10px 0px;}
 .description .item .item-info{height: 12rem;font-size: 1.25rem;}
 .description .item .item-bottom{font-size: 1.1rem}
 .information{width: 90%;margin:20px 0;background: #fff;padding:0 5%}
