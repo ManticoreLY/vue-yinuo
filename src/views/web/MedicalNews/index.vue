@@ -118,11 +118,10 @@
         })
       },
       titleFormat(title) {
-        if (!title && title.length > 10) {
+        if (title && title.length > 10) {
           return title.substring(0, 10) + '...'
-        } else {
-          return title
         }
+        return title
       }
     }
   }
