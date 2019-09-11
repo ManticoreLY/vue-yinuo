@@ -1,8 +1,5 @@
 <template>
   <div class="page">
-    <div class="bg">
-      <el-image :src="img_url" :fit="'fill'"></el-image>
-    </div>
     <div class="nav">当前位置：
       <router-link :to="'/'">医诺寰球海外医疗</router-link>
       >
@@ -21,8 +18,8 @@
           </div>
           <div class="cont">
             <div class="title">
-              <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  >{{ titleFormat(item.title) }}</router-link>
-              <span>更新时间：{{ item.updatedDt ? item.updatedDt.substring(0, 10) : ' ' }}</span>
+              <span style="width: 65%;"><router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  >{{ titleFormat(item.title) }}</router-link></span>
+              <span style="width: 30%;font-size: 1.25rem;color: #008aff;text-align: right;float: right">更新时间：{{ item.updatedDt ? item.updatedDt.substring(0, 10) : ' ' }}</span>
             </div>
             <div class="info">{{ item.abstractText }}
               <router-link tag="a" target="_blank" :to="'/casesInfo/'+item.id"  ><span style="color:red;font-size: initial">【详情】</span></router-link>
@@ -44,6 +41,8 @@
         </div>
       </div>
       <div class="right">
+        <!--案例频道-->
+        <channel :name="'案例频道'" :type="1"></channel>
         <!--最新文章-->
         <latest-articles :name="'最新案例'" :type = 1 />
         <!--本周热门文章-->
@@ -57,17 +56,19 @@
   import page from '@/utils/page'
   import ArticlesApi from '@/api/articlesFront'
   import ChannelApi from '@/api/channelFront'
+  import Channel from '../components/Channel'
   import HotArticles from '../components/HotArticles'
   import LatestArticles from '../components/LatestArticles'
   export default {
     name: 'index',
     components: {
       HotArticles,
+      Channel,
       LatestArticles
     },
     data() {
       return {
-        img_url: 'static/img/info/banner_patientStory.png',
+        img_url: '',
         channel: {},
         channels: [],
         casesInfo: {},
@@ -80,7 +81,12 @@
             name: ''
           },
           andCondition: {
-            type: 1
+            type: 1,
+            enable: true
+          },
+          orderByCondition: {
+            idx: true,
+            updatedDt: false
           }
         },
         page: {},
@@ -98,7 +104,7 @@
       search() {
         if (this.$route.params.id) {
           const channelId = this.$route.params.id
-          this.query.andCondition = { 'channelId': channelId, 'type': 1 }
+          this.query.andCondition.channelId = channelId
           ChannelApi.findFrontOne(channelId).then(data => {
             this.channel = data.obj
           })
@@ -126,7 +132,7 @@
 <style scoped>
 .content .main .main-item .img{margin-right: 15px;}
 .content .main .main-item .cont{position: relative;height: 100%;width: 100%}
-.content .main .main-item .cont .title{position: relative;height: 4rem;padding:0 10px;line-height: 4rem;font-size: 1.75rem;}
-.content .main .main-item .cont .title span{font-size: 1.25rem;color: #5a5a5a;display: block;float:right;margin-right: 15px;}
+.content .main .main-item .cont .title{position: relative;min-height: 4rem;padding:0 10px;line-height: 2rem;font-size: 1.5rem;}
+.content .main .main-item .cont .title span{display: inline-block;}
 .content .main .main-item .cont .info{position: relative;margin-top: 20px; font-size: 1.25rem;color: #5a5a5a;text-indent: 2rem;}
 </style>

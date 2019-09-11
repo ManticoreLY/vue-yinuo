@@ -1,8 +1,5 @@
 <template>
     <div class="drug-db">
-      <div class="bg">
-        <el-image :src="drugDbObj.imageUrl" :fit="'fill'"></el-image>
-      </div>
       <div class="item-list">
         <div class="item bg1">
           <div class="title">数据全面</div>
@@ -24,15 +21,17 @@
       <div class="category">
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 2rem;">{{drugDbObj.title}}</div>
         <div style="height:3rem;line-height:3rem;text-align: center;font-size: 1.375rem;color: #545454">{{drugDbObj.describe}}</div>
-        <div style="height:3rem;line-height:3rem;font-size: 2rem;font-weight: 600;color: #545454;margin:10px 0">常见传染病、慢性病</div>
-        <div class="list">
-          <div class="item" v-for="(item,diseaseIndex) in drugDbObj.drugDbDiseaseList" :key="diseaseIndex">
-            <el-image :src="item.disease.icon" :fit="'fit'" style="float:left;width: 40px;height: 40px"></el-image>
-            <div class="name">
-              <div>{{ item.disease.name }}</div>
-              <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
-              <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
-              <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>
+        <div v-for="(diseases,diseaseTypeName,diseaseTypeIndex) in drugDbObj.drugDbDiseaseMap" :key="diseaseTypeIndex">
+          <div style="height:3rem;line-height:3rem;font-size: 2rem;font-weight: 600;color: #545454;margin:10px 0">{{diseaseTypeName}}</div>
+          <div class="list">
+            <div class="item" v-for="(item,diseaseIndex) in diseases" :key="diseaseIndex">
+              <el-image :src="item.disease.icon" :fit="'fit'" style="float:left;width: 40px;height: 40px"></el-image>
+              <div class="name">
+                <div><router-link  tag="a" target="_blank" :to="'/navItemInfo/'+item.disease.id">{{ item.disease.name }}</router-link></div>
+                <div v-for="(drug, index) in item.disease.medicines" :key="index" v-if="index < 3 || (item.show && index >= 3)"><router-link  tag="a" target="_blank" :to="'/medicineInfo/'+drug.id">{{ drug.name }}</router-link> </div>
+                <div v-show="item.disease.medicines.length > 3 && !item.show"><a @click="toggleFold(diseaseTypeName, item,diseaseIndex)">更多<i class="el-icon-arrow-down"></i></a></div>
+                <div v-show="item.disease.medicines.length > 3 && item.show"><a @click="toggleFold(diseaseTypeName, item,diseaseIndex)">收起<i class="el-icon-arrow-up"></i></a></div>
+              </div>
             </div>
           </div>
         </div>
@@ -40,25 +39,36 @@
       <div class="table">
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMedicine}}</el-divider>
-          <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' }">
-            <el-table-column type="index" label="排名"></el-table-column>
-            <el-table-column label="药品名称" align="center">
+          <el-table :data="drugDbObj.drugDbRankMedicineList" :border="false" :default-sort="{ prop: 'index', sort: 'ascending' } " :header-cell-style="rankHeaderCellStyle">
+            <el-table-column  label="排名" width="100px">
+              <template slot-scope="scope">
+                <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
+                <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="药品名称" align="left">
               <template slot-scope="scope">
                 <router-link  tag="a" target="_blank" :to="'/medicineInfo/'+ scope.row.medicine.id"> {{ scope.row.medicine.name }}</router-link>
               </template>
             </el-table-column>
             <el-table-column label="适应症" align="center">
-              <template slot-scope="scope">{{ scope.row.medicine.fitDisease }}</template>
+              <template slot-scope="scope"><span style="    color: #999;">{{ scope.row.medicine.fitDisease }}</span></template>
             </el-table-column>
           </el-table>
         </div>
         <div>
           <el-divider content-position="center">{{drugDbObj.rankTitleMaker}}</el-divider>
-          <el-table :data="drugDbObj.drugDbRankMakerList" :border=false>
-            <el-table-column type="index" label="排名"></el-table-column>
-            <el-table-column label="药厂名称" prop="name" align="center">
+          <el-table :data="drugDbObj.drugDbRankMakerList" :border=false :header-cell-style="rankHeaderCellStyle">
+            <el-table-column  label="排名"  width="100px">
+              <template slot-scope="scope">
+                <span v-if="scope.$index < 3" style="background: #00a4ff;    width: 20px; height: 20px;text-align: center; display: inline-block; color: #fff;    border-radius: 5px;">{{scope.$index+1}}</span>
+                <span v-if="scope.$index >= 3" style="  width: 20px; height: 20px;text-align: center; display: inline-block;  border-radius: 5px;">{{scope.$index+1}}</span>
+              </template>
+            </el-table-column>
+            <el-table-column label="药厂名称" prop="name" align="left">
             </el-table-column>
             <el-table-column label="所属地区" prop="area" align="center">
+              <template slot-scope="scope"><span style="    color: #999;">{{ scope.row.area }}</span></template>
             </el-table-column>
           </el-table>
         </div>
@@ -88,6 +98,7 @@
           describe: '',
           drugDbDiseaseList: [],
           drugDbDiseaseIdList: [],
+          drugDbDiseaseMap: {},
           rankTitleMedicine: '',
           drugDbRankMedicineList: [],
           drugDbRankMedicineIdList: [],
@@ -100,6 +111,12 @@
           imageUrlFootList: [],
           imageUrlFootFileList: [{}, {}, {}, {}, {}, {}]
         },
+        rankHeaderCellStyle: {
+          'background': '#fafafa',
+          'border-top': '1px solid #e8e8e8',
+          'border-bottom': '1px solid #e8e8e8',
+          'font-size': '12px',
+          'font-weight': 'normal' },
         img_url: 'static/img/1.png'
       }
     },
@@ -111,14 +128,16 @@
         DrugDbApi.findFrontOne().then(data => {
           if (data.result) {
             this.drugDbObj = data.obj
-            this.drugDbObj.drugDbDiseaseList.forEach(item => { item.show = false })
+            for (var key in this.drugDbObj.drugDbDiseaseMap) {
+              this.drugDbObj.drugDbDiseaseMap[key].forEach(item => { item.show = false })
+            }
           }
         })
       },
-      toggleFold(t, diseaseIndex) {
-        const item = this.drugDbObj.drugDbDiseaseList[diseaseIndex]
+      toggleFold(diseaseTypeName, t, diseaseIndex) {
+        const item = this.drugDbObj.drugDbDiseaseMap[diseaseTypeName][diseaseIndex]
         item.show = !item.show
-        this.$set(this.drugDbObj.drugDbDiseaseList, diseaseIndex, item)
+        this.$set(this.drugDbObj.drugDbDiseaseMap[diseaseTypeName], diseaseIndex, item)
       }
     }
   }

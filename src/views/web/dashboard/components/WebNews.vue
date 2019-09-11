@@ -4,7 +4,7 @@
       <el-image :src="item.abstractImg" :fit="'fit'" style="width: 220px;height: 160px"/>
       <div>
         <p class="title" style="font-size: 1.75rem;height: 30px;">
-          <router-link :to="'news/channel/' + item.id">{{item.title}}</router-link>
+          <router-link :to="'articleInfo/' + item.id"  tag="a" target="_blank">{{item.title}}</router-link>
         </p>
         <p class="date" style="font-size:1.5rem;color: #7f7f7f;height: 2rem;line-height: 2rem">{{item.createdDt}}</p>
         <p class="content" style="font-size:1.25rem;color:#7f7f7f;height: 80px;text-indent:2rem;overflow: hidden">{{item.abstractText}}</p>

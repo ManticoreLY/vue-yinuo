@@ -15,7 +15,7 @@
     <!-- built files will be auto injected -->
     <script>
       window.addEventListener('scroll', (e) => {
-        const top = e.srcElement.scrollTop
+        const top = e.srcElement.scrollingElement.scrollTop
         if (top > 240) {
           document.getElementById('scroll-header').style.visibility = 'visible'
         } else {

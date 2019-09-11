@@ -1,6 +1,6 @@
 <template>
     <div>
-          <el-button type="success" @click="addNew">添加</el-button>
+      <el-button type="success" @click="addNew">添加</el-button>
       <el-table :data="tableList">
         <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="icon">

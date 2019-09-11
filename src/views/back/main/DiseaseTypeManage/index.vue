@@ -1,31 +1,21 @@
 <template>
     <div>
       <el-form :inline="true">
-        <el-form-item label="标题">
-          <el-input v-model="query.likeCondition.title" placeholder="请输入查询关键字"></el-input>
+        <el-form-item>
+          <el-input v-model="query.likeCondition.name" placeholder="请输入关键字查询"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
-        <el-table-column type="expand">
-          <template slot-scope="scope">
-            <img  :src="scope.row.img" style="width: 300px;">
-          </template>
-        </el-table-column>
-        <el-table-column label="案例名称" prop="name"></el-table-column>
-        <el-table-column label="案例标题" prop="title"></el-table-column>
-        <el-table-column label="案例描述" prop="describe"></el-table-column>
+      <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">
+        <el-table-column label="名称" prop="name"></el-table-column>
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
-        <el-table-column label="操作" width="260">
+        <el-table-column label="操作" width="220">
           <template slot-scope="scope">
-            <router-link tag="a" target="_blank" :to="'/caseinfo/' + scope.row.id">
-              <el-button type="success" size="medium">预览</el-button>
-            </router-link>
-            <el-button type="warning" size="small" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" size="small" @click="toDelete(scope.row.id)">删除</el-button>
+            <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -33,17 +23,20 @@
                      :current-page="page.current"
                      :page-size="page.size"
                      :total="page.total"
+                     @current-change="handlePageChange"
+                     @size-change="handleSizeChange"
                      layout="total, prev, pager, next">
       </el-pagination>
-      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose" width="60%">
+      <el-dialog :title="formTitle" :visible.sync="editFormVisible" :before-close="handleFormClose">
         <edit-form ref="editForm" @close="handleFormClose"></edit-form>
       </el-dialog>
     </div>
 </template>
 
 <script>
-  import CaseApi from '@/api/cases'
+  import DiseaseTypeApi from '@/api/diseaseType'
   import EditForm from './edit'
+  import page from '@/utils/page'
   export default {
     name: 'index',
     components: {
@@ -57,13 +50,13 @@
             size: 10
           },
           likeCondition: {
-            title: ''
+            name: ''
           }
         },
         page: {},
         name: '',
         tableList: [],
-        formTitle: '',
+        formTitle: [],
         editFormVisible: false
       }
     },
@@ -71,8 +64,9 @@
       this.search()
     },
     methods: {
+      ...page(),
       search() {
-        CaseApi.queryPage(this.query).then(data => {
+        DiseaseTypeApi.queryPage(this.query).then(data => {
           this.page = Object.assign(this.page, data.obj)
           this.tableList = data.obj.records
         }).catch(err => {
@@ -82,6 +76,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'
@@ -90,11 +87,12 @@
           this.$refs['editForm'].editForm(entity)
         })
       },
-      toDelete(id) {
+      toDelete(id, index) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          CaseApi.remove(id).then(data => {
+          DiseaseTypeApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
+            this.tableList.splice(index, 1)
           }).catch(err => {
             console.log(err)
             this.$message.warning('操作失败')

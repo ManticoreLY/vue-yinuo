@@ -1,15 +1,15 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
-        <el-form-item label = "标题">
-          <el-input v-model="query.likeCondition.title"></el-input>
+      <el-form :inline="true">
+        <el-form-item label="标题">
+          <el-input v-model="query.likeCondition.title" placeholder="请输入标题"></el-input>
         </el-form-item>
-        <el-form-item label = "栏目">
+        <el-form-item label="栏目">
           <el-select v-model="query.andCondition.channelId"
                      filterable
                      remote
                      reserve-keyword
-                     placeholder="请输入关键词"
+                     placeholder="请输入栏目"
                      :remote-method="remoteMethod"
                      :loading="loading">
             <el-option
@@ -25,14 +25,27 @@
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
-      <el-table :data="tableList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
+      <el-table :data="tableList" :default-sort="{ prop: 'idx', order: 'ascending' }">
+        <el-table-column label="排序" prop="idx" sortable width="80">
+          <template slot-scope="scope">
+<!--            <el-tag type="primary" @click.stop="modifyIdx">{{ scope.row.idx}}</el-tag>-->
+            <el-input v-model="scope.row.idx" @blur="saveIndex(scope.row)" style="width: 50px"></el-input>
+          </template>
+        </el-table-column>
+        <el-table-column label="发布" prop="idx" sortable width="80">
+          <template slot-scope="scope">
+            <!--            <el-tag type="primary" @click.stop="modifyIdx">{{ scope.row.idx}}</el-tag>-->
+            <el-switch v-model="scope.row.enable" @change="saveEnable(scope.row)" style="width: 50px"></el-switch>
+          </template>
+        </el-table-column>
         <el-table-column label="标题" prop="title"></el-table-column>
         <el-table-column label="频道栏目" prop="channel.name">
         </el-table-column>
-        <el-table-column label="内容摘要" prop="abstractText"></el-table-column>
+        <el-table-column label="内容摘要" prop="abstractText">
+          <template slot-scope="scope">{{ scope.row.abstractText.substring(0, 30)}}...</template>
+        </el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
-        <el-table-column label="来源" prop="source"></el-table-column>
-        <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
+        <el-table-column label="更新时间" prop="updatedDt"></el-table-column>
         <el-table-column label="操作" width="280">
           <template slot-scope="scope">
             <router-link tag="a" target="_blank" :to="'/casesInfo/' + scope.row.id">
@@ -72,7 +85,7 @@
         query: {
           pageObj: {
             current: 1,
-            size: 10
+            size: null
           },
           likeCondition: {
             name: ''
@@ -110,6 +123,8 @@
         this.$nextTick(() => {
           if (this.query.andCondition.channelId) {
             this.$refs['editForm'].addForm({ channelId: this.query.andCondition.channelId, channel: this.channels.filter(one => one.id === this.query.andCondition.channelId)[0] })
+          } else {
+            this.$refs['editForm'].addForm()
           }
         })
       },
@@ -138,7 +153,7 @@
       },
       toDelete(id, index) {
         this.$confirm('', '请确认删除?', {}).then(() => {
-          ArticlesApi.delete(id).then(data => {
+          ArticlesApi.remove(id).then(data => {
             console.log(data)
             this.$message.success('删除成功')
             this.tableList.splice(index, 1)
@@ -167,7 +182,20 @@
         this.editFormVisible = false
         this.$refs['editForm'].clearForm()
         this.search()
-      }
+      },
+      saveIndex(entity) {
+        ArticlesApi.update(entity).then().catch(err => {
+          console.log(err)
+          this.$message.info('已保存')
+        })
+      },
+      saveEnable(entity) {
+        ArticlesApi.update(entity).then().catch(err => {
+          console.log(err)
+          this.$message.info('已保存')
+        })
+      },
+      modifyIdx() {}
     }
   }
 </script>

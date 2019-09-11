@@ -717,7 +717,6 @@
             });
 
             uploader.on('uploadSuccess', function (file, ret) {
-              debugger
                 var $file = $('#' + file.id);
                 try {
                     var responseText = (ret._raw || ret),

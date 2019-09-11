@@ -1,8 +1,8 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
+      <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="name"></el-input>
+          <el-input v-model="query.likeCondition.title" placeholder="请输入名称关键词查询"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -18,6 +18,7 @@
         </el-table-column>
         <el-table-column label="名称" prop="title"></el-table-column>
         <el-table-column label="文本内容" prop="content"></el-table-column>
+        <el-table-column label="链接" prop="url"></el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
             <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
@@ -56,11 +57,10 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            title: ''
           }
         },
         page: {},
-        name: '',
         tableList: [],
         formTitle: [],
         editFormVisible: false

@@ -81,7 +81,6 @@
     },
     watch: {
       obj(value, oldValue) {
-        debugger
         this.NavBanner.url = window.location.host + '/#' + value.url + (value.rel ? ('/' + value.id) : '')
       }
     },
@@ -104,6 +103,9 @@
     created() {
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.isUpdate = true
         this.NavBanner = Object.assign(this.NavBanner, entity)

@@ -1,7 +1,9 @@
 <template>
   <div class="web-brand">
     <div v-for="(item, index) in brands" :key="index" :class="classSeries(index)">
-      <div class="title"><img :src="item.icon" class="el-icon-bell" />&nbsp;{{ item.title }}</div>
+      <div class="title"><img :src="item.icon" class="el-icon-bell"/>
+        <a href="javascript:void(0);" @click="_open(item.url)">&nbsp;{{ item.title }}</a>
+      </div>
       <div class="content">{{ item.content }}</div>
     </div>
   </div>
@@ -31,6 +33,13 @@
             return 'brand-item green'
           }
         }
+      },
+      _open(url) {
+        if (url.indexOf('http://') > -1) {
+          window.location.href = url
+        } else {
+          window.location.href = `http://${url}`
+        }
       }
     },
     created() {
@@ -42,8 +51,9 @@
 </script>
 
 <style scoped>
-  .web-brand{position:relative;width: 96%;margin: 0 auto;height: auto;display: flex;flex-flow: row wrap; justify-content: flex-start}
-  .web-brand .brand-item{height: 250px;width: 30%; padding: 0 15px}
+  a:hover{color:#1daca4}
+  .web-brand{position:relative;width: 100%;height: auto;display: flex;flex-flow: row wrap; justify-content: flex-start}
+  .web-brand .brand-item{height: 250px;width: 31.3%; padding: 0 1%}
   .web-brand .brand-item .title{height: 75px;font-size:2.25rem;margin: 15px;display: flex;align-items: center; align-content: center;justify-content: center}
   .web-brand .brand-item .content{height: 200px;font-size:1.75rem;padding:0 15px;}
   .web-brand .brand-item.normal{background: #f5f5f5;}

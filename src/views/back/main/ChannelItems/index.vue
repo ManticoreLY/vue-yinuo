@@ -1,8 +1,8 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
+      <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="name"></el-input>
+          <el-input v-model="query.likeCondition.name" placeholder="请输入查询关键字"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -23,8 +23,8 @@
         <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
-            <el-button type="warning" @click="toEdit(scope.row)">编辑</el-button>
-            <el-button type="danger" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
+            <el-button type="warning" size="small" @click="toEdit(scope.row)">编辑</el-button>
+            <el-button type="danger" size="small" @click="toDelete(scope.row.id, scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -100,6 +100,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'

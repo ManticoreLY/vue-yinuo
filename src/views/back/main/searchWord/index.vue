@@ -1,8 +1,8 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
+      <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="name"></el-input>
+          <el-input v-model="query.likeCondition.name" placeholder="请输入关键字查询"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="search">查询</el-button>
@@ -83,6 +83,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'

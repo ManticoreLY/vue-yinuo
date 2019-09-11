@@ -1,7 +1,7 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="60px">
-        <el-form-item label="类型">
+      <el-form :inline="true">
+        <el-form-item label="类型选择">
           <el-select v-model="query.andCondition.type">
             <el-option v-for="(opt, index) in linkTypes" :key="index" :label="opt.text" :value="opt.value"></el-option>
           </el-select>

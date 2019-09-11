@@ -13,10 +13,10 @@
       <el-form-item label="品牌" prop="make">
         <el-input v-model="form.make"></el-input>
       </el-form-item>
-      <el-form-item label="剂型" prop="form">
+      <el-form-item label="用量" prop="form">
         <el-input v-model="form.form"></el-input>
       </el-form-item>
-      <el-form-item label="单位" prop="unit">
+      <el-form-item label="俗名" prop="unit">
         <el-input v-model="form.unit"></el-input>
       </el-form-item>
       <el-form-item label="规格" prop="spec">
@@ -69,7 +69,10 @@
         <el-select v-model="form.fitDiseaseIds" value-key="id" multiple
                    filterable
                    reserve-keyword
-                   placeholder="请输入关键词">
+                   placeholder="请输入关键词"
+                   remote
+                   :remote-method="diseaseRemoteMethod"
+                   :loading="loading">
           <el-option v-for="item in diseases" :key="item.id" :value="item.id" :label="item.name"></el-option>
         </el-select>
         <rank-pad :data-list="fitDisease" @returnData="(data) => { form.fitDiseaseIds = data.map(one => one.id) }"></rank-pad>
@@ -84,6 +87,7 @@
 
 <script>
     import medicine_api from '@/api/medicine'
+    import DiseaseApi from '@/api/disease'
     import articlesApi from '@/api/articles'
     import { uploadFile } from '@/utils/ali-upload'
     import FileUploader from '@/components/FileUploader'
@@ -134,20 +138,18 @@
             ]
           },
           relMedicines: [],
-          diseases: []
+          diseases: [],
+          selectedDiseases: []
         }
       },
       computed: {
         fitDisease() {
-          return this.diseases.filter(one => this.form.fitDiseaseIds.indexOf(one.id) > -1).sort((a, b) => this.form.fitDiseaseIds.indexOf(a.id) - this.form.fitDiseaseIds.indexOf(b.id))
+          return this.selectedDiseases.filter(one => this.form.fitDiseaseIds.indexOf(one.id) > -1).sort((a, b) => this.form.fitDiseaseIds.indexOf(a.id) - this.form.fitDiseaseIds.indexOf(b.id))
         }
       },
       created() {
         this.$store.dispatch('getAllMedicines').then(data => {
           this.relMedicines = data
-        })
-        this.$store.dispatch('getAllDiseases').then(data => {
-          this.diseases = data
         })
       },
       methods: {
@@ -168,6 +170,8 @@
                 })
               }
             }
+            this.diseases = this.form.medicineDiseaseRelations.map(item => ({ id: item.disease.id, name: item.disease.name }))
+            this.selectedDiseases = this.diseases
             this.isUpdate = true
           })
           this.articleRemoteMethod(' ')
@@ -215,11 +219,16 @@
           }
         },
         onImageChange0(file, fileList) {
+          debugger
           this.imageFile = fileList
           var urlList = []
           for (var idx in fileList) {
-            if (fileList[idx].response) {
-              urlList.push(fileList[idx].response.url)
+            if (fileList[idx].status === 'success') {
+              if (fileList[idx].response) {
+                urlList.push(fileList[idx].response.url)
+              } else {
+                urlList.push(fileList[idx].url)
+              }
             }
           }
           this.form.image = urlList.join(',')
@@ -233,6 +242,23 @@
             err => {
               console.log(err)
             })
+        },
+        diseaseRemoteMethod(query) {
+          if (query !== '') {
+            this.loading = true
+            setTimeout(() => {
+              this.loading = false
+              DiseaseApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }}).then(data => {
+                this.diseases = data.obj.records
+                this.selectedDiseases = this.selectedDiseases.concat(this.diseases.filter(one => this.selectedDiseases.map(one => one.id).indexOf(one.id) < 0))
+              }).catch(err => {
+                console.log(err)
+                this.$message.warning(err.msg)
+              })
+            }, 200)
+          } else {
+            this.options = []
+          }
         },
         resetForm() {
           this.clearForm()

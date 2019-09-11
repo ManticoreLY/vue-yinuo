@@ -2,8 +2,8 @@
     <div>
         <div class="page">
            <el-form :inline="true" class="demo-form-inline">
-                <el-form-item label="搜索:">
-                    <el-input v-model="query.likeCondition.shotName" placeholder="输入药品名称查询"></el-input>
+                <el-form-item>
+                    <el-input v-model="query.likeCondition.name" placeholder="输入药品名称查询"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="queryKey">查询</el-button>
@@ -11,12 +11,12 @@
                 </el-form-item>
             </el-form>
             <el-table :data="dataList" :default-sort="{ prop: 'updatedDt', order: 'descending' }">
-                <el-table-column label="ID" prop="id" width="60"></el-table-column>
+                <!--<el-table-column label="ID" prop="id" width="60" ></el-table-column>-->
                 <!--<el-table-column label="序号" prop="indexNo"></el-table-column>-->
                 <el-table-column label="药品名称" prop="name"></el-table-column>
                 <el-table-column label="简介" prop="shotIntroduct"></el-table-column>
-                <el-table-column label="药品说明" prop="string"></el-table-column>
-                <el-table-column label="单位" prop="unit"></el-table-column>
+<!--                <el-table-column label="药品说明" prop="string"></el-table-column>-->
+<!--                <el-table-column label="单位" prop="unit"></el-table-column>-->
                 <el-table-column label="更新时间" prop="updatedDt" sortable></el-table-column>
                 <el-table-column label="操作" width="260">
                     <template slot-scope="scope">
@@ -61,7 +61,10 @@
               size: 10
             },
             likeCondition: {
-              shotName: ''
+              name: ''
+            },
+            orderByCondition: {
+              updatedDt: false
             }
           },
           page: {},

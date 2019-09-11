@@ -1,11 +1,8 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="120px">
+      <el-form :inline="true">
         <el-form-item>
-          <el-input v-model="name"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="search">查询</el-button>
+<!--          <el-button type="primary" @click="search">查询</el-button>-->
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
       </el-form>
@@ -54,11 +51,10 @@
             size: 10
           },
           likeCondition: {
-            name: ''
+            typeName: ''
           }
         },
         page: {},
-        name: '',
         tableList: [],
         formTitle: [],
         editFormVisible: false

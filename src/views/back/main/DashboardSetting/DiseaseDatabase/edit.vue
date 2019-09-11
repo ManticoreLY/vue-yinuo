@@ -7,7 +7,9 @@
         <el-form-item label="一级目录icon" prop="icon">
           <file-uploader :http-request="fileUploadRequest" :file-list="fileList" :limit="1"></file-uploader>
         </el-form-item>
-
+        <el-form-item label="一级目录icon(选中)" prop="icon1">
+          <file-uploader :http-request="fileUploadRequest1" :file-list="fileList1" :limit="1"></file-uploader>
+        </el-form-item>
         <el-form-item label="一级目录下疾病" prop="diseaseId1">
           <el-select v-model="diseaseDb.diseaseId1"
                      filterable
@@ -65,6 +67,7 @@
         diseaseDb: {
           name: '',
           icon: '',
+          icon1: '',
           diseaseId1: '',
           diseaseId2: '',
           diseaseId3: '',
@@ -89,6 +92,13 @@
         } else {
           return []
         }
+      },
+      fileList1() {
+        if (this.diseaseDb.icon1) {
+          return [{ name: 'image', url: this.diseaseDb.icon1 }]
+        } else {
+          return []
+        }
       }
     },
     created() {
@@ -97,6 +107,9 @@
       })
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
         this.isUpdate = true
         this.diseaseDb = Object.assign(this.diseaseDb, entity)
@@ -127,6 +140,18 @@
           opt.file,
           res => {
             this.diseaseDb.icon = res.url
+            opt.onSuccess(res)
+          },
+          err => {
+            console.log(err)
+          }
+        )
+      },
+      fileUploadRequest1(opt) {
+        uploadFile(
+          opt.file,
+          res => {
+            this.diseaseDb.icon1 = res.url
             opt.onSuccess(res)
           },
           err => {

@@ -1,6 +1,9 @@
 <template>
   <div>
     <el-form ref="form" :model="medicalArticle" label-width="120px">
+      <el-form-item label="序号">
+        <el-input-number v-model="medicalArticle.idx" :min="1" style="width: initial"></el-input-number>
+      </el-form-item>
       <el-form-item label="标题" prop="title">
         <el-input v-model="medicalArticle.title"></el-input>
       </el-form-item>
@@ -87,15 +90,20 @@
     },
     methods: {
       addForm(entity) {
+        this.isUpdate = false
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
-        this.channels = [this.medicalArticle.channel]
+        if (this.medicalArticle.channel) {
+          this.channels = [this.medicalArticle.channel]
+        }
       },
       editForm(entity) {
         this.isUpdate = true
         this.medicalArticle = Object.assign(this.medicalArticle, entity)
         this.imageFile = []
         this.imageFile.push({ url: this.medicalArticle.abstractImg })
-        this.channels = [this.medicalArticle.channel]
+        if (this.medicalArticle.channel) {
+          this.channels = [this.medicalArticle.channel]
+        }
       },
       saveForm() {
         // this.medicalArticle.author = this.user.name
@@ -126,7 +134,7 @@
           this.loading = true
           setTimeout(() => {
             this.loading = false
-            ChannelApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }, andCondition: { type: 1 }}).then(data => {
+            ChannelApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }, andCondition: { type: 0 }}).then(data => {
               this.channels = data.obj.records
             }).catch(err => {
               console.log(err)

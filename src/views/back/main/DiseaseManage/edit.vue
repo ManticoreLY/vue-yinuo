@@ -2,20 +2,20 @@
     <div>
       <el-form ref="form" :model="disease" label-width="120px">
         <el-form-item label="疾病分类:" prop="types">
-          <el-select v-model="disease.types">
-            <el-option v-for="opt in DiseaseTypes" :key="opt.value" :value="opt.value" :label="opt.name"></el-option>
+          <el-select v-model="disease.typeIds" multiple>
+            <el-option v-for="opt in DiseaseTypes" :key="opt.id" :value="opt.id" :label="opt.name"></el-option>
           </el-select>
-          <!--<el-popover placement="bottom" width="400" trigger="click">
-            <el-form ref="typeForm" label-width="80px">
-              <el-form-item label="分类名称">
-                <el-input v-model="newType"></el-input>
-              </el-form-item>
-              <div style="text-align: center">
-                <el-button type="primary" size="medium" @click="saveType">保存分类</el-button>
-              </div>
-            </el-form>
-            <el-button type="primary" size="medium" class="el-icon-plus" slot="reference">增加分类</el-button>
-          </el-popover>-->
+          <!--<el-popover placement="bottom" width="400" trigger="click">-->
+            <!--<el-form ref="typeForm" label-width="80px">-->
+              <!--<el-form-item label="分类名称">-->
+                <!--<el-input v-model="newType"></el-input>-->
+              <!--</el-form-item>-->
+              <!--<div style="text-align: center">-->
+                <!--<el-button type="primary" size="medium" @click="saveType">保存分类</el-button>-->
+              <!--</div>-->
+            <!--</el-form>-->
+            <!--<el-button type="primary" size="medium" class="el-icon-plus" slot="reference">增加分类</el-button>-->
+          <!--</el-popover>-->
         </el-form-item>
         <el-form-item label="名称:" prop="name">
           <el-input v-model="disease.name"></el-input>
@@ -36,8 +36,11 @@
           <el-select v-model="disease.medicineIds" value-key="id" multiple
                      filterable
                      reserve-keyword
-                     placeholder="请输入关键词">
-            <el-option v-for="item in treatedMedicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
+                     placeholder="请输入关键词"
+                     remote
+                     :remote-method="medicineRemoteMethod"
+                     :loading="loading">
+            <el-option v-for="item in medicines" :key="item.id" :value="item.id" :label="item.shotName"></el-option>
           </el-select>
           <rank-pad :data-list="fitMedicines" @returnData="(data) => { disease.medicineIds = data.map(one => one.id) }"></rank-pad>
         </el-form-item>
@@ -51,6 +54,8 @@
 
 <script>
   import DiseaseApi from '@/api/disease'
+  import DiseaseTypeApi from '@/api/diseaseType'
+  import MedicineApi from '@/api/medicine'
   import { uploadFile } from '@/utils/ali-upload'
   import FileUploader from '@/components/FileUploader'
   import RankPad from '@/components/RankPad'
@@ -68,36 +73,48 @@
           types: '',
           name: '',
           isChildren: '',
-          medicines: '',
-          medicineIds: []
+          medicines: [],
+          medicineIds: [],
+          typeIds: []
         },
+        loading: false,
         newType: '',
         isUpdate: false,
         DiseaseTypes: [
           { name: '常见传染病、慢性病', value: '0' },
           { name: '癌症、肿瘤', value: '1' }
         ],
-        treatedMedicines: [],
+        medicines: [],
+        selectedMedicines: [],
         diseases: []
       }
     },
     computed: {
       fitMedicines() {
-        return this.treatedMedicines.filter(one => this.disease.medicineIds.indexOf(one.id) > -1).sort((a, b) => this.disease.medicineIds.indexOf(a.id) - this.disease.medicineIds.indexOf(b.id))
+        return this.selectedMedicines.filter(one => this.disease.medicineIds.indexOf(one.id) > -1).sort((a, b) => this.disease.medicineIds.indexOf(a.id) - this.disease.medicineIds.indexOf(b.id))
       }
     },
     created() {
-      this.$store.dispatch('getAllMedicines').then(data => {
-        this.treatedMedicines = data
-      })
       this.$store.dispatch('getAllDiseases').then(data => {
         this.diseases = data
       })
+      this.initType()
     },
     methods: {
+      initType() {
+        DiseaseTypeApi.queryPage({ pageObj: { current: 1, size: 100 }}).then(data => {
+          this.DiseaseTypes = data.obj.records
+        })
+      },
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(entity) {
+        this.icon = [].concat([{ name: '', url: entity.icon }])
         DiseaseApi.getFullDisease(entity.id).then(data => {
           this.disease = Object.assign(this.disease, data.obj)
+          this.medicines = this.disease.medicines
+          this.selectedMedicines = this.medicines
           if (this.disease.parentId === 0) {
             this.disease.isChildren = '0'
           } else {
@@ -107,19 +124,23 @@
         })
         // this.disease = Object.assign(this.disease, entity)
       },
-      saveType() {},
+      saveType() {
+        if (!this.newType) return
+      },
       saveForm() {
         this.$refs['form'].validate(valid => {
           if (valid) {
             if (this.isUpdate) {
               DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('修改成功！')
+                this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
             } else {
               DiseaseApi.saveFullDisease(this.disease).then(data => {
                 this.$message.warning('添加成功！')
+                this.closeForm()
               }).catch(err => {
                 console.log(err)
               })
@@ -131,6 +152,23 @@
         if (fileList && fileList.length > 0 && fileList[0].response) {
           this.disease.icon = fileList[0].response.url
           this.icon = fileList
+        }
+      },
+      medicineRemoteMethod(query) {
+        if (query !== '') {
+          this.loading = true
+          setTimeout(() => {
+            this.loading = false
+            MedicineApi.queryPage({ pageObj: { current: 1, size: 10 }, likeCondition: { name: query }, fields: ['id', 'name', 'shotName'] }).then(data => {
+              this.medicines = data.obj.records
+              this.selectedMedicines = this.selectedMedicines.concat(this.medicines.filter(one => this.selectedMedicines.map(one => one.id).indexOf(one.id) < 0))
+            }).catch(err => {
+              console.log(err)
+              this.$message.warning(err.msg)
+            })
+          }, 200)
+        } else {
+          this.options = []
         }
       },
       fileUploadRequest(option) {

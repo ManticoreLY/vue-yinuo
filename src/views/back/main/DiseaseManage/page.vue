@@ -2,21 +2,17 @@
     <div>
       <div class="page">
         <el-form :inline="true">
-          <el-form-item label="搜索：">
-            <el-input v-model="name"></el-input>
+          <el-form-item>
+            <el-input v-model="query.likeCondition.name" placeholder="请输入疾病名称查询"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="search">查询</el-button>
-            <el-button type="primary" @click="addNew">添加</el-button>
+            <el-button type="success" @click="addNew">添加</el-button>
           </el-form-item>
         </el-form>
         <el-table :data="tableList" :default-sort="{ prop: 'id', order: 'descending' }">
           <el-table-column label="名称" prop="name"></el-table-column>
-          <el-table-column label="所属分类">
-            <template slot-scope="scope">
-              {{ scope.row.types === '0' ? '常见传染病、慢性病' : '癌症、肿瘤' }}
-            </template>
-          </el-table-column>
+          <el-table-column label="所属分类" prop="diseaseType"></el-table-column>
           <el-table-column label="症状说明" prop="instruction"></el-table-column>
           <el-table-column label="药物治疗" prop=""></el-table-column>
           <el-table-column label="说明"></el-table-column>
@@ -46,6 +42,7 @@
 <script>
 import EditForm from './edit'
 import DiseaseApi from '@/api/disease'
+import DiseaseTypeApi from '@/api/diseaseType'
 import page from '@/utils/page'
 export default {
   name: 'page',
@@ -61,8 +58,12 @@ export default {
         },
         likeCondition: {
           name: ''
+        },
+        orderByCondition: {
+          updatedDt: false
         }
       },
+      diseaseTypes: [],
       page: {},
       name: '',
       tableList: [
@@ -79,17 +80,26 @@ export default {
   methods: {
     ...page(),
     search() {
-      DiseaseApi.queryPage(this.query).then(data => {
-        this.page = Object.assign(this.page, data.obj)
-        this.tableList = data.obj.records
-      }).catch(err => {
-        console.log(err)
-        this.$message.warning(err.msg)
+      const _t = this
+      DiseaseTypeApi.queryPage({ pageObj: { current: 1, size: 20 }}).then(data1 => {
+        DiseaseApi.queryPage(_t.query).then(data => {
+          _t.page = Object.assign(_t.page, data.obj)
+          _t.diseaseTypes = data1.obj.records
+          _t.tableList = data.obj.records.map(item => {
+            return { ...item, diseaseType: item.typeNames ? item.typeNames.join(',') : '类型被删除' }
+          })
+        }).catch(err => {
+          console.log(err)
+          this.$message.warning(err.msg)
+        })
       })
     },
     addNew() {
       this.formTitle = '添加'
       this.editFormVisible = true
+      this.$nextTick(() => {
+        this.$refs['editForm'].addForm()
+      })
     },
     toEdit(entity) {
       this.formTitle = '编辑'
@@ -100,7 +110,7 @@ export default {
     },
     toDelete(id, index) {
       this.$confirm('', '请确认删除?', {}).then(() => {
-        DiseaseApi.delete(id).then(data => {
+        DiseaseApi.remove(id).then(data => {
           console.log(data)
           this.$message.success('删除成功')
           this.tableList.splice(index, 1)

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <el-form :inline="true" label-width="60px">
+      <el-form :inline="true">
         <el-form-item>
           <el-button type="success" @click="addNew">添加</el-button>
         </el-form-item>
@@ -93,6 +93,9 @@
       addNew() {
         this.formTitle = '添加'
         this.editFormVisible = true
+        this.$nextTick(() => {
+          this.$refs['editForm'].addForm()
+        })
       },
       toEdit(entity) {
         this.formTitle = '编辑'

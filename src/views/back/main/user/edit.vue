@@ -68,6 +68,9 @@
       }
     },
     methods: {
+      addForm() {
+        this.isUpdate = false
+      },
       editForm(data) {
         this.user = Object.assign(this.user, data)
         this.user.password = ''
